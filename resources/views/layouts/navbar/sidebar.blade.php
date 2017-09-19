@@ -1,5 +1,8 @@
-<div class="ks-column ks-sidebar ks-info">
-    <div class="ks-wrapper ks-sidebar-wrapper">
-        <ul class="nav nav-pills nav-stacked"></ul>
-    </div>
-</div>
+<ul class="nav nav-pills nav-stacked">
+    <li class="nav-item">
+        <a class="nav-link" href="music-app.html">
+            <span class="ks-icon la la-music"></span>
+            <span>Music</span>
+        </a>
+    </li>
+</ul>

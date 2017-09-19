@@ -4,31 +4,33 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="UTF-8">
-    <title>Fleetomata</title>
+    <title>{{ env('APP_NAME') }}</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-grid.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/line-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/fonts/line-awesome/css/line-awesome.min.css">
     <!--<link rel="stylesheet" type="text/css" href="assets/fonts/open-sans/styles.css">-->
 
-    <link rel="stylesheet" type="text/css" href="{{asset('css/styles.css')}}">
+    <link rel="stylesheet" type="text/css" href="assets/fonts/montserrat/styles.css">
 
-    <link rel="stylesheet" type="text/css" href="{{asset('css/tether.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.jscrollpane.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/common.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/auth.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="libs/tether/css/tether.min.css">
+    <link rel="stylesheet" type="text/css" href="libs/jscrollpane/jquery.jscrollpane.css">
+    <link rel="stylesheet" type="text/css" href="assets/styles/common.min.css">
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN THEME STYLES -->
-    <link rel="stylesheet" type="text/css" href="css/primary.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/styles/themes/primary.min.css">
     <link class="ks-sidebar-dark-style" rel="stylesheet" type="text/css"
-          href="css/sidebar-black.min.css">
+          href="assets/styles/themes/sidebar-black.min.css">
     <!-- END THEME STYLES -->
 
+    <link rel="stylesheet" type="text/css" href="assets/fonts/kosmo/styles.css">
+    <link rel="stylesheet" type="text/css" href="libs/noty/noty.css">
+    <link rel="stylesheet" type="text/css" href="assets/styles/widgets/panels.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/styles/dashboard/tabbed-sidebar.min.css">
 </head>
 <!-- END HEAD -->
 
@@ -36,40 +38,90 @@
 <!-- remove ks-page-header-fixed to unfix header -->
 
 <!-- BEGIN HEADER -->
-@auth
-    @include('layouts.navbar.actions')
-@endauth
+<nav class="navbar ks-navbar">
+    <!-- BEGIN HEADER INNER -->
+    <!-- BEGIN LOGO -->
+    <div href="/" class="navbar-brand">
+        <!-- BEGIN RESPONSIVE SIDEBAR TOGGLER -->
+        <a href="#" class="ks-sidebar-toggle"><i class="ks-icon la la-bars" aria-hidden="true"></i></a>
+        <a href="#" class="ks-sidebar-mobile-toggle"><i class="ks-icon la la-bars" aria-hidden="true"></i></a>
+        <!-- END RESPONSIVE SIDEBAR TOGGLER -->
+
+        <div class="ks-navbar-logo">
+            <a href="/" class="ks-logo">{{ env('APP_NAME') }}</a>
+        </div>
+    </div>
+    <!-- END LOGO -->
+
+    <!-- BEGIN MENUS -->
+    <div class="ks-wrapper">
+        <nav class="nav navbar-nav">
+            <!-- BEGIN NAVBAR MENU -->
+            <div class="ks-navbar-menu">
+
+            </div>
+            <!-- END NAVBAR MENU -->
+
+            <!-- BEGIN NAVBAR ACTIONS -->
+            <div class="ks-navbar-actions">
+            @auth
+                @include('layouts.navbar.actions')
+            @endauth
+
+            <!-- END NAVBAR USER -->
+            </div>
+            <!-- END NAVBAR ACTIONS -->
+        </nav>
+
+        <!-- BEGIN NAVBAR ACTIONS TOGGLER -->
+        <nav class="nav navbar-nav ks-navbar-actions-toggle">
+            <a class="nav-item nav-link" href="#">
+                <span class="la la-ellipsis-h ks-icon ks-open"></span>
+                <span class="la la-close ks-icon ks-close"></span>
+            </a>
+        </nav>
+        <!-- END NAVBAR ACTIONS TOGGLER -->
+    </div>
+    <!-- END MENUS -->
+    <!-- END HEADER INNER -->
+</nav>
 <!-- END HEADER -->
 
 
-<div class="ks-page-container">
-    <!-- BEGIN DEFAULT SIDEBAR -->
+<div class="ks-page-container ks-dashboard-tabbed-sidebar-fixed-tabs">
 @auth
-    @include('layouts.navbar.sidebar')
+
+    <!-- BEGIN DEFAULT SIDEBAR -->
+        <div class="ks-column ks-sidebar ks-info">
+            <div class="ks-wrapper ks-sidebar-wrapper">
+                @include('layouts.navbar.sidebar')
+            </div>
+        </div>
 @endauth
 <!-- END DEFAULT SIDEBAR -->
     <div class="ks-column ks-page">
-        @include('layouts.formErrors')
         @yield('content')
     </div>
 </div>
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="{{ asset('js/jquery.min.js') }}"></script>
-<script src="{{ asset('js/response.min.js') }}"></script>
-<script src="{{ asset('js/loadingoverlay.min.js') }}"></script>
-<script src="{{asset('/js/tether.min.js')}}"></script>
-<script src="{{asset('/js/bootstrap.min.js')}}"></script>
-<script src="{{ asset('js/jquery.jscrollpane.min.js')  }}"></script>
-<script src="{{ asset('js/jquery.mousewheel.js') }}"></script>
-<script src="{{ asset('js/noty.min.js') }}"></script>
-<script src="{{ asset('js/velocity.min.js') }}"></script>
-<script src="{{ asset('js/flexibility.js') }}"></script>
+<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/responsejs/response.min.js"></script>
+<script src="libs/loading-overlay/loadingoverlay.min.js"></script>
+<script src="libs/tether/js/tether.min.js"></script>
+<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="libs/jscrollpane/jquery.jscrollpane.min.js"></script>
+<script src="libs/jscrollpane/jquery.mousewheel.js"></script>
+<script src="libs/flexibility/flexibility.js"></script>
+<script src="libs/noty/noty.min.js"></script>
+<script src="libs/velocity/velocity.min.js"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
-<script src="{{ asset('js/common.min.js') }}"></script>
+<script src="assets/scripts/common.min.js"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
+
+<script type="application/javascript"></script>
 
 <div class="ks-mobile-overlay"></div>
 
