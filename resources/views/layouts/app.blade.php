@@ -10,27 +10,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/assets/fonts/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('libs/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('libs/bootstrap/css/bootstrap-grid.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/line-awesome/css/line-awesome.min.css') }}">
     <!--<link rel="stylesheet" type="text/css" href="assets/fonts/open-sans/styles.css">-->
 
-    <link rel="stylesheet" type="text/css" href="assets/fonts/montserrat/styles.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/montserrat/styles.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="libs/tether/css/tether.min.css">
-    <link rel="stylesheet" type="text/css" href="libs/jscrollpane/jquery.jscrollpane.css">
-    <link rel="stylesheet" type="text/css" href="assets/styles/common.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('libs/tether/css/tether.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('libs/jscrollpane/jquery.jscrollpane.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/styles/common.min.css') }}">
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN THEME STYLES -->
-    <link rel="stylesheet" type="text/css" href="assets/styles/themes/primary.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/styles/themes/primary.min.css') }}">
     <link class="ks-sidebar-dark-style" rel="stylesheet" type="text/css"
-          href="assets/styles/themes/sidebar-black.min.css">
+          href="{{ asset('assets/styles/themes/sidebar-black.min.css') }}">
     <!-- END THEME STYLES -->
 
-    <link rel="stylesheet" type="text/css" href="assets/fonts/kosmo/styles.css">
-    <link rel="stylesheet" type="text/css" href="libs/noty/noty.css">
-    <link rel="stylesheet" type="text/css" href="assets/styles/widgets/panels.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/styles/dashboard/tabbed-sidebar.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/kosmo/styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('libs/noty/noty.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/styles/widgets/panels.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/styles/dashboard/tabbed-sidebar.min.css') }}">
+    @yield('head')
 </head>
 <!-- END HEAD -->
 
@@ -100,30 +102,43 @@
 @endauth
 <!-- END DEFAULT SIDEBAR -->
     <div class="ks-column ks-page">
-        @yield('content')
+        <div class="ks-page-content">
+            @yield('content')
+        </div>
     </div>
 </div>
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="libs/jquery/jquery.min.js"></script>
-<script src="libs/responsejs/response.min.js"></script>
-<script src="libs/loading-overlay/loadingoverlay.min.js"></script>
-<script src="libs/tether/js/tether.min.js"></script>
-<script src="libs/bootstrap/js/bootstrap.min.js"></script>
-<script src="libs/jscrollpane/jquery.jscrollpane.min.js"></script>
-<script src="libs/jscrollpane/jquery.mousewheel.js"></script>
-<script src="libs/flexibility/flexibility.js"></script>
-<script src="libs/noty/noty.min.js"></script>
-<script src="libs/velocity/velocity.min.js"></script>
+<script src="{{ asset('libs/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('libs/responsejs/response.min.js') }}"></script>
+<script src="{{ asset('libs/loading-overlay/loadingoverlay.min.js') }}"></script>
+<script src="{{ asset('libs/tether/js/tether.min.js') }}"></script>
+<script src="{{ asset('libs/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('libs/jscrollpane/jquery.jscrollpane.min.js') }}"></script>
+<script src="{{ asset('libs/jscrollpane/jquery.mousewheel.js') }}"></script>
+<script src="{{ asset('libs/flexibility/flexibility.js') }}"></script>
+<script src="{{ asset('libs/noty/noty.min.js') }}"></script>
+<script src="{{ asset('libs/velocity/velocity.min.js') }}"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
-<script src="assets/scripts/common.min.js"></script>
+<script src="{{ asset('assets/scripts/common.min.js') }}"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script type="application/javascript"></script>
 
 <div class="ks-mobile-overlay"></div>
+<script>
+    {{--@if(Session::has('notification'))--}}
+    {{--new Noty({--}}
+        {{--type: '{{ Session::get('notification.alert-type') }}',--}}
+        {{--layout: 'topRight',--}}
+        {{--text: '{{ Session::get('notification.message') }}'--}}
+    {{--}).show();--}}
+    {{--@endif--}}
+</script>
+
+@yield('scripts')
 
 </body>
 </html>
