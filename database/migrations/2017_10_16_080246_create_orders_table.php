@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('trip_id');
             $table->unsignedInteger('loading_point_id');
+            $table->string('distance')->nullable();
             $table->unsignedInteger('unloading_point_id');
             $table->string('hire');
             $table->string('cargo');

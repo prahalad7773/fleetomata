@@ -22,6 +22,7 @@ class CreateLocationsTable extends Migration
             $table->string('lat');
             $table->string('lng');
             $table->string('postal_code')->nullable();
+            $table->string('place_id')->nullable();
             $table->timestamps();
         });
     }
