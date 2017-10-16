@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Trips\Order;
 use App\Models\Truck;
 
 class Trip extends BaseModel
@@ -23,5 +24,10 @@ class Trip extends BaseModel
     public function status()
     {
         return $this->completed_at ? 'Completed' : 'In Transit';
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
