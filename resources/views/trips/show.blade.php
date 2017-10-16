@@ -1,8 +1,6 @@
 @extends('layouts.app') @section('head')
-  <script src="http://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&libraries=places"></script>
-@append
-
-@section('content')
+<script src="http://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&libraries=places"></script>
+@append @section('content')
 <div class="ks-page-content-body" style="padding-top:0px;">
     <div class="ks-tabs-page-container">
         <div class="ks-tabs-container-description">
@@ -22,7 +20,9 @@
             <li class="nav-item">
                 <a class="nav-link active" href="#" data-toggle="tab" data-target="#orders" aria-expanded="true">
                         Orders
-                        <span class="badge badge-danger-outline badge-pill"></span>
+                        <span class="badge badge-danger-outline badge-pill">
+                            {{ $orders->count() }}
+                        </span>
                     </a>
             </li>
             <li class="nav-item">
@@ -36,11 +36,40 @@
             <div class="tab-pane ks-column-section active" id="orders" role="tabpanel" aria-expanded="true">
                 <div class="row">
                     <div class="col">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Loading Point</th>
+                                    <th>Unloading Point</th>
+                                    <th>Material</th>
+                                    <th>Hire</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($orders as $order)
+                                <tr>
+                                    <td>{{ $order->id() }}</td>
+                                    <td>{{ $order->loadingPoint }}</td>
+                                    <td>{{ $order->unloadingPoint }}</td>
+                                    <td>{{ $order->material() }}</td>
+                                    <td>Rs. {{ $order->hire }}</td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="5" class="text-md-center">
+                                        <b>No orders yet</b>
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="panel">
                             <div class="panel-body">
-                                <form action="{{ url(" trips/{$trip->id}/orders") }}" class="form" method="post"> {!! csrf_field() !!}
+                                <form action="{{ url("trips/{$trip->id}/orders") }}" class="form" method="post">
+                                    {!! csrf_field() !!}
                                     <div class="form-group row">
                                         <label for="default-input" class="col-sm-2 form-control-label">Loading Point</label>
                                         <div class="col-sm-10">
@@ -115,16 +144,17 @@
         </div>
     </div>
 </div>
-@append
-
-@section('scripts')
+@append @section('scripts')
 <script src={{ asset( 'js/jquery.geocomplete.min.js') }}></script>
 <script>
 $('#loading_formatted').geocomplete({
+    types: ["geocode", "establishment"],
     details: "#loadingDetails",
     detailsAttribute: "data-geo"
 });
 $('#unloading_formatted').geocomplete({
+    types: ["geocode", "establishment"],
+
     details: "#unloadingDetails",
     detailsAttribute: "data-geo"
 });

@@ -8,6 +8,11 @@ use GuzzleHttp\Client;
 class Location extends BaseModel
 {
 
+    public function __toString()
+    {
+        return $this->formatted_address;
+    }
+
     public static function createFromPlaceID($placeID)
     {
         $location = Location::where('place_id', $placeID)->first();

@@ -31,6 +31,7 @@ class TripsController extends Controller
     {
         return view("trips.show")->with([
             'truck' => $truck,
+            'orders' => $trip->orders,
             'trip' => $trip,
         ]);
     }
