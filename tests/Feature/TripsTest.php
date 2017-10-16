@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Location;
 use App\Models\Trip;
 use App\Models\Truck;
 use Carbon\Carbon;
@@ -34,11 +33,10 @@ class TripsTest extends TestCase
         $this->signIn();
         $trip = factory(Trip::class)->create();
         $this->withoutExceptionHandling();
-        $location = factory(Location::class)->create();
         $this->assertEquals($trip->orders()->count(), 0);
         $this->post("trips/{$trip->id}/orders", [
-            'loading_point_id' => $location->id,
-            'unloading_point_id' => $location->id,
+            'loading_place_id' => 'ChIJbWWE8SxhUjoR9jE5PIQLVhE',
+            'unloading_place_id' => 'ChIJbWWE8SxhUjoR9jE5PIQLVhE',
             'cargo' => 'Pallets',
             'weight' => '14',
             'hire' => '25000',
