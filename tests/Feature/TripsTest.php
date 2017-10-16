@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Trip;
 use App\Models\Truck;
+use App\Trips\Customer;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -30,6 +31,9 @@ class TripsTest extends TestCase
     /** @test */
     public function user_can_add_order_to_trip()
     {
+        $customer_name = 'JSM Logistics';
+        $customer_phone = '9444904811';
+        $this->assertEquals(Customer::count(), 0);
         $this->signIn();
         $trip = factory(Trip::class)->create();
         $this->withoutExceptionHandling();
@@ -40,7 +44,11 @@ class TripsTest extends TestCase
             'cargo' => 'Pallets',
             'weight' => '14',
             'hire' => '25000',
+            'when' => '12-12-2017 12:00 AM',
+            'customer_name' => $customer_name,
+            'customer_phone' => $customer_phone,
         ]);
         $this->assertEquals($trip->orders()->count(), 1);
+        $this->assertEquals(Customer::count(), 1);
     }
 }
