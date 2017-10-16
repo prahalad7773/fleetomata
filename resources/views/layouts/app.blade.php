@@ -66,6 +66,7 @@
 
             <!-- BEGIN NAVBAR ACTIONS -->
             <div class="ks-navbar-actions">
+
             @auth
                 @include('layouts.navbar.actions')
             @endauth
@@ -92,13 +93,12 @@
 
 <div class="ks-page-container ks-dashboard-tabbed-sidebar-fixed-tabs">
 @auth
-
     <!-- BEGIN DEFAULT SIDEBAR -->
-        <div class="ks-column ks-sidebar ks-info">
+       <!--  <div class="ks-column ks-sidebar ks-info">
             <div class="ks-wrapper ks-sidebar-wrapper">
                 @include('layouts.navbar.sidebar')
             </div>
-        </div>
+        </div> -->
 @endauth
 <!-- END DEFAULT SIDEBAR -->
     <div class="ks-column ks-page">

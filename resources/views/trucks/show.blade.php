@@ -39,9 +39,29 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        {{--@include('trips.partials._index',[--}}
-                        {{--'trips' => $truck->trips--}}
-                        {{--])--}}
+                   <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Trip ID</th>
+                                <th>Started At</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        @foreach($truck->trips as $trip)
+                        <tr>
+                            <td>{{ $trip->id() }}</td>
+                            <td> {{ $trip->started_at->toFormattedDateString() }} </td>
+                            <td>{{ $trip->status() }}</td>
+                            <td>
+                                <a href='{{ url("trips/{$trip->id}") }}' class="">
+                                    <i class="la la-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </table>
+
                     </div>
                 </div>
             </div>
