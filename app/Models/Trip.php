@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Trips\Ledger;
 use App\Models\Trips\Order;
 use App\Models\Truck;
 
@@ -34,5 +35,10 @@ class Trip extends BaseModel
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function ledgers()
+    {
+        return $this->hasMany(Ledger::class);
     }
 }

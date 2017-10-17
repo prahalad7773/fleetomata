@@ -42,18 +42,92 @@
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="tab" data-target="#ledger" aria-expanded="false">
                         Ledger
-                        <span class="badge badge-danger-outline badge-pill"></span>
+                        <span class="badge badge-danger-outline badge-pill">{{ $ledgers->count() }}</span>
                     </a>
             </li>
         </ul>
         <div class="tab-content">
             @include('trips.orders.partials._index')
             <div class="tab-pane" id="ledger" role="tabpanel" aria-expanded="false">
-                <div class="table-responsive"></div>
+                <div class="row tables-page">
+                    <div class="col">
+                        <table class="table table-striped table-bordered" style="min-width: 600px">
+                            <thead>
+                                <tr>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Amount</th>
+                                    <th>Reason</th>
+                                    <th>Approval</th>
+                                </tr>
+                                <form>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <select name="from" id="from" class="form-control">
+                                                    @foreach(App\Models\Trips\Account::all() as $account)
+                                                    <option value="{{ $account->id }}">{{ $account }}</option>
+                                                    @endforeach @foreach($orders as $order)
+                                                    <option value="{{ $order->customer->id }}">{{ $order->customer }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <select name="from" id="from" class="form-control">
+                                                    @foreach(App\Models\Trips\Account::all() as $account)
+                                                    <option value="{{ $account->id }}">{{ $account }}</option>
+                                                    @endforeach @foreach($orders as $order)
+                                                    <option value="{{ $order->customer->id }}">{{ $order->customer }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="la la-inr"></i>
+                                                    </div>
+                                                    <input type="number" class="form-control" name="amount" id="amount" placeholder="Amount" autocomplete="off" required>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="reason" id="reason" placeholder="Reason" autocomplete="off" required>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary">
+                                                <span class="ks-icon">
+                                            <i class="la la-plus"></i>
+                                        </span>
+                                                <span class="ks-text">
+                                            Add
+                                        </span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </form>
+                            </thead>
+                            <tbody>
+                                @foreach($ledgers as $ledger)
+                                <tr>
+                                    <td>{{ $ledger->fromable }}</td>
+                                    <td>{{ $ledger->toable }}</td>
+                                    <td>{{ $ledger->amount }}</td>
+                                    <td>{{ $ledger->reason }}</td>
+                                    <td>{{ $ledger->approval }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-    @include('modals.orders._create')
-@append
+@include('modals.orders._create') @append

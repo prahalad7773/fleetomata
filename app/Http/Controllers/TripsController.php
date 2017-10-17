@@ -33,6 +33,7 @@ class TripsController extends Controller
             'truck' => $truck,
             'orders' => $trip->orders->load('loadingPoint', 'unloadingPoint', 'customer'),
             'trip' => $trip,
+            'ledgers' => $trip->ledgers->load('from', 'to'),
         ]);
     }
 
