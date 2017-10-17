@@ -1,5 +1,5 @@
 <?php
-namespace App\Trips;
+namespace App\Models\Trips;
 
 use App\Models\BaseModel;
 

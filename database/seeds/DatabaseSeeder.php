@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Trips\Account;
 use App\User;
 use Illuminate\Database\Seeder;
 
@@ -13,10 +14,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::create([
-           'name' => 'Younus',
-           'email' => 'itsme@theyounus.com',
-           'phone' => '9941691593',
-           'password' => bcrypt('younus'),
+            'name' => 'Younus',
+            'email' => 'itsme@theyounus.com',
+            'phone' => '9941691593',
+            'password' => bcrypt('younus'),
         ]);
+
+        $types = [
+            'JSM', 'BPCL', 'ESSAR', 'Happay', 'Cash', 'Broker Commission', 'Loading Charges', 'Unloading Charges',
+        ];
+        foreach ($types as $type) {
+            Account::create([
+                'name' => $type,
+            ]);
+        }
     }
 }
