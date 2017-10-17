@@ -1,6 +1,6 @@
 <?php
 
-use App\Trips\Customer;
+use App\Models\Trips\Customer;
 use Faker\Generator as Faker;
 
 $factory->define(Customer::class, function (Faker $faker) {

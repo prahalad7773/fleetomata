@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Trips;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use App\Models\Trip;
+use App\Models\Trips\Customer;
 use App\Models\Trips\Order;
-use App\Trips\Customer;
 use Illuminate\Http\Request;
 
 class TripOrdersController extends Controller

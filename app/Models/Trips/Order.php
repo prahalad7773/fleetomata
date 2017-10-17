@@ -4,7 +4,7 @@ namespace App\Models\Trips;
 
 use App\Models\BaseModel;
 use App\Models\Location;
-use App\Trips\Customer;
+use App\Models\Trips\Customer;
 use Carbon\Carbon;
 
 class Order extends BaseModel

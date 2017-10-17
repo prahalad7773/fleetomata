@@ -2,8 +2,8 @@
 
 use App\Models\Location;
 use App\Models\Trip;
+use App\Models\Trips\Customer;
 use App\Models\Trips\Order;
-use App\Trips\Customer;
 use Faker\Generator as Faker;
 
 $factory->define(Order::class, function (Faker $faker) {

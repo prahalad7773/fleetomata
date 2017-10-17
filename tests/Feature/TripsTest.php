@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Trip;
+use App\Models\Trips\Customer;
 use App\Models\Truck;
-use App\Trips\Customer;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
