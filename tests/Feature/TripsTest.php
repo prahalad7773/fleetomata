@@ -51,4 +51,27 @@ class TripsTest extends TestCase
         $this->assertEquals($trip->orders()->count(), 1);
         $this->assertEquals(Customer::count(), 1);
     }
+
+    /** @test */
+    public function user_cannot_add_orders_to_a_trip_which_is_closed()
+    {
+        $customer_name = 'JSM Logistics';
+        $customer_phone = '9444904811';
+        $this->signIn();
+        $trip = factory(Trip::class)->create([
+            'completed_at' => Carbon::now(),
+        ]);
+        $this->assertEquals($trip->orders()->count(), 0);
+        $this->post("trips/{$trip->id}/orders", [
+            'loading_place_id' => 'ChIJbWWE8SxhUjoR9jE5PIQLVhE',
+            'unloading_place_id' => 'ChIJbWWE8SxhUjoR9jE5PIQLVhE',
+            'cargo' => 'Pallets',
+            'weight' => '14',
+            'hire' => '25000',
+            'when' => '12-12-2017 12:00 AM',
+            'customer_name' => $customer_name,
+            'customer_phone' => $customer_phone,
+        ]);
+        $this->assertEquals($trip->orders()->count(), 0);
+    }
 }

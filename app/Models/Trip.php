@@ -16,6 +16,11 @@ class Trip extends BaseModel
         return "#" . $this->id;
     }
 
+    public function isActive()
+    {
+        return $this->completed_at ? false : true;
+    }
+
     public function truck()
     {
         return $this->belongsTo(Truck::class, 'truck_id', 'id');

@@ -16,6 +16,9 @@ class TripOrdersController extends Controller
         request()->validate([
             'customer_phone' => 'unique:customers,phone',
         ]);
+        if (!$trip->isActive()) {
+            return redirect()->back();
+        }
         $loading = Location::createFromPlaceID($request->loading_place_id);
         $unloading = Location::createFromPlaceID($request->unloading_place_id);
         $customer = Customer::firstOrCreate([
