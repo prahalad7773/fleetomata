@@ -13,14 +13,6 @@
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <label for="default-input" class="form-control-label">Customer Name</label>
-                <div class="">
-                    <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="Customer Name" autocomplete="off" required>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
                 <label for="default-input" class="form-control-label">Customer Phone</label>
                 <div class="">
                     <div class="input-group">
@@ -28,7 +20,18 @@
                             <i class="la la-phone"></i>
                         </div>
                         <input type="text" class="form-control" name="customer_phone" id="customer_phone" placeholder="Customer Phone" autocomplete="off" required>
+                        <span class="input-group-btn">
+                            <button id="customer_phone_button" class="btn btn-primary" type="button">Search!</button>
+                        </span>
                     </div>
+                </div>
+            </div>
+        </div>
+         <div class="col">
+            <div class="form-group">
+                <label for="default-input" class="form-control-label">Customer Name</label>
+                <div class="">
+                    <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="Customer Name" autocomplete="off" disabled required>
                 </div>
             </div>
         </div>
@@ -123,7 +126,7 @@
     </div>
 
 
-    <button class="btn btn-primary">
+    <button class="btn btn-primary" id="submitBtn">
         <span class="ks-icon">
             <i class="la la-plus"></i>
         </span>
@@ -155,6 +158,27 @@ $('#unloading_formatted').geocomplete({
 
     details: "#unloadingDetails",
     detailsAttribute: "data-geo"
+});
+
+$('#customer_phone_button').on('click',function(e){
+    e.preventDefault();
+    $.get('/api/customers',{ 'phone' : $('#customer_phone').val() }, function(data){
+        if(!data)
+        {
+            $('#customer_name').removeAttr('disabled');
+            $('#customer_name').val(null);
+        }else{
+            $('#customer_name').val(data.name);
+        }
+    });
+});
+
+$('#submitBtn').on('click',function(e){
+    var customerName = $('#customer_name');
+    if(customerName.val() != ''){
+        return
+    }
+    e.preventDefault();
 });
 </script>
 @append

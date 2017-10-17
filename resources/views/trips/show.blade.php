@@ -1,16 +1,15 @@
-@extends('layouts.app')
-@section('content')
+@extends('layouts.app') @section('content')
 <div class="ks-page-content-body" style="padding-top:0px;">
     <div class="ks-tabs-page-container">
         <div class="ks-tabs-container-description">
             @if ($errors->any())
-                <div class="alert alert-danger ks-solid-light">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="alert alert-danger ks-solid-light">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
             <table>
                 <tr>
@@ -50,11 +49,11 @@
         <div class="tab-content">
             <div class="tab-pane ks-column-section active" id="orders" role="tabpanel" aria-expanded="true">
                 @foreach($orders->chunk(2) as $row)
-                    <div class="row">
-                        @forelse($row as $order)
-                            <div class="col-md-6">
-                                <div class="card panel panel-default ks-widget ks-widget-progress-list">
-                                    <div class="card-header">
+                <div class="row">
+                    @foreach($row as $order)
+                        <div class="col-md-6">
+                            <div class="card panel panel-default ks-widget ks-widget-progress-list">
+                                <div class="card-header">
                                     {{ $order->customer }}
                                     <div class="ks-controls">
                                         <a href="#" class="ks-control ks-update"><span class="ks-icon la la-refresh"></span></a>
@@ -71,16 +70,16 @@
                                                     <p><b>When : </b>{{ $order->when() }}</p>
                                                     <p><b>Contact : </b>+91 {{ $order->customer->phone }}</p>
                                                 </div>
+                                                 <span class="text-muted">Created at : {{ $order->created_at->toDayDateTimeString() }}</span>
                                             </div>
                                             <span class="ks-percent"><i class="la la-inr"></i>{{ $order->hire }}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        @empty
-                            <b>No orders yet</b>
-                        @endforelse
-                     </div>
+                         </div>
+                    @endforeach
+                </div>
                 @endforeach
             </div>
             <div class="tab-pane" id="finances" role="tabpanel" aria-expanded="false">
@@ -89,10 +88,4 @@
         </div>
     </div>
 </div>
-@component('modals.modal')
-    @slot('id') createOrder @endslot
-    @slot('title') Create a new Order @endslot
-    @slot('footer') @endslot
-    @include('trips.orders.partials._create')
-@endcomponent
-@append
+@component('modals.modal') @slot('id') createOrder @endslot @slot('title') Create a new Order @endslot @slot('footer') @endslot @include('trips.orders.partials._create') @endcomponent @append
