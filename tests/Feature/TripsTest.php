@@ -74,4 +74,16 @@ class TripsTest extends TestCase
         ]);
         $this->assertEquals($trip->orders()->count(), 0);
     }
+
+    /** @test */
+    public function trips_can_be_completed()
+    {
+        $this->signIn();
+        $trip = factory(Trip::class)->create();
+        $this->assertNull($trip->completed_at);
+        $this->put("trips/{$trip->id}", [
+            'completed_at' => '12-12-2017 12:00 AM',
+        ]);
+        $this->assertNotNull($trip->fresh()->completed_at);
+    }
 }

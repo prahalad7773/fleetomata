@@ -11,24 +11,28 @@
                 </ul>
             </div>
             @endif
-            <table>
-                <tr>
-                    <td class="col-md-10">
-                        <h3>{{ $trip->id() }}</h3>
-                        <p>
-                            <b> {{ $trip->truck->number }} </b> {{ $trip->status() }} {{ $trip->completed_at ? "at ".$trip->completed_at->toDayDateTimeString() : '' }}
-                        </p>
-                    </td>
-                    <td class="col-md-2">
-                        <div class="ks-controls">
-                            <a href="#" class="btn btn-primary ks-control" data-toggle="modal" data-target="#createOrder">
-                                <span class="ks-icon la la-plus"></span>
-                                <span class="ks-text">Order</span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <h3>{{ $trip->id() }}</h3>
+                    <p>
+                        <b> {{ $trip->truck->number }} </b> {{ $trip->status() }} {{ $trip->completed_at ? "at ".$trip->completed_at->toDayDateTimeString() : '' }}
+                    </p>
+                </div>
+                <div>
+                    @if(!$trip->completed_at)
+                    <div class="ks-controls">
+                        <a href="#" class="btn btn-primary ks-control" data-toggle="modal" data-target="#createOrder">
+                            <span class="ks-icon la la-plus"></span>
+                            <span class="ks-text">Order</span>
+                        </a>
+                        <a href="#" class="btn btn-danger ks-control" data-toggle="modal" data-target="#completeTrip">
+                            <span class="ks-icon la la-check"></span>
+                            <span class="ks-text">Completed</span>
+                        </a>
+                    </div>
+                    @endif
+                </div>
+            </div>
         </div>
         <ul class="nav ks-nav-tabs ks-tabs-page-default ks-tabs-full-page">
             <li class="nav-item">
@@ -61,11 +65,10 @@
                                     <th>Reason</th>
                                     <th>Approval</th>
                                 </tr>
-                                <form action="{{ url("trips/{$trip->id}/ledgers") }}" method="post">
-                                    {!! csrf_field() !!}
+                                <form action="{{ url(" trips/{$trip->id}/ledgers") }}" method="post"> {!! csrf_field() !!}
                                     <tr>
                                         <td>
-                                             <div class="form-group">
+                                            <div class="form-group">
                                                 <div class="">
                                                     <input type="text" class="form-control" name="when" id="ledgerWhen" placeholder="When" autocomplete="off" required>
                                                 </div>
@@ -128,8 +131,7 @@
                                     <td>{{ $ledger->fromable }}</td>
                                     <td>{{ $ledger->toable }}</td>
                                     <td>
-                                        <i class="la la-inr"></i>
-                                        {{ $ledger->amount }}
+                                        <i class="la la-inr"></i> {{ $ledger->amount }}
                                     </td>
                                     <td>{{ $ledger->reason }}</td>
                                     <td>{{ $ledger->approvalStatus() }}</td>
@@ -143,17 +145,24 @@
         </div>
     </div>
 </div>
-@include('modals.orders._create') @append
+@include('modals.orders._create')
+@include('modals.trips._complete')
+
+
+@append
+
+
 
 @section('scripts')
-    <script type="text/javascript">
-        $('#ledgerWhen').daterangepicker({
-            singleDatePicker: true,
-            timePicker: true,
-            timePickerIncrement: 30,
-            locale: {
-                format: 'DD-MM-YYYY h:mm A'
-            }
-        });
-    </script>
+
+<script type="text/javascript">
+$('#ledgerWhen').daterangepicker({
+    singleDatePicker: true,
+    timePicker: true,
+    timePickerIncrement: 30,
+    locale: {
+        format: 'DD-MM-YYYY h:mm A'
+    }
+});
+</script>
 @append
