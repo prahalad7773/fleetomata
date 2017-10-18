@@ -54,32 +54,41 @@
                         <table class="table table-striped table-bordered" style="min-width: 600px">
                             <thead>
                                 <tr>
+                                    <th>When</th>
                                     <th>From</th>
                                     <th>To</th>
                                     <th>Amount</th>
                                     <th>Reason</th>
                                     <th>Approval</th>
                                 </tr>
-                                <form>
+                                <form action="{{ url("trips/{$trip->id}/ledgers") }}" method="post">
+                                    {!! csrf_field() !!}
                                     <tr>
                                         <td>
-                                            <div class="form-group">
-                                                <select name="from" id="from" class="form-control">
-                                                    @foreach(App\Models\Trips\Account::all() as $account)
-                                                    <option value="{{ $account->id }}">{{ $account }}</option>
-                                                    @endforeach @foreach($orders as $order)
-                                                    <option value="{{ $order->customer->id }}">{{ $order->customer }}</option>
-                                                    @endforeach
-                                                </select>
+                                             <div class="form-group">
+                                                <div class="">
+                                                    <input type="text" class="form-control" name="when" id="ledgerWhen" placeholder="When" autocomplete="off" required>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <select name="from" id="from" class="form-control">
                                                     @foreach(App\Models\Trips\Account::all() as $account)
-                                                    <option value="{{ $account->id }}">{{ $account }}</option>
+                                                    <option value="{{ $account }}">{{ $account }}</option>
                                                     @endforeach @foreach($orders as $order)
-                                                    <option value="{{ $order->customer->id }}">{{ $order->customer }}</option>
+                                                    <option value="{{ $order->customer }}">{{ $order->customer }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <select name="to" id="to" class="form-control">
+                                                    @foreach(App\Models\Trips\Account::all() as $account)
+                                                    <option value="{{ $account }}">{{ $account }}</option>
+                                                    @endforeach @foreach($orders as $order)
+                                                    <option value="{{ $order->customer }}">{{ $order->customer }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -115,11 +124,15 @@
                             <tbody>
                                 @foreach($ledgers as $ledger)
                                 <tr>
+                                    <td>{{ $ledger->when->toDayDateTimeString() }}</td>
                                     <td>{{ $ledger->fromable }}</td>
                                     <td>{{ $ledger->toable }}</td>
-                                    <td>{{ $ledger->amount }}</td>
+                                    <td>
+                                        <i class="la la-inr"></i>
+                                        {{ $ledger->amount }}
+                                    </td>
                                     <td>{{ $ledger->reason }}</td>
-                                    <td>{{ $ledger->approval }}</td>
+                                    <td>{{ $ledger->approvalStatus() }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -131,3 +144,16 @@
     </div>
 </div>
 @include('modals.orders._create') @append
+
+@section('scripts')
+    <script type="text/javascript">
+        $('#ledgerWhen').daterangepicker({
+            singleDatePicker: true,
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'DD-MM-YYYY h:mm A'
+            }
+        });
+    </script>
+@append

@@ -15,16 +15,16 @@ class CreateLedgersTable extends Migration
     {
         Schema::create('ledgers', function (Blueprint $table) {
             $table->increments('id');
+            $table->dateTime('when');
             $table->unsignedInteger('trip_id');
             $table->unsignedInteger('fromable_id');
             $table->string('fromable_type');
             $table->unsignedInteger('toable_id');
             $table->string('toable_type');
             $table->string('amount');
-            $table->tinyInteger('type');
             $table->string('reason');
-            $table->dateTime('approval');
-            $table->unsignedInteger('approved_by');
+            $table->dateTime('approval')->nullable();
+            $table->unsignedInteger('approved_by')->nullable();
             $table->unsignedInteger('created_by');
             $table->timestamps();
         });
