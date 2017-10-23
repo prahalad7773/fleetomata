@@ -69,7 +69,7 @@
     </div>
 
 
-    @component('modal.modal')
+    @component('modals.modal')
         @slot('id') createTrip @endslot
         @slot('title') Create A trip for the truck @endslot
         @slot('footer')  @endslot

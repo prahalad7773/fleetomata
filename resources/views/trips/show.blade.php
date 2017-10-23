@@ -65,7 +65,8 @@
                                     <th>Reason</th>
                                     <th>Approval</th>
                                 </tr>
-                                <form action="{{ url(" trips/{$trip->id}/ledgers") }}" method="post"> {!! csrf_field() !!}
+                                <form action="{{ url("trips/{$trip->id}/ledgers") }}" method="post">
+                                    {!! csrf_field() !!}
                                     <tr>
                                         <td>
                                             <div class="form-group">
@@ -79,7 +80,8 @@
                                                 <select name="from" id="from" class="form-control">
                                                     @foreach(App\Models\Trips\Account::all() as $account)
                                                     <option value="{{ $account }}">{{ $account }}</option>
-                                                    @endforeach @foreach($orders as $order)
+                                                    @endforeach
+                                                    @foreach($orders as $order)
                                                     <option value="{{ $order->customer }}">{{ $order->customer }}</option>
                                                     @endforeach
                                                 </select>
@@ -114,11 +116,11 @@
                                         <td>
                                             <button class="btn btn-primary">
                                                 <span class="ks-icon">
-                                            <i class="la la-plus"></i>
-                                        </span>
-                                                <span class="ks-text">
-                                            Add
-                                        </span>
+                                                    <i class="la la-plus"></i>
+                                                </span>
+                                                        <span class="ks-text">
+                                                    Add
+                                                </span>
                                             </button>
                                         </td>
                                     </tr>

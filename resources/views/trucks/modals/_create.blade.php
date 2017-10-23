@@ -1,4 +1,4 @@
-@component('modal.modal')
+@component('modals.modal')
     @slot('id') showAddTruck @endslot
     @slot('title') Create new Truck @endslot
     @slot('footer')  @endslot
