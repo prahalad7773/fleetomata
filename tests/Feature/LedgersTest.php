@@ -84,6 +84,24 @@ class LedgersTest extends TestCase
         $this->assertNull($ledger->fresh()->approval);
     }
 
+    /** @test */
+    public function ledgers_with_other_types_are_not_approved()
+    {
+        $user = factory(User::class)->create([
+            'email' => 'itsme@theyounus.com',
+        ]);
+        $this->signIn($user);
+        $this->withoutExceptionHandling();
+        $ledger = factory(Ledger::class)->create();
+        $this->assertNull($ledger->approval);
+        $this->assertNull($ledger->approved_by);
+        $this->patch("trips/{$ledger->trip_id}/ledgers/{$ledger->id}", [
+            'type' => 'other',
+        ]);
+        $this->assertNull($ledger->fresh()->approved_by);
+        $this->assertNull($ledger->fresh()->approval);
+    }
+
     public function createAccount($name)
     {
         return Account::create([

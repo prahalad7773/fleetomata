@@ -9,7 +9,7 @@ use Carbon\Carbon;
 class Ledger extends BaseModel
 {
     protected $dates = [
-        'when',
+        'when', 'approval',
     ];
 
     public function setWhenAttribute($when)

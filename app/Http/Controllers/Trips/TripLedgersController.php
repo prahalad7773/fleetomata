@@ -29,11 +29,13 @@ class TripLedgersController extends Controller
 
     public function update(Trip $trip, Ledger $ledger, Request $request)
     {
-        if (auth()->user()->email == 'itsme@theyounus.com') {
-            $ledger->update([
-                'approval' => Carbon::now(),
-                'approved_by' => auth()->id(),
-            ]);
+        if ($request->type == 'approval') {
+            if (auth()->user()->email == 'itsme@theyounus.com') {
+                $ledger->update([
+                    'approval' => Carbon::now(),
+                    'approved_by' => auth()->id(),
+                ]);
+            }
         }
 
         return redirect()->back();

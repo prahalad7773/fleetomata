@@ -63,7 +63,7 @@
                                     <th>To</th>
                                     <th>Amount</th>
                                     <th>Reason</th>
-                                    <th>Approval</th>
+                                    <th width="100">Approval</th>
                                 </tr>
                                 <form action="{{ url("trips/{$trip->id}/ledgers") }}" method="post">
                                     {!! csrf_field() !!}
@@ -136,7 +136,20 @@
                                         <i class="la la-inr"></i> {{ $ledger->amount }}
                                     </td>
                                     <td>{{ $ledger->reason }}</td>
-                                    <td>{{ $ledger->approvalStatus() }}</td>
+                                    <td>
+                                        @if(!$ledger->approval)
+                                        <form action="{{ url("trips/{$trip->id}/ledgers/{$ledger->id}") }}" method="post">
+                                            {!! csrf_field() !!}
+                                            {!! method_field('PATCH') !!}
+                                            <input type="text" hidden name="type" value="approval">
+                                            <button class="btn btn-primary">
+                                                <i class="la la-check"></i>
+                                            </button>
+                                        </form>
+                                        @else
+                                        {{ $ledger->approvalStatus() }}
+                                        @endif
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
