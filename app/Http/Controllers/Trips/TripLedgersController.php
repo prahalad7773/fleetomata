@@ -7,6 +7,7 @@ use App\Models\Trip;
 use App\Models\Trips\Account;
 use App\Models\Trips\Customer;
 use App\Models\Trips\Ledger;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TripLedgersController extends Controller
@@ -23,6 +24,18 @@ class TripLedgersController extends Controller
         $ledger->when = $request->when;
         $ledger->created_by = auth()->id();
         $trip->ledgers()->save($ledger);
+        return redirect()->back();
+    }
+
+    public function update(Trip $trip, Ledger $ledger, Request $request)
+    {
+        if (auth()->user()->email == 'itsme@theyounus.com') {
+            $ledger->update([
+                'approval' => Carbon::now(),
+                'approved_by' => auth()->id(),
+            ]);
+        }
+
         return redirect()->back();
     }
 

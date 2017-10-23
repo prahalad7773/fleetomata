@@ -6,8 +6,12 @@ use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(App\Models\Trips\Ledger::class, function (Faker $faker) {
-    $from = factory(Account::class)->create();
-    $to = factory(Account::class)->create();
+    $from = factory(Account::class)->create([
+        'name' => 'JSM HQ',
+    ]);
+    $to = factory(Account::class)->create([
+        'name' => 'BPCL',
+    ]);
     return [
         'trip_id' => function () {
             return factory(Trip::class)->create()->id;

@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Trip;
 use App\Models\Trips\Account;
+use App\Models\Trips\Ledger;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -48,6 +50,38 @@ class LedgersTest extends TestCase
         ]);
         $this->assertEquals($trip->ledgers()->first()->amount, -1 * $amount);
 
+    }
+
+    /** @test */
+    public function ledgers_can_be_approved_by_admin()
+    {
+        $user = factory(User::class)->create([
+            'email' => 'itsme@theyounus.com',
+        ]);
+        $this->signIn($user);
+        $this->withoutExceptionHandling();
+        $ledger = factory(Ledger::class)->create();
+        $this->assertNull($ledger->approval);
+        $this->assertNull($ledger->approved_by);
+        $this->patch("trips/{$ledger->trip_id}/ledgers/{$ledger->id}", [
+            'type' => 'approval',
+        ]);
+        $this->assertEquals($ledger->fresh()->approved_by, $user->id);
+
+    }
+
+    /** @test */
+    public function non_admins_cannot_approve_ledger()
+    {
+        $this->signIn();
+        $this->withoutExceptionHandling();
+        $ledger = factory(Ledger::class)->create();
+        $this->assertNull($ledger->approval);
+        $this->assertNull($ledger->approved_by);
+        $this->patch("trips/{$ledger->trip_id}/ledgers/{$ledger->id}", [
+            'type' => 'approval',
+        ]);
+        $this->assertNull($ledger->fresh()->approval);
     }
 
     public function createAccount($name)
