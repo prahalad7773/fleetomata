@@ -1,4 +1,4 @@
-<div class="tab-pane ks-column-section active" id="orders" role="tabpanel" aria-expanded="true">
+<div class="tab-pane ks-column-section" id="orders" role="tabpanel" aria-expanded="false">
                 @foreach($orders->chunk(2) as $row)
                 <div class="row">
                     @foreach($row as $order)

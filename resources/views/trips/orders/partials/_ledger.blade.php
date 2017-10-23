@@ -24,7 +24,7 @@
                             <td>
                                 <div class="form-group">
                                     <select name="from" id="from" class="form-control">
-                                        @foreach(App\Models\Trips\Account::all() as $account)
+                                        @foreach($accounts as $account)
                                         <option value="{{ $account }}">{{ $account }}</option>
                                         @endforeach
                                         @foreach($orders as $order)
@@ -36,7 +36,7 @@
                             <td>
                                 <div class="form-group">
                                     <select name="to" id="to" class="form-control">
-                                        @foreach(App\Models\Trips\Account::all() as $account)
+                                        @foreach($accounts as $account)
                                         <option value="{{ $account }}">{{ $account }}</option>
                                         @endforeach @foreach($orders as $order)
                                         <option value="{{ $order->customer }}">{{ $order->customer }}</option>

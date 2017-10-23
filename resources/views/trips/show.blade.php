@@ -35,26 +35,32 @@
             </div>
         </div>
         <ul class="nav ks-nav-tabs ks-tabs-page-default ks-tabs-full-page">
+             <li class="nav-item">
+                <a class="nav-link active" href="#" data-toggle="tab" data-target="#tripSummary" aria-expanded="true">
+                    Trip Summary
+                </a>
+            </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#" data-toggle="tab" data-target="#orders" aria-expanded="true">
-                        Orders
-                        <span class="badge badge-danger-outline badge-pill">
-                            {{ $orders->count() }}
-                        </span>
-                    </a>
+                <a class="nav-link" href="#" data-toggle="tab" data-target="#orders" aria-expanded="false">
+                    Orders
+                    <span class="badge badge-danger-outline badge-pill">
+                        {{ $orders->count() }}
+                    </span>
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="tab" data-target="#ledger" aria-expanded="false">
-                        Ledger
-                        <span class="badge badge-danger-outline badge-pill">{{ $ledgers->count() }}</span>
-                    </a>
+                    Ledger
+                    <span class="badge badge-danger-outline badge-pill">{{ $ledgers->count() }}</span>
+                </a>
             </li>
         </ul>
         <div class="tab-content">
+            <div class="tab-pane active" id="tripSummary" role="tabpanel" aria-expanded="true">
+                <b>Trip summary detail</b>
+            </div>
             @include('trips.orders.partials._index')
             @include('trips.orders.partials._ledger')
-            <div class="tab-pane" id="tripSummary" role="tabpanel" aria-expanded="false">
-            </div>
         </div>
     </div>
 </div>

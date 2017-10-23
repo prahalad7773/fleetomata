@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Trip;
+use App\Models\Trips\Account;
 use App\Models\Truck;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -33,7 +34,8 @@ class TripsController extends Controller
             'truck' => $truck,
             'orders' => $trip->orders->load('loadingPoint', 'unloadingPoint', 'customer'),
             'trip' => $trip,
-            'ledgers' => $trip->ledgers->load('from', 'to'),
+            'ledgers' => $trip->ledgers->load('from', 'to', 'approvedBy'),
+            'accounts' => Account::all(),
         ]);
     }
 
