@@ -2,7 +2,6 @@
     <thead>
         <tr>
             <th>When</th>
-
             @if($showOrder)
             <th>Order</th>
             @endif
@@ -12,6 +11,8 @@
             <th>Reason</th>
             <th width="200">Approval</th>
         </tr>
+    </thead>
+    <tbody>
         @if($showForm)
         <form action="{{ url("trips/{$trip->id}/ledgers") }}" method="post">
             {!! csrf_field() !!}
@@ -75,8 +76,6 @@
             </tr>
         </form>
         @endif
-    </thead>
-    <tbody>
         @foreach($ledgers as $ledger)
         <tr>
             <td>{{ $ledger->when->toDayDateTimeString() }}</td>
