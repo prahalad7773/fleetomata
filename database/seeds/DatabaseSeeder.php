@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $types = [
-            'JSM HQ', 'BPCL', 'ESSAR', 'Happay', 'Cash', 'Broker Commission', 'Loading Charges', 'Unloading Charges',
+            'JSM HQ', 'BPCL', 'Fastag', 'Happay', 'Cash', 'Broker Commission', 'Loading Charges', 'Unloading Charges',
         ];
         foreach ($types as $type) {
             Account::create([

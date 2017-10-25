@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Trip;
+use App\Models\Trips\Account;
 use App\Models\Trips\Ledger;
 use App\Models\Trips\Order;
 use Carbon\Carbon;
@@ -34,10 +35,13 @@ class TripsTest extends TestCase
             'trip_id' => $trip->id,
             'hire' => $hire,
         ]);
+        $to = Account::create(['name' => 'JSM HQ']);
         $ledger = factory(Ledger::class)->create([
             'trip_id' => $trip->id,
             'fromable_id' => $order->customer_id,
             'fromable_type' => 'App\Models\Trips\Customer',
+            'toable_id' => $to->id,
+            'toable_type' => get_class($to),
             'amount' => $amount,
         ]);
         $this->assertEquals($trip->financeSummary()->balance(), $hire - $amount);
@@ -51,7 +55,13 @@ class TripsTest extends TestCase
         $order = factory(Order::class)->create([
             'trip_id' => $trip->id,
         ]);
+        $from = Account::create(['name' => 'JSM HQ']);
+        $to = Account::create(['name' => 'BPCL']);
         $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
             'trip_id' => $trip->id,
             'amount' => $amount,
         ]);

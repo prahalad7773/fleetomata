@@ -15,7 +15,7 @@ class FinanceSummary
     {
         $this->total = $trip->orders()->sum('hire');
         $this->expense = 0;
-        $this->received = 0;
+        $this->received = 1;
         $this->trip = $trip;
     }
 
@@ -44,7 +44,9 @@ class FinanceSummary
 
     public function marginPercentage()
     {
-        $margin = (($this->margin() / $this->received) * 100);
+        if ($this->margin() != 0) {
+            $margin = (($this->margin() / $this->received) * 100);
+        }
         return number_format((float) $margin, 2, '.', '') . "%";
     }
 }

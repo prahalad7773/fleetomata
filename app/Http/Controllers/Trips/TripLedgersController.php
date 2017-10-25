@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Trips;
 use App\Http\Controllers\Controller;
 use App\Models\Trip;
 use App\Models\Trips\Account;
+use App\Models\Trips\ApprovalSummary;
 use App\Models\Trips\Customer;
 use App\Models\Trips\Ledger;
 use Carbon\Carbon;
@@ -46,4 +47,19 @@ class TripLedgersController extends Controller
         return Account::where('name', $value)->first() ?: Customer::where('name', $value)->first();
     }
 
+    public function approvals()
+    {
+        $approvals = Ledger::query();
+        if (request('status') == 'pending') {
+            $approvals->whereNull('approval');
+        }
+        $approvals = $approvals->get()->load(
+            'fromable', 'toable',
+            'trip.orders.loadingPoint', 'trip.orders.unloadingPoint', 'trip.truck');
+        $approvalSummary = new ApprovalSummary($approvals);
+        return view("approvals.index")->with([
+            'approvals' => $approvals,
+            'approvalSummary' => $approvalSummary,
+        ]);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Models\Trips;
 
 use App\Models\BaseModel;
+use App\Models\Trip;
 use App\User;
 use Carbon\Carbon;
 
@@ -49,5 +50,10 @@ class Ledger extends BaseModel
     public function approvedBy()
     {
         return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function trip()
+    {
+        return $this->belongsTo(Trip::class);
     }
 }

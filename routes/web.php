@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('trips', 'TripsController');
     Route::resource('trips/{trip}/orders', 'Trips\TripOrdersController');
     Route::resource('trips/{trip}/ledgers', 'Trips\TripLedgersController');
+    Route::get('approvals', 'Trips\TripLedgersController@approvals');
     Route::get('/api/customers', function () {
         return App\Models\Trips\Customer::where('phone', request()->get('phone'))->first() ?? null;
     });

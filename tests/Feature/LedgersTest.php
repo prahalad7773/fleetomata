@@ -60,7 +60,14 @@ class LedgersTest extends TestCase
         ]);
         $this->signIn($user);
         $this->withoutExceptionHandling();
-        $ledger = factory(Ledger::class)->create();
+        $from = Account::create(['name' => 'JSM HQ']);
+        $to = Account::create(['name' => 'BPCL']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
+        ]);
         $this->assertNull($ledger->approval);
         $this->assertNull($ledger->approved_by);
         $this->patch("trips/{$ledger->trip_id}/ledgers/{$ledger->id}", [
@@ -75,7 +82,14 @@ class LedgersTest extends TestCase
     {
         $this->signIn();
         $this->withoutExceptionHandling();
-        $ledger = factory(Ledger::class)->create();
+        $from = Account::create(['name' => 'JSM HQ']);
+        $to = Account::create(['name' => 'BPCL']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
+        ]);
         $this->assertNull($ledger->approval);
         $this->assertNull($ledger->approved_by);
         $this->patch("trips/{$ledger->trip_id}/ledgers/{$ledger->id}", [
@@ -92,7 +106,14 @@ class LedgersTest extends TestCase
         ]);
         $this->signIn($user);
         $this->withoutExceptionHandling();
-        $ledger = factory(Ledger::class)->create();
+        $from = Account::create(['name' => 'JSM HQ']);
+        $to = Account::create(['name' => 'BPCL']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
+        ]);
         $this->assertNull($ledger->approval);
         $this->assertNull($ledger->approved_by);
         $this->patch("trips/{$ledger->trip_id}/ledgers/{$ledger->id}", [

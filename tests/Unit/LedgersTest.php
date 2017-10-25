@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Trips\Account;
 use App\Models\Trips\Ledger;
 use App\User;
 use Carbon\Carbon;
@@ -15,7 +16,14 @@ class LedgersTest extends TestCase
     /** @test */
     public function ledger_has_approval_status()
     {
-        $ledger = factory(Ledger::class)->create();
+        $from = Account::create(['name' => 'JSM HQ']);
+        $to = Account::create(['name' => 'BPCL']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
+        ]);
         $user = factory(User::class)->create();
         $time = Carbon::now();
         $this->assertTrue($ledger->approvalStatus() == 'Not Approved');

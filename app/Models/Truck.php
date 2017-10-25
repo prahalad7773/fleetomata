@@ -48,4 +48,9 @@ Custom Methods
             );
         }
     }
+
+    public function __toString()
+    {
+        return $this->number;
+    }
 }
