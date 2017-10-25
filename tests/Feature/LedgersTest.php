@@ -28,8 +28,8 @@ class LedgersTest extends TestCase
             'when' => '12-12-2017 12:00 AM',
             'reason' => 'Diesel advance',
         ]);
-        $this->assertTrue($trip->ledgers()->first()->from->name == $from->name);
-        $this->assertTrue($trip->ledgers()->first()->to->name == $to->name);
+        $this->assertTrue($trip->ledgers()->first()->fromable->name == $from->name);
+        $this->assertTrue($trip->ledgers()->first()->toable->name == $to->name);
     }
 
     /** @test */

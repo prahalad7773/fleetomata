@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Trips\FinanceSummary;
 use App\Models\Trips\Ledger;
 use App\Models\Trips\Order;
 use App\Models\Truck;
@@ -40,5 +41,12 @@ class Trip extends BaseModel
     public function ledgers()
     {
         return $this->hasMany(Ledger::class);
+    }
+
+    public function financeSummary()
+    {
+        $summary = new FinanceSummary($this);
+        $summary->handle();
+        return $summary;
     }
 }

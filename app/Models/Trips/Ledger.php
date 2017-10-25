@@ -36,12 +36,12 @@ class Ledger extends BaseModel
         return $this;
     }
 
-    public function from()
+    public function fromable()
     {
         return $this->morphTo('fromable');
     }
 
-    public function to()
+    public function toable()
     {
         return $this->morphTo('toable');
     }

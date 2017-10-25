@@ -9,7 +9,7 @@
                         <th>To</th>
                         <th>Amount</th>
                         <th>Reason</th>
-                        <th width="100">Approval</th>
+                        <th width="200">Approval</th>
                     </tr>
                     <form action="{{ url("trips/{$trip->id}/ledgers") }}" method="post">
                         {!! csrf_field() !!}
