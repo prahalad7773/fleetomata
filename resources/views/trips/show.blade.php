@@ -36,12 +36,12 @@
         </div>
         <ul class="nav ks-nav-tabs ks-tabs-page-default ks-tabs-full-page">
              <li class="nav-item">
-                <a class="nav-link active" href="#" data-toggle="tab" data-target="#tripSummary" aria-expanded="true">
+                <a class="nav-link active" href="#tripSummary" data-toggle="tab" data-target="#tripSummary" aria-expanded="true">
                     Trip Summary
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="tab" data-target="#orders" aria-expanded="false">
+                <a class="nav-link" href="#orders" data-toggle="tab" data-target="#orders" aria-expanded="false">
                     Orders
                     <span class="badge badge-danger-outline badge-pill">
                         {{ $orders->count() }}
@@ -49,7 +49,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="tab" data-target="#ledger" aria-expanded="false">
+                <a class="nav-link" href="#ledger" data-toggle="tab" data-target="#ledger" aria-expanded="false">
                     Ledger
                     <span class="badge badge-danger-outline badge-pill">{{ $ledgers->count() }}</span>
                 </a>
@@ -112,6 +112,14 @@
 @section('scripts')
 
 <script type="text/javascript">
+
+    $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+    localStorage.setItem('activeTab', $(e.target).attr('href'));
+    });
+    var activeTab = localStorage.getItem('activeTab');
+    if (activeTab) {
+       $('a[href="' + activeTab + '"]').tab('show');
+    }
 $('#ledgerWhen').daterangepicker({
     singleDatePicker: true,
     timePicker: true,
