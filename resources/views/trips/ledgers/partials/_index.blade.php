@@ -1,4 +1,5 @@
-<table class="table table-striped table-bordered dataTable" style="min-width: 600px">
+
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>When</th>
@@ -24,7 +25,6 @@
                         </div>
                     </div>
                 </td>
-
                 <td>
                     <div class="form-group">
                         <select name="from" id="from" class="form-control">
@@ -67,15 +67,32 @@
                     <button class="btn btn-primary">
                         <span class="ks-icon">
                             <i class="la la-plus"></i>
-                        </span>
-                                <span class="ks-text">
-                            Add
-                        </span>
+                            </span>
+                                    <span class="ks-text">
+                                Add
+                            </span>
                     </button>
                 </td>
             </tr>
         </form>
         @endif
+    </tbody>
+</table>
+<table class="table table-striped table-bordered dataTable" style="min-width: 600px">
+    <thead>
+        <tr>
+            <th>When</th>
+            @if($showOrder)
+            <th>Order</th>
+            @endif
+            <th>From</th>
+            <th>To</th>
+            <th>Amount</th>
+            <th>Reason</th>
+            <th width="200">Approval</th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach($ledgers as $ledger)
         <tr>
             <td>{{ $ledger->when->toDayDateTimeString() }}</td>
