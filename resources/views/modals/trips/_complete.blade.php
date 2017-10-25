@@ -13,13 +13,16 @@
 		        		<span class="i la la-calendar"></span>
 		        	</div>
 		        	<input type="text" class="form-control" name="completed_at" id="completed_at" placeholder="Completed At" autocomplete="off" required>
+		        	<div class="input-group-btn">
+		        		<button href="#" class="btn btn-primary ks-control">
+				            <span class="ks-icon la la-check"></span>
+				            <span class="ks-text">Complete</span>
+				        </button>
+		        	</div>
 		        </div>
 		    </div>
 		</div>
-		<a href="#" class="btn btn-primary ks-control">
-            <span class="ks-icon la la-check"></span>
-            <span class="ks-text">Complete</span>
-        </a>
+
 	</form>
 
 @endcomponent
