@@ -32,6 +32,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('libs/noty/noty.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/styles/widgets/panels.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/styles/dashboard/tabbed-sidebar.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
+
+
     @yield('head')
 </head>
 <!-- END HEAD -->
@@ -123,6 +126,7 @@
 
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{{ asset('assets/scripts/common.min.js') }}"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script type="application/javascript"></script>
@@ -139,6 +143,10 @@
 </script>
 
 @yield('scripts')
+
+<script>
+    $('.dataTable').DataTable();
+</script>
 
 </body>
 </html>

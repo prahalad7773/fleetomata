@@ -49,4 +49,5 @@ class Trip extends BaseModel
         $summary->handle();
         return $summary;
     }
+
 }

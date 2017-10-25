@@ -9,21 +9,12 @@
                         </span>
     </a>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Preview">
-        <a class="dropdown-item" href="#">
-            <span class="la la-user ks-icon"></span>
-            <span>Profile</span>
-        </a>
-        <a class="dropdown-item" href="#">
-            <span class="la la-wrench ks-icon" aria-hidden="true"></span>
-            <span>Settings</span>
-        </a>
-        <a class="dropdown-item" href="#">
-            <span class="la la-question-circle ks-icon" aria-hidden="true"></span>
-            <span>Help</span>
-        </a>
-        <a class="dropdown-item" href="#">
+        <a class="dropdown-item" href="#" onclick="$('#logoutForm').submit();">
             <span class="la la-sign-out ks-icon" aria-hidden="true"></span>
             <span>Logout</span>
         </a>
+        <form id="logoutForm" method="post" action="{{ url("logout") }}">
+            {!! csrf_field() !!}
+        </form>
     </div>
 </div>

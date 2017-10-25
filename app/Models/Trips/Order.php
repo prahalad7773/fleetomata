@@ -47,4 +47,9 @@ class Order extends BaseModel
     {
         return $this->hasOne(Location::class, 'id', 'unloading_point_id');
     }
+
+    public function __toString()
+    {
+        return $this->id() . " " . $this->loadingPoint->locality . " to " . $this->unloadingPoint->locality;
+    }
 }

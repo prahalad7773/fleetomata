@@ -48,7 +48,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        @foreach($truck->trips as $trip)
+                        @foreach($truck->trips->sortBy('completed_at') as $trip)
                         <tr>
                             <td>{{ $trip->id() }}</td>
                             <td> {{ $trip->started_at->toFormattedDateString() }} </td>
