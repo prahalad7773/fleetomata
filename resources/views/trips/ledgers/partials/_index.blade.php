@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        <form action="{{ url(" trips/{$trip->id}/ledgers") }}" method="post"> {!! csrf_field() !!}
+        <form action="{{ url("trips/{$trip->id}/ledgers") }}" method="post"> {!! csrf_field() !!}
             <tr>
                 <td>
                     <div class="form-group">
