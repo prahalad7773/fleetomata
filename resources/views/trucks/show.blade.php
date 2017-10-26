@@ -18,15 +18,14 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="tab" data-target="#details" aria-expanded="true">
-                    Details
+                <a class="nav-link" href="#" data-toggle="tab" data-target="#revenue" aria-expanded="true">
+                    Revenue
                 </a>
             </li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane " id="details" role="tabpanel" aria-expanded="true">
-                Details
-            </div>
+
+                @include('trucks.revenueStatement.partials._index')
             <div class="tab-pane active" id="trips" role="tabpanel" aria-expanded="false">
                 <div class="row">
                     <h3 class="col">Status : {{ $truck->status() }}</h3>

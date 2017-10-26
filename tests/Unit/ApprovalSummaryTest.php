@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Models\Trips\Account;
 use App\Models\Trips\ApprovalSummary;
 use App\Models\Trips\Ledger;
+use App\Models\Trips\MoneyFormatter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -25,7 +26,7 @@ class ApprovalSummaryTest extends TestCase
             'toable_type' => get_class($to),
         ]);
         $approvalSummary = new ApprovalSummary($ledger);
-        $this->assertEquals($approvalSummary->dieselRequirement, 100 * 10);
+        $this->assertEquals($approvalSummary->dieselRequirement, MoneyFormatter::format(100 * 10));
     }
 
     /** @test */
@@ -41,7 +42,7 @@ class ApprovalSummaryTest extends TestCase
             'toable_type' => get_class($to),
         ]);
         $approvalSummary = new ApprovalSummary($ledger);
-        $this->assertEquals($approvalSummary->happayRequirement, 100 * 10);
+        $this->assertEquals($approvalSummary->happayRequirement, MoneyFormatter::format(100 * 10));
     }
 
     /** @test */
@@ -57,6 +58,6 @@ class ApprovalSummaryTest extends TestCase
             'toable_type' => get_class($to),
         ]);
         $approvalSummary = new ApprovalSummary($ledger);
-        $this->assertEquals($approvalSummary->fastagRequirement, 100 * 10);
+        $this->assertEquals($approvalSummary->fastagRequirement, MoneyFormatter::format(100 * 10));
     }
 }

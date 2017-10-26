@@ -2,8 +2,6 @@
 
 namespace App\Models\Trips;
 
-use App\Models\Trips\MoneyFormatter;
-
 class ApprovalSummary
 {
     private $ledgers;
