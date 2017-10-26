@@ -36,7 +36,8 @@
         </div>
         <ul class="nav ks-nav-tabs ks-tabs-page-default ks-tabs-full-page">
              <li class="nav-item">
-                <a class="nav-link active" href="#tripSummary" data-toggle="tab" data-target="#tripSummary" aria-expanded="true">
+                <a class="nav-link active" href="#tripSummary" data-toggle="tab"
+                data-target="#tripSummary" aria-expanded="true">
                     Trip Summary
                 </a>
             </li>

@@ -5,6 +5,7 @@
             <div class="col-md-6">
                 <div class="card panel panel-default ks-widget ks-widget-progress-list">
                     <div class="card-header">
+                        {{ $order->id() }} -
                         {{ $order->customer }}
                         <div class="ks-controls">
                             <a href="#" class="ks-control ks-update"><span class="ks-icon la la-refresh"></span></a>
