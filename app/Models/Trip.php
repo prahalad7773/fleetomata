@@ -6,6 +6,7 @@ use App\Models\Trips\FinanceSummary;
 use App\Models\Trips\Ledger;
 use App\Models\Trips\Order;
 use App\Models\Truck;
+use Carbon\Carbon;
 
 class Trip extends BaseModel
 {
@@ -48,6 +49,11 @@ class Trip extends BaseModel
         $summary = new FinanceSummary($this);
         $summary->handle();
         return $summary;
+    }
+
+    public function tripDays()
+    {
+        return Carbon::now()->diffInDays($this->started_at);
     }
 
 }

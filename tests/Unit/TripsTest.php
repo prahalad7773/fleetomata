@@ -67,4 +67,17 @@ class TripsTest extends TestCase
         ]);
         $this->assertEquals($trip->financeSummary()->expense, $amount);
     }
+
+    /** @test */
+    public function trip_has_transit_days()
+    {
+        $tripDays = 5;
+        $today = Carbon::today();
+        $previousDays = Carbon::today()->subDays($tripDays);
+        $trip = factory(Trip::class)->create([
+            'started_at' => $previousDays,
+        ]);
+
+        $this->assertEquals($trip->tripDays(), $tripDays);
+    }
 }

@@ -1,4 +1,4 @@
-
+@if($showForm)
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -14,9 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        @if($showForm)
-        <form action="{{ url("trips/{$trip->id}/ledgers") }}" method="post">
-            {!! csrf_field() !!}
+        <form action="{{ url(" trips/{$trip->id}/ledgers") }}" method="post"> {!! csrf_field() !!}
             <tr>
                 <td>
                     <div class="form-group">
@@ -30,8 +28,7 @@
                         <select name="from" id="from" class="form-control">
                             @foreach($accounts as $account)
                             <option value="{{ $account }}">{{ $account }}</option>
-                            @endforeach
-                            @foreach($orders as $order)
+                            @endforeach @foreach($orders as $order)
                             <option value="{{ $order->customer }}">{{ $order->customer }}</option>
                             @endforeach
                         </select>
@@ -68,16 +65,16 @@
                         <span class="ks-icon">
                             <i class="la la-plus"></i>
                             </span>
-                                    <span class="ks-text">
+                        <span class="ks-text">
                                 Add
                             </span>
                     </button>
                 </td>
             </tr>
         </form>
-        @endif
     </tbody>
 </table>
+@endif
 <table class="table table-striped table-bordered dataTable" style="min-width: 600px">
     <thead>
         <tr>
@@ -97,14 +94,14 @@
         <tr>
             <td>{{ $ledger->when->toDayDateTimeString() }}</td>
             @if($showOrder)
-                <td>
-                    <b>{{ $ledger->trip->truck }}</b>
-                    <ul>
+            <td>
+                <b>{{ $ledger->trip->truck }}</b>
+                <ul>
                     @foreach($ledger->trip->orders as $order)
-                        <li>{{ $order }}</li>
+                    <li>{{ $order }}</li>
                     @endforeach
-                    </ul>
-                </td>
+                </ul>
+            </td>
             @endif
             <td>{{ $ledger->fromable }}</td>
             <td>{{ $ledger->toable }}</td>
@@ -114,17 +111,13 @@
             <td>{{ $ledger->reason }}</td>
             <td>
                 @if(!$ledger->approval)
-                <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
-                    {!! csrf_field() !!}
-                    {!! method_field('PATCH') !!}
+                <form action="{{ url(" trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post"> {!! csrf_field() !!} {!! method_field('PATCH') !!}
                     <input type="text" hidden name="type" value="approval">
                     <button class="btn btn-primary">
                         <i class="la la-check"></i>
                     </button>
                 </form>
-                @else
-                {{ $ledger->approvalStatus() }}
-                @endif
+                @else {{ $ledger->approvalStatus() }} @endif
             </td>
         </tr>
         @endforeach

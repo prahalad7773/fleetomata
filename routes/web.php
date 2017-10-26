@@ -14,8 +14,8 @@
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::redirect('/home', '/');
-    Route::get('/', 'HomeController@index');
+    Route::redirect('/home', '/trucks');
+    Route::redirect('/', '/trucks');
     Route::resource('trucks', 'TrucksController');
     Route::resource('trips', 'TripsController');
     Route::resource('trips/{trip}/orders', 'Trips\TripOrdersController');
@@ -24,5 +24,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/api/customers', function () {
         return App\Models\Trips\Customer::where('phone', request()->get('phone'))->first() ?? null;
     });
-
 });

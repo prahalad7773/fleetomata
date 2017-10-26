@@ -2,6 +2,8 @@
 
 namespace App\Models\Trips;
 
+use App\Models\Trips\MoneyFormatter;
+
 class ApprovalSummary
 {
     private $ledgers;
@@ -31,6 +33,9 @@ class ApprovalSummary
                 $this->fastagRequirement += abs($ledger->amount);
             }
         }
+        $this->dieselRequirement = MoneyFormatter::format($this->dieselRequirement);
+        $this->happayRequirement = MoneyFormatter::format($this->happayRequirement);
+        $this->fastagRequirement = MoneyFormatter::format($this->fastagRequirement);
     }
 
 }

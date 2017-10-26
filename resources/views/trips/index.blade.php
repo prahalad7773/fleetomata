@@ -10,10 +10,10 @@
 					<thead>
 						<tr>
 							<th width="1">Trip ID</th>
-							<th width="150">Truck Number</th>
-							<th width="150">Started At</th>
-							<th width="200">Order Details</th>
-							<th width="200">Status</th>
+							<th width="100">Truck Number</th>
+							<th width="">Order Details</th>
+							<th width="100">Status</th>
+							<th width="100">Trip Days</th>
 							<th width="1"></th>
 						</tr>
 					</thead>
@@ -22,15 +22,16 @@
 						<tr>
 							<td>{{ $trip->id() }}</td>
 							<td>{{ $trip->truck->number }}</td>
-							<td>{{ $trip->started_at->toDayDateTimeString() }}</td>
 							<td>
-								@foreach($trip->orders as $order)
 								<ul>
+									<li><b>Started at : </b>{{ $trip->started_at->toDayDateTimeString() }}</li>
+								@foreach($trip->orders as $order)
 									<li>{{ $order }}</li>
-								</ul>
 								@endforeach
+								</ul>
 							</td>
 							<td>{{ $trip->status() }}</td>
+							<td>{{ $trip->tripDays() }}</td>
 							<td>
 								<a href="{{ url("trips") }}">
 									<i class="la la-eye"></i>
