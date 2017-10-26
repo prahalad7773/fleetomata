@@ -1,11 +1,11 @@
 <div class="nav-item dropdown ks-user">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
        aria-haspopup="true" aria-expanded="false">
-                        <span class="ks-avatar">
-                            <img src="/assets/img/avatars/avatar-13.jpg" width="36" height="36">
-                        </span>
+        <span class="ks-avatar">
+            <img src="/assets/img/avatars/avatar-13.jpg" width="36" height="36">
+        </span>
         <span class="ks-info">
-                            <span class="ks-name">{{ auth()->user()->name }}</span>
+            <span class="ks-name">{{ auth()->user()->name }}</span>
                         </span>
     </a>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Preview">

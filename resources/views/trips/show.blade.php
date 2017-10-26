@@ -15,7 +15,7 @@
                 <div>
                     <h3>{{ $trip->id() }}</h3>
                     <p>
-                        <b> {{ $trip->truck->number }} </b> {{ $trip->status() }} {{ $trip->completed_at ? "at ".$trip->completed_at->toDayDateTimeString() : '' }}
+                        <b> <a href="{{ url("trucks/{$trip->truck_id}") }}">{{ $trip->truck->number }}</a> </b> {{ $trip->status() }} {{ $trip->completed_at ? "at ".$trip->completed_at->toDayDateTimeString() : '' }}
                     </p>
                 </div>
                 <div>
