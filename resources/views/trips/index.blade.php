@@ -33,7 +33,7 @@
 							<td>{{ $trip->status() }}</td>
 							<td>{{ $trip->tripDays() }}</td>
 							<td>
-								<a href="{{ url("trips") }}">
+								<a href="{{ url("trips/{$trip->id}") }}">
 									<i class="la la-eye"></i>
 								</a>
 							</td>
