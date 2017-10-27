@@ -17,6 +17,11 @@ Getters and setters
         return $this->trips()->whereNull('completed_at')->first();
     }
 
+    public function activeTrip()
+    {
+        return $this->trips()->whereNull('completed_at')->first();
+    }
+
 /*
 Relationships
  */

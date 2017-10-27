@@ -5,8 +5,8 @@
 <div class="ks-page-content-body" style="padding-top: 0px;">
     <div class="container-fluid">
     	<div class="card">
-    		<div class="card-block">
-    			<table class="table table-bordered table-striped dataTable">
+    		<div class="card-block table-responsive">
+    			<table class="table table-bordered table-striped dataTable" style="min-width: 800px">
 					<thead>
 						<tr>
 							<th width="1">Trip ID</th>

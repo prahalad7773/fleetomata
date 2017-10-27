@@ -17,50 +17,27 @@
                     Trips
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="tab" data-target="#revenue" aria-expanded="true">
-                    Revenue
-                </a>
-            </li>
         </ul>
         <div class="tab-content">
-
-                @include('trucks.revenueStatement.partials._index')
             <div class="tab-pane active" id="trips" role="tabpanel" aria-expanded="false">
                 <div class="row">
-                    <h3 class="col">Status : {{ $truck->status() }}</h3>
-                    <div class="ks-controls">
-                        <button class="btn btn-success" data-toggle="modal" data-target="#createTrip">
-                            <span class="la la-plus ks-icon"></span>
-                            <span class="ks-text">Create Trip</span>
-                        </button>
+                    <div class="col" style="display: flex; justify-content: space-between;">
+                        <div>
+                            <h3>Status : {{ $truck->status() }}</h3>
+                        </div>
+                        <div>
+                            <div class="ks-controls">
+                                <button class="btn btn-success" data-toggle="modal" data-target="#createTrip">
+                                    <span class="la la-plus ks-icon"></span>
+                                    <span class="ks-text">Create Trip</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                   <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Trip ID</th>
-                                <th>Started At</th>
-                                <th>Status</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        @foreach($truck->trips->sortBy('completed_at') as $trip)
-                        <tr>
-                            <td>{{ $trip->id() }}</td>
-                            <td> {{ $trip->started_at->toFormattedDateString() }} </td>
-                            <td>{{ $trip->status() }}</td>
-                            <td>
-                                <a href='{{ url("trips/{$trip->id}") }}' class="">
-                                    <i class="la la-eye"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </table>
-
+                        @include("trucks.revenueStatement.partials._index")
                     </div>
                 </div>
             </div>

@@ -56,7 +56,7 @@
                 </a>
             </li>
         </ul>
-        <div class="tab-content">
+        <div class="tab-content table-responsive">
             @include('trips.orders.partials._summary')
             @include('trips.orders.partials._index')
             @include('trips.orders.partials._ledger')

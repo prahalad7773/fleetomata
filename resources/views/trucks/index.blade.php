@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="card">
-            <div class="card-block">
+            <div class="card-block table-responsive">
                     <table class="table table-striped table-bordered dataTable" width="100%">
                     <thead>
                     <tr>

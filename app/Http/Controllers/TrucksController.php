@@ -46,7 +46,7 @@ class TrucksController extends Controller
         });
         return view("trucks.show")->with([
             'truck' => $truck,
-            'trips' => $trips,
+            'trips' => $trips->sortByDesc('id'),
         ]);
     }
 
