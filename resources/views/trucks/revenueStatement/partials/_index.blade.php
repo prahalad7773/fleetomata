@@ -21,7 +21,7 @@
         @foreach($trips as $trip)
         <tr>
             <td>
-                <a href="{{ url(" trips/{$trip->id}") }}">{{ $trip->id() }}</a>
+                <a href="{{ url("trips/{$trip->id}") }}">{{ $trip->id() }}</a>
                 @if(!$trip->completed_at)
                 <span class="badge badge-success ks-sm">Active Trip</span>
                 @endif
