@@ -50,6 +50,6 @@
 
 
     @include('trucks.modals._createTrip')
-    @include('trucks.modals._filtertrips')
+    @include('trucks.modals._filterTrips')
 
 @append
