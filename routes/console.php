@@ -18,5 +18,7 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command('truck:status:email', function () {
-    Mail::to('itsme@theyounus.com')->send(new App\Mail\TrucksStatus());
+    Mail::to([
+        'itsme@theyounus.com', 'jmh@jaysm.com',
+    ])->send(new App\Mail\TrucksStatus());
 });
