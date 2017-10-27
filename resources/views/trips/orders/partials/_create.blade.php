@@ -1,6 +1,5 @@
 @section('head')
 <script src="http://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&libraries=places"></script>
-<link rel="stylesheet" type="text/css" href="/libs/bootstrap-daterange-picker/daterangepicker.css">
 
 <style type="text/css">
 .pac-container {
@@ -134,9 +133,6 @@
     </button>
 </form>
 @section('scripts')
-<script src={{ asset( 'js/jquery.geocomplete.min.js') }}></script>
-<script src="/libs/momentjs/moment.min.js"></script>
-<script src="/libs/bootstrap-daterange-picker/daterangepicker.js"></script>
 <script>
     $('#when').daterangepicker({
         singleDatePicker: true,

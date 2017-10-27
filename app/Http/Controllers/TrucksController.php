@@ -34,7 +34,7 @@ class TrucksController extends Controller
     public function show(Truck $truck)
     {
         $start = request()->has('start') ? Carbon::createFromFormat('d-m-Y', request('start')) : Carbon::now()->startOfMonth();
-        $end = request()->has('end') ? Carbon::createFromFormat('d-m-Y', request('start')) : Carbon::now();
+        $end = request()->has('end') ? Carbon::createFromFormat('d-m-Y', request('end')) : Carbon::now();
         $trips = $truck->trips()
             ->with('ledgers.fromable', 'ledgers.toable', 'orders.loadingPoint', 'orders.unloadingPoint')
             ->where([

@@ -9,32 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('libs/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('libs/bootstrap/css/bootstrap-grid.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/line-awesome/css/line-awesome.min.css') }}">
-    <!--<link rel="stylesheet" type="text/css" href="assets/fonts/open-sans/styles.css">-->
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/montserrat/styles.css') }}">
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('libs/tether/css/tether.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('libs/jscrollpane/jquery.jscrollpane.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/styles/common.min.css') }}">
-    <!-- END GLOBAL MANDATORY STYLES -->
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/lara-all.css') }}">
     <!-- BEGIN THEME STYLES -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/styles/themes/primary.min.css') }}">
     <link class="ks-sidebar-dark-style" rel="stylesheet" type="text/css"
           href="{{ asset('assets/styles/themes/sidebar-black.min.css') }}">
     <!-- END THEME STYLES -->
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/kosmo/styles.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('libs/noty/noty.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/styles/widgets/panels.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/styles/dashboard/tabbed-sidebar.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
-
-
     @yield('head')
 </head>
 <!-- END HEAD -->
@@ -112,22 +91,7 @@
 </div>
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="{{ asset('libs/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('libs/responsejs/response.min.js') }}"></script>
-<script src="{{ asset('libs/loading-overlay/loadingoverlay.min.js') }}"></script>
-<script src="{{ asset('libs/tether/js/tether.min.js') }}"></script>
-<script src="{{ asset('libs/bootstrap/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('libs/jscrollpane/jquery.jscrollpane.min.js') }}"></script>
-<script src="{{ asset('libs/jscrollpane/jquery.mousewheel.js') }}"></script>
-<script src="{{ asset('libs/flexibility/flexibility.js') }}"></script>
-<script src="{{ asset('libs/noty/noty.min.js') }}"></script>
-<script src="{{ asset('libs/velocity/velocity.min.js') }}"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-
-<!-- BEGIN THEME LAYOUT SCRIPTS -->
-<script src="{{ asset('assets/scripts/common.min.js') }}"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
-<!-- END THEME LAYOUT SCRIPTS -->
+<script type="text/javascript" src={{ asset('js/lara-all.js') }}></script>
 
 <script type="application/javascript"></script>
 

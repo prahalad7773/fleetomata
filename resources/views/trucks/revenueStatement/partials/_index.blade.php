@@ -43,7 +43,6 @@
             <td>
                 <p><i class="la la-inr"></i>{{ $trip->financeSummary->margin() }}</p>
                 <p>
-                     <span class="badge ks-circle {{ $trip->financeSummary->margin() < 0 ? "badge-danger" : "badge-success" }}"></span>
                     {{ $trip->financeSummary->marginPercentage() }}
                 </p>
             </td>

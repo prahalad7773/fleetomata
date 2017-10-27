@@ -69,8 +69,6 @@
 
 @append
 
-
-
 @section('scripts')
 
 <script type="text/javascript">
