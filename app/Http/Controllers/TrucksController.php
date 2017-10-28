@@ -33,14 +33,18 @@ class TrucksController extends Controller
 
     public function show(Truck $truck)
     {
-        $start = request()->has('start') ? Carbon::createFromFormat('d-m-Y', request('start')) : Carbon::now()->startOfMonth();
-        $end = request()->has('end') ? Carbon::createFromFormat('d-m-Y', request('end')) : Carbon::now();
-        $trips = $truck->trips()
-            ->with('ledgers.fromable', 'ledgers.toable', 'orders.loadingPoint', 'orders.unloadingPoint')
-            ->where([
-                ['started_at', '>', $start],
-                ['started_at', '<', $end],
-            ])->get();
+        if (request()->has('start') || request()->has('end')) {
+            $start = request()->has('start') ? Carbon::createFromFormat('d-m-Y', request('start')) : '';
+            $end = request()->has('end') ? Carbon::createFromFormat('d-m-Y', request('end')) : '';
+            $trips = $truck->trips()
+                ->with('ledgers.fromable', 'ledgers.toable', 'orders.loadingPoint', 'orders.unloadingPoint')
+                ->where([
+                    ['started_at', '>', $start],
+                    ['started_at', '<', $end],
+                ])->get();
+        } else {
+            $trips = $truck->trips;
+        }
         $trips->each(function ($trip) {
             $trip->financeSummary = (new FinanceSummary($trip))->handle();
         });
