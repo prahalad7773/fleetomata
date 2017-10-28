@@ -47,6 +47,14 @@ class TripLedgersController extends Controller
         return Account::where('name', $value)->first() ?: Customer::where('name', $value)->first();
     }
 
+    public function destroy(Trip $trip, Ledger $ledger)
+    {
+        if (auth()->user()->isAdmin()) {
+            $ledger->delete();
+        }
+        return redirect()->back();
+    }
+
     public function approvals()
     {
         $approvals = Ledger::query();

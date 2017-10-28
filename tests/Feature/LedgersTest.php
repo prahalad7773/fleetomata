@@ -123,6 +123,44 @@ class LedgersTest extends TestCase
         $this->assertNull($ledger->fresh()->approval);
     }
 
+    /** @test */
+    public function admin_can_delete_Approved_ledgers()
+    {
+        $user = factory(User::class)->create([
+            'email' => 'itsme@theyounus.com',
+        ]);
+        $this->signIn($user);
+        $this->withoutExceptionHandling();
+        $from = Account::create(['name' => 'JSM HQ']);
+        $to = Account::create(['name' => 'BPCL']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
+        ]);
+        $this->delete("trips/{$ledger->trip_id}/ledgers/{$ledger->id}");
+        $this->assertNull($ledger->fresh());
+    }
+
+    /** @test */
+    public function non_admins_cannot_delete_ledgers()
+    {
+        $this->signIn();
+        $this->withoutExceptionHandling();
+        $from = Account::create(['name' => 'JSM HQ']);
+        $to = Account::create(['name' => 'BPCL']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
+        ]);
+        $this->delete("trips/{$ledger->trip_id}/ledgers/{$ledger->id}");
+        $this->assertNotNull($ledger->fresh());
+
+    }
+
     public function createAccount($name)
     {
         return Account::create([

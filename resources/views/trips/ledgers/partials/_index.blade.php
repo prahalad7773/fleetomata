@@ -117,7 +117,17 @@
                         <i class="la la-check"></i>
                     </button>
                 </form>
-                @else {{ $ledger->approvalStatus() }} @endif
+                @else
+                {{ $ledger->approvalStatus() }}
+                    <label class="label btn-danger"
+                        onclick="$('#deleteLedgerForm').submit()">
+                        <span class="ks-icon la la-trash"></span>
+                    </label>
+                @endif
+                <form id="deleteLedgerForm" action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
+                    {!! csrf_field() !!}
+                    {!! method_field('DELETE') !!}
+                </form>
             </td>
         </tr>
         @endforeach
