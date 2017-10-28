@@ -14,6 +14,16 @@ class Trip extends BaseModel
         'completed_at', 'started_at',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($trip) {
+            $trip->orders()->delete();
+            $trip->ledgers()->delete();
+        });
+    }
+
     public function id()
     {
         return "#" . $this->id;

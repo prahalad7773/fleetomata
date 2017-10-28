@@ -25,10 +25,21 @@
                             <span class="ks-icon la la-plus"></span>
                             <span class="ks-text">Order</span>
                         </a>
-                        <a href="#" class="btn btn-danger ks-control" data-toggle="modal" data-target="#completeTrip">
+                        <a href="#" class="btn btn-success ks-control" data-toggle="modal" data-target="#completeTrip">
                             <span class="ks-icon la la-check"></span>
                             <span class="ks-text">Completed</span>
                         </a>
+                        @if(auth()->user()->isAdmin())
+                            <button class="btn btn-danger ks-control"
+                                onclick="$('#deleteTripForm').submit()"
+                            >
+                                <span class="ks-icon la la-trash"></span>
+                            </button>
+                        <form method="post" id="deleteTripForm" action="{{ url("trips/{$trip->id}") }}">
+                            {!! csrf_field() !!}
+                            {!! method_field('DELETE') !!}
+                        </form>
+                        @endif
                     </div>
                     @endif
                 </div>

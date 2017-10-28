@@ -3,8 +3,12 @@
 namespace Tests\Feature;
 
 use App\Models\Trip;
+use App\Models\Trips\Account;
 use App\Models\Trips\Customer;
+use App\Models\Trips\Ledger;
+use App\Models\Trips\Order;
 use App\Models\Truck;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -85,5 +89,43 @@ class TripsTest extends TestCase
             'completed_at' => '12-12-2017 12:00 AM',
         ]);
         $this->assertNotNull($trip->fresh()->completed_at);
+    }
+
+    /** @test */
+    public function admin_user_can_delete_trips()
+    {
+        $user = factory(User::class)->create([
+            'email' => 'itsme@theyounus.com',
+        ]);
+        $this->signIn($user);
+        $trip = factory(Trip::class)->create();
+        $order = factory(Order::class)->create([
+            'trip_id' => $trip->id,
+        ]);
+        list($from, $to) = factory(Account::class, 2)->create();
+        $ledger = factory(Ledger::class)->create([
+            'trip_id' => $trip->id,
+            'fromable_id' => $from->id,
+            'fromable_type' => get_class($from),
+            'toable_id' => $to->id,
+            'toable_type' => get_class($to),
+        ]);
+        $this->assertEquals(Trip::all()->count(), 1);
+        $this->assertEquals(Ledger::all()->count(), 1);
+        $this->assertEquals(Order::all()->count(), 1);
+        $this->delete("trips/{$trip->id}");
+        $this->assertEquals(Trip::all()->count(), 0);
+        $this->assertEquals(Ledger::all()->count(), 0);
+        $this->assertEquals(Order::all()->count(), 0);
+    }
+
+    /** @test */
+    public function non_admins_cant_delete_trips()
+    {
+        $this->signIn();
+        $trip = factory(Trip::class)->create();
+        $this->assertEquals(1, Trip::all()->count());
+        $this->delete("trips/{$trip->id}");
+        $this->assertEquals(1, Trip::all()->count());
     }
 }

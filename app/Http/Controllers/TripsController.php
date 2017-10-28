@@ -49,4 +49,12 @@ class TripsController extends Controller
         return redirect()->back();
     }
 
+    public function destroy(Trip $trip)
+    {
+        if (auth()->user()->isAdmin()) {
+            $trip->delete();
+        }
+        return redirect("trips");
+    }
+
 }

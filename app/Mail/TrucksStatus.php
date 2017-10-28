@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class TrucksStatus extends Mailable
 {
@@ -23,13 +24,13 @@ class TrucksStatus extends Mailable
      */
     public function __construct()
     {
-        //
         $this->trucks = Truck::all();
         $this->emptyTrucks = collect();
         $this->transitTrucks = collect();
         $this->trucks->each(function ($truck) {
             $truck->activeTrip ? $this->transitTrucks->push($truck) : $this->emptyTrucks->push($truck);
         });
+        Log::info("Sending mail at " . Carbon::now()->toDateTimeString());
     }
 
     /**

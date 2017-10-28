@@ -37,4 +37,9 @@ class User extends Authenticatable
     {
         return $this->name;
     }
+
+    public function isAdmin()
+    {
+        return in_array($this->email, ['itsme@theyounus.com']);
+    }
 }
