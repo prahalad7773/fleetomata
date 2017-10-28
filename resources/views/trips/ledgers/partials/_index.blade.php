@@ -111,7 +111,7 @@
             <td>{{ $ledger->reason }}</td>
             <td>
                 @if(!$ledger->approval)
-                <form action="{{ url(" trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post"> {!! csrf_field() !!} {!! method_field('PATCH') !!}
+                <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post"> {!! csrf_field() !!} {!! method_field('PATCH') !!}
                     <input type="text" hidden name="type" value="approval">
                     <button class="btn btn-primary">
                         <i class="la la-check"></i>
