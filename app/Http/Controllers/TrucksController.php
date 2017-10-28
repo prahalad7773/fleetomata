@@ -43,7 +43,8 @@ class TrucksController extends Controller
                     ['started_at', '<', $end],
                 ])->get();
         } else {
-            $trips = $truck->trips;
+            $trips = $truck->trips
+                ->load('ledgers.fromable', 'ledgers.toable', 'orders.loadingPoint', 'orders.unloadingPoint');
         }
         $trips->each(function ($trip) {
             $trip->financeSummary = (new FinanceSummary($trip))->handle();
