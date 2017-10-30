@@ -11,7 +11,7 @@
 						<tr>
 							<th width="1">Trip ID</th>
 							<th width="100">Truck Number</th>
-							<th width="">Order Details</th>
+							<th width="300">Order Details</th>
 							<th width="100">Status</th>
 							<th width="100">Trip Days</th>
 							<th width="1"></th>

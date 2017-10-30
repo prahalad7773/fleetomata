@@ -78,15 +78,15 @@
 <table class="table table-striped table-bordered dataTable" style="min-width: 600px">
     <thead>
         <tr>
-            <th>When</th>
+            <th width="100">When</th>
             @if($showOrder)
             <th>Order</th>
             @endif
-            <th>From</th>
-            <th>To</th>
-            <th>Amount</th>
-            <th>Reason</th>
-            <th width="200">Approval</th>
+            <th width="100">From</th>
+            <th width="100">To</th>
+            <th width="100">Amount</th>
+            <th width="100">Reason</th>
+            <th width="100">Approval</th>
         </tr>
     </thead>
     <tbody>
