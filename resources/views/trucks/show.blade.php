@@ -56,7 +56,7 @@
                         @include('trips.ledgers.partials._index',[
                             'showForm' => false,
                             'showOrder' => false,
-                            'ledgers' => $trips->pluck('ledgers')->collapse()
+                            'ledgers' => $trips->pluck('ledgers')->collapse()->sortByDesc('when')
                         ])
                     </div>
                 </div>
