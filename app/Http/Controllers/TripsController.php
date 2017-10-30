@@ -35,7 +35,7 @@ class TripsController extends Controller
             'truck' => $truck,
             'orders' => $trip->orders->load('loadingPoint', 'unloadingPoint', 'customer'),
             'trip' => $trip,
-            'ledgers' => $trip->ledgers->load('fromable', 'toable', 'approvedBy'),
+            'ledgers' => $trip->ledgers->load('fromable', 'toable', 'approvedBy')->sortByDesc('when'),
             'accounts' => Account::all(),
             'financeSummary' => $trip->financeSummary(),
         ]);

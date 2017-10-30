@@ -14,6 +14,10 @@
     <link class="ks-sidebar-dark-style" rel="stylesheet" type="text/css"
           href="{{ asset('assets/styles/themes/sidebar-black.min.css') }}">
     <!-- END THEME STYLES -->
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.4.2/b-html5-1.4.2/datatables.min.css"/>
+
+    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.4.2/b-html5-1.4.2/datatables.min.css"/> --}}
+
     @yield('head')
 </head>
 <!-- END HEAD -->
@@ -92,8 +96,7 @@
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script type="text/javascript" src={{ asset('js/lara-all.js') }}></script>
-
-<script type="application/javascript"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.4.2/b-html5-1.4.2/datatables.min.js"></script>
 
 <div class="ks-mobile-overlay"></div>
 <script>
@@ -110,7 +113,12 @@
 
 <script>
     $('.dataTable').DataTable({
-        aaSorting : []
+        aaSorting : [],
+        buttons: [
+        'copy', 'excel', 'pdf'
+        ],
+        dom : "Bfrtip",
+        destroy : true
     });
 </script>
 

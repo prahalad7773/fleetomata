@@ -14,7 +14,6 @@ mix.styles([
 	'public/libs/noty/noty.css',
 	'public/assets/styles/widgets/panels.min.css',
 	'public/libs/bootstrap-daterange-picker/daterangepicker.css',
-	'public/css/datatables.min.css'
 ],'public/css/lara-all.css');
 
 mix.scripts([
@@ -30,7 +29,6 @@ mix.scripts([
 	'public/libs/velocity/velocity.min.js',
 	'public/libs/momentjs/moment.min.js',
 	'public/libs/bootstrap-daterange-picker/daterangepicker.js',
-	'public/js/datatables.min.js',
 	'public/js/jquery.geocomplete.min.js',
 	'public/assets/scripts/common.min.js'
 ],'public/js/lara-all.js');
