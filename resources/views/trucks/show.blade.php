@@ -17,6 +17,11 @@
                     Trips
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="tab" data-target="#ledgers" aria-expanded="false">
+                   Ledgers
+                </a>
+            </li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="trips" role="tabpanel" aria-expanded="false">
@@ -42,6 +47,17 @@
                 <div class="row">
                     <div class="col">
                         @include("trucks.revenueStatement.partials._index")
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="ledgers" role="tabpanel" aria-expanded="false">
+                <div class="row">
+                    <div class="col table-responsive">
+                        @include('trips.ledgers.partials._index',[
+                            'showForm' => false,
+                            'showOrder' => false,
+                            'ledgers' => $trips->pluck('ledgers')->collapse()
+                        ])
                     </div>
                 </div>
             </div>
