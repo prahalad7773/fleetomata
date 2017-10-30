@@ -52,7 +52,7 @@ class TrucksController extends Controller
         });
         return view("trucks.show")->with([
             'truck' => $truck,
-            'trips' => $trips->sortByDesc('id'),
+            'trips' => $trips->sortBy('completed_at'),
         ]);
     }
 
