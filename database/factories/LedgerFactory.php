@@ -11,7 +11,7 @@ $factory->define(App\Models\Trips\Ledger::class, function (Faker $faker) {
         },
         'amount' => 100,
         'when' => '12-12-2017 12:00 AM',
-        'reason' => $faker->title,
+        'reason' => $faker->sentence,
         'created_by' => function () {
             return factory(User::class)->create()->id;
         },

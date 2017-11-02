@@ -26,7 +26,7 @@ class Trip extends BaseModel
 
     public function id()
     {
-        return "#" . $this->id;
+        return "T#" . $this->id;
     }
 
     public function isActive()
@@ -63,7 +63,8 @@ class Trip extends BaseModel
 
     public function tripDays()
     {
-        return Carbon::now()->diffInDays($this->started_at);
+        $end = $this->completed_at ?? Carbon::now();
+        return $end->diffInDays($this->started_at);
     }
 
 }

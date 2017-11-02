@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Trips\FinanceSummary;
 use App\Models\Truck;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -33,27 +32,51 @@ class TrucksController extends Controller
 
     public function show(Truck $truck)
     {
-        if (request()->has('start') || request()->has('end')) {
-            $start = request()->has('start') ? Carbon::createFromFormat('d-m-Y', request('start')) : '';
-            $end = request()->has('end') ? Carbon::createFromFormat('d-m-Y', request('end')) : '';
-            $trips = $truck->trips()
-                ->with('ledgers.fromable', 'ledgers.toable', 'orders.loadingPoint', 'orders.unloadingPoint')
-                ->where([
-                    ['started_at', '>', $start],
-                    ['started_at', '<', $end],
-                ])->get();
-        } else {
-            $trips = $truck->trips
-                ->load('ledgers.fromable', 'ledgers.toable', 'ledgers.approvedBy', 'orders.loadingPoint', 'orders.unloadingPoint');
+        switch (request('type')) {
+            case 'trips':
+                list($trips, $ledgers) = $this->caseTrips($truck);
+                break;
+            case 'ledgers':
+                list($trips, $ledgers) = $this->caseLedgers($truck);
+                break;
+            default:
+                $trips = $truck->trips->load('orders.loadingPoint', 'orders.unloadingPoint')->sortByDesc('completed_at');
+                $ledgers = $truck->trips->load('ledgers.fromable', 'ledgers.toable')->pluck('ledgers')->collapse()->sortByDesc('when');
         }
-
-        $trips->each(function ($trip) {
-            $trip->financeSummary = (new FinanceSummary($trip))->handle();
-        });
         return view("trucks.show")->with([
             'truck' => $truck,
-            'trips' => $trips->sortBy('completed_at'),
+            'trips' => $trips,
+            'ledgers' => $ledgers,
         ]);
     }
 
+    protected function caseTrips($truck)
+    {
+        $trips = $truck->trips()
+            ->with('orders.loadingPoint', 'orders.unloadingPoint')
+            ->whereBetween('started_at', [
+                Carbon::createFromFormat('d-m-Y', request('start'))->toDateString(),
+                Carbon::createFromFormat('d-m-Y', request('end'))->toDateString(),
+            ])
+            ->get();
+        $ledgers = $truck->trips
+            ->load('ledgers.fromable', 'ledgers.toable')
+            ->pluck('ledgers')
+            ->collapse();
+        return [$trips, $ledgers];
+    }
+
+    protected function caseLedgers($truck)
+    {
+        $trips = $truck->trips->load('orders.loadingPoint', 'orders.unloadingPoint');
+        $ledgers = $truck->trips()
+            ->with('ledgers.fromable', 'ledgers.toable')
+            ->whereHas('ledgers', function ($query) {
+                $query->whereBetween('when', [
+                    Carbon::createFromFormat('d-m-Y', request('start'))->toDateString(),
+                    Carbon::createFromFormat('d-m-Y', request('end'))->toDateString(),
+                ]);
+            })->get()->pluck('ledgers')->collapse()->sortByDesc('when');
+        return [$trips, $ledgers];
+    }
 }

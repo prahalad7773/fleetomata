@@ -30,7 +30,9 @@ class TripsTest extends TestCase
         $previousDays = Carbon::today()->subDays($tripDays);
         $trip = factory(Trip::class)->create([
             'started_at' => $previousDays,
+            'completed_at' => $today,
         ]);
         $this->assertEquals($trip->tripDays(), $tripDays);
     }
+
 }

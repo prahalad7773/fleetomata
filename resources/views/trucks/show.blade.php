@@ -8,17 +8,41 @@
 
     <div class="ks-page-content-body ks-tabs-page-container" style="padding-top:0px;">
         <div class="ks-tabs-container-description">
-            <h3>{{ $truck->number }}</h3>
-            <p>{{ $truck->type }}</p>
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <h3>{{ $truck->number }}</h3>
+                    <p>{{ $truck->type }}</p>
+                </div>
+                <div>
+                    <div class="ks-controls">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#createTrip">
+                            <span class="la la-plus ks-icon"></span>
+                            <span class="ks-text">Create Trip</span>
+                        </button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#filter">
+                            <span class="la la-calendar ks-icon"></span>
+                            <span class="ks-text">Filter</span>
+                        </button>
+                    </div>
+                    @if(request()->has('type'))
+                    <div class="alert" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="window.location = window.location.pathname">
+                            <span aria-hidden="true" class="la la-close"></span>
+                        </button>
+                        <strong>Filtering by</strong> {{ request('type') }}
+                    </div>
+                    @endif
+                </div>
+            </div>
         </div>
         <ul class="nav ks-nav-tabs ks-tabs-page-default ks-tabs-full-page">
             <li class="nav-item">
-                <a class="nav-link active" href="#" data-toggle="tab" data-target="#trips" aria-expanded="false">
+                <a class="nav-link active" href="#trips" data-toggle="tab" data-target="#trips" aria-expanded="false">
                     Trips
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="tab" data-target="#ledgers" aria-expanded="false">
+                <a class="nav-link" href="#ledgers" data-toggle="tab" data-target="#ledgers" aria-expanded="false">
                    Ledgers
                 </a>
             </li>
@@ -26,27 +50,12 @@
         <div class="tab-content">
             <div class="tab-pane active" id="trips" role="tabpanel" aria-expanded="false">
                 <div class="row">
-                    <div class="col" style="display: flex; justify-content: space-between;">
-                        <div>
-                            <h3>Status : {{ $truck->status() }}</h3>
-                        </div>
-                        <div>
-                            <div class="ks-controls">
-                                <button class="btn btn-success" data-toggle="modal" data-target="#createTrip">
-                                    <span class="la la-plus ks-icon"></span>
-                                    <span class="ks-text">Create Trip</span>
-                                </button>
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#filterTrips">
-                                    <span class="la la-calendar ks-icon"></span>
-                                    <span class="ks-text">Filter Trip</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col">
-                        @include("trucks.revenueStatement.partials._index")
+                        @include("trips.partials._index",[
+                            'showTruck' => false,
+                            'trips' => $trips,
+                            'showCompleted' => true
+                        ])
                     </div>
                 </div>
             </div>
@@ -56,7 +65,7 @@
                         @include('trips.ledgers.partials._index',[
                             'showForm' => false,
                             'showOrder' => false,
-                            'ledgers' => $trips->pluck('ledgers')->collapse()->sortByDesc('when')
+                            'ledgers' => $ledgers
                         ])
                     </div>
                 </div>
@@ -66,6 +75,6 @@
 
 
     @include('trucks.modals._createTrip')
-    @include('trucks.modals._filterTrips')
+    @include('trucks.modals._filter')
 
 @append

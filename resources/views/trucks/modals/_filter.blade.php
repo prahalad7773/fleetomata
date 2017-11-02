@@ -5,6 +5,15 @@
      <div class="row">
          <div class="col-md-4 push-lg-4">
             <form>
+                 <div class="form-group row">
+                    <label for="default-input" class="col-sm-2 form-control-label">Type</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="type" id="type" placeholder="Type" autocomplete="off" required>
+                            <option value="ledgers">Ledgers</option>
+                            <option value="trips">Trips</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label for="default-input" class="col-sm-2 form-control-label">Start</label>
                     <div class="col-sm-10">
