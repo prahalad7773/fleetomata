@@ -34,4 +34,24 @@ class LedgersTest extends TestCase
         $string = sprintf("Approved at %s by %s", $time->toDayDateTimeString(), $user->name);
         $this->assertTrue($ledger->approvalStatus() == $string);
     }
+
+    /** @test */
+    public function ledger_has_is_approved()
+    {
+        $from = Account::create(['name' => 'JSM HQ']);
+        $to = Account::create(['name' => 'BPCL']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
+            'approval' => \Carbon\Carbon::now(),
+            'approved_by' => factory(User::class)->create()->id,
+        ]);
+        $this->assertTrue($ledger->isApproved());
+        $ledger->update([
+            'approval' => null,
+        ]);
+        $this->assertFalse($ledger->isApproved());
+    }
 }

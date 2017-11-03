@@ -49,7 +49,7 @@ class TripLedgersController extends Controller
 
     public function destroy(Trip $trip, Ledger $ledger)
     {
-        if (auth()->user()->isAdmin()) {
+        if (auth()->user()->isAdmin() || !$ledger->isApproved()) {
             $ledger->delete();
         }
         return redirect()->back();

@@ -27,6 +27,11 @@ class Ledger extends BaseModel
         return $this->approval ? sprintf("Approved at %s by %s", $this->approval->toDayDateTimeString(), $this->approvedBy) : 'Not Approved';
     }
 
+    public function isApproved()
+    {
+        return (boolean) $this->approval;
+    }
+
     public function fillFrom($from)
     {
         $this->fromable_id = $from->id;

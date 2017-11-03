@@ -109,25 +109,30 @@
                 <i class="la la-inr"></i> {{ $ledger->amount }}
             </td>
             <td>{{ $ledger->reason }}</td>
-            <td>
-                @if(!$ledger->approval)
-                <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post"> {!! csrf_field() !!} {!! method_field('PATCH') !!}
-                    <input type="text" hidden name="type" value="approval">
-                    <button class="btn btn-primary">
-                        <i class="la la-check"></i>
-                    </button>
-                </form>
-                @else
-                {{ $ledger->approvalStatus() }}
-                    <label class="label btn-danger"
-                        onclick="$('#deleteLedgerForm').submit()">
+            <td class="">
+                <div class="ks-items-block">
+                    @if(!$ledger->approval)
+                    <form id="approveLedgerForm" action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
+                        {!! csrf_field() !!} {!! method_field('PATCH') !!}
+                        <input type="text" hidden name="type" value="approval">
+                    </form>
+                    <a href="#" onclick="$('#approveLedgerForm').submit()">
+                        <badge class="badge badge-primary">
+                            <i class="la la-check"></i>
+                        </badge>
+                    </a>
+                    <a href="#" onclick="$('#deleteLedgerForm').submit()">
+                        <badge class="badge badge-danger">
                         <span class="ks-icon la la-trash"></span>
-                    </label>
-                @endif
-                <form id="deleteLedgerForm" action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
-                    {!! csrf_field() !!}
-                    {!! method_field('DELETE') !!}
-                </form>
+                    </badge>
+                    </a>
+                    @endif
+                    <badge class="badge badge-default">{{ $ledger->approvalStatus() }}</badge>
+                    <form id="deleteLedgerForm" action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
+                        {!! csrf_field() !!}
+                        {!! method_field('DELETE') !!}
+                    </form>
+                </div>
             </td>
         </tr>
         @endforeach
