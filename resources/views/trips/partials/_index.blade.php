@@ -27,7 +27,11 @@
                 @endif
 			</td>
 			@if($showTruck)
-			<td>{{ $trip->truck->number }}</td>
+			<td>
+				<a href="{{ url("trucks/{$trip->truck_id}") }}">
+					{{ $trip->truck->number }}
+				</a>
+			</td>
 			@endif
 			<td>{{ $trip->started_at->toDayDateTimeString() }}</td>
 			<td>
@@ -45,7 +49,7 @@
 				{{ optional($trip->completed_at)->toDayDateTimeString() }}
 			</td>
 			@endif
-			<td>{{ $trip->tripDays() }}</td>
+			<td>{{ $trip->trip_days }}</td>
 		</tr>
 		@endforeach
 	</tbody>

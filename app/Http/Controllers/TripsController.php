@@ -13,9 +13,9 @@ class TripsController extends Controller
 
     public function index()
     {
-        $trips = Trip::with('orders.loadingPoint', 'orders.unloadingPoint', 'truck')->whereNull('completed_at')->orderBy('started_at', 'desc')->get();
+        $trips = Trip::with('orders.loadingPoint', 'orders.unloadingPoint', 'truck')->whereNull('completed_at')->get();
         return view("trips.index")->with([
-            'trips' => $trips,
+            'trips' => $trips->sortByDesc('trip_days'),
         ]);
     }
 

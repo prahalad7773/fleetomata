@@ -14,6 +14,10 @@ class Trip extends BaseModel
         'completed_at', 'started_at',
     ];
 
+    protected $appends = [
+        'trip_days',
+    ];
+
     protected static function boot()
     {
         parent::boot();
@@ -22,6 +26,12 @@ class Trip extends BaseModel
             $trip->orders()->delete();
             $trip->ledgers()->delete();
         });
+    }
+
+    public function getTripDaysAttribute()
+    {
+        $end = $this->completed_at ?? Carbon::now();
+        return $end->diffInDays($this->started_at);
     }
 
     public function id()
@@ -59,12 +69,6 @@ class Trip extends BaseModel
         $summary = new FinanceSummary($this);
         $summary->handle();
         return $summary;
-    }
-
-    public function tripDays()
-    {
-        $end = $this->completed_at ?? Carbon::now();
-        return $end->diffInDays($this->started_at);
     }
 
 }
