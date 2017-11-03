@@ -32,7 +32,7 @@ class TripsTest extends TestCase
             'started_at' => $previousDays,
             'completed_at' => $today,
         ]);
-        $this->assertEquals($trip->tripDays(), $tripDays);
+        $this->assertEquals($trip->trip_days, $tripDays);
     }
 
 }
