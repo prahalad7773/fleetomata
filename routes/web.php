@@ -31,4 +31,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('mailable', function () {
         Mail::to('itsme@theyounus.com')->queue(new App\Mail\TrucksStatus());
     });
+
+    Horizon::auth(function(){
+	return true;
+    });
 });
