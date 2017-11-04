@@ -39,10 +39,12 @@ class CalculateGPSKm implements ShouldQueue
         $start = $this->trip->started_at->startOfDay();
         $end = $this->trip->completed_at ?: Carbon::now();
         $end = $end->endOfDay();
-        $client = new Client();
-        $response = $client->get("http://gps.truckjee.com:3001/gps/{$this->truck->imei}/{$start}/{$end}");
-        $data = json_decode($response->getBody()->getContents(), true);
-        $this->calculateDistance($data);
+        if ($this->truck->imei) {
+            $client = new Client();
+            $response = $client->get("http://gps.truckjee.com:3001/gps/{$this->truck->imei}/{$start}/{$end}");
+            $data = json_decode($response->getBody()->getContents(), true);
+            $this->calculateDistance($data);
+        }
     }
 
     protected function calculateDistance($data)
