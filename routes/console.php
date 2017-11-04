@@ -22,3 +22,9 @@ Artisan::command('truck:status:email', function () {
         'itsme@theyounus.com', 'jmh@jaysm.com',
     ])->send(new App\Mail\TrucksStatus());
 });
+
+Artisan::command("trip:calculate:km", function () {
+    $trips = App\Models\Trip::all()->each(function ($trip) {
+        dispatch(new App\Jobs\CalculateGPSKm($trip));
+    });
+});
