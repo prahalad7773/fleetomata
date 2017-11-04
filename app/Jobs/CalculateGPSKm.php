@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class CalculateGPSKm implements ShouldQueue
 {
@@ -45,6 +46,7 @@ class CalculateGPSKm implements ShouldQueue
             $data = json_decode($response->getBody()->getContents(), true);
             $this->calculateDistance($data);
         }
+        Log::info("Calculated GPS KM for " . $this->trip);
     }
 
     protected function calculateDistance($data)
