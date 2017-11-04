@@ -37,7 +37,6 @@ class TripsController extends Controller
             'trip' => $trip,
             'ledgers' => $trip->ledgers->load('fromable', 'toable', 'approvedBy')->sortByDesc('when'),
             'accounts' => Account::all(),
-            'financeSummary' => $trip->financeSummary(),
         ]);
     }
 

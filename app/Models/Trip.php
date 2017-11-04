@@ -34,6 +34,11 @@ class Trip extends BaseModel
         return $end->diffInDays($this->started_at);
     }
 
+    public function __toString()
+    {
+        return $this->id();
+    }
+
     public function id()
     {
         return "T#" . $this->id;

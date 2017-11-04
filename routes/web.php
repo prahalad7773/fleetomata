@@ -19,7 +19,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::redirect('/home', '/trucks');
     Route::redirect('/', '/trucks');
     Route::resource('trucks', 'TrucksController');
-    Route::get('trucks/{truck}/revenue-statement', 'Trucks\RevenueStatementController@index');
+    Route::resource('trucks/{truck}/revenue-report', 'Trucks\RevenueReportController');
     Route::resource('trips', 'TripsController');
     Route::resource('trips/{trip}/orders', 'Trips\TripOrdersController');
     Route::resource('trips/{trip}/ledgers', 'Trips\TripLedgersController');

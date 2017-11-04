@@ -19,10 +19,23 @@
                             <span class="la la-plus ks-icon"></span>
                             <span class="ks-text">Create Trip</span>
                         </button>
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#filter">
-                            <span class="la la-calendar ks-icon"></span>
-                            <span class="ks-text">Filter</span>
-                        </button>
+
+                        <div class="btn-group">
+                            <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="la la-files-o ks-icon"></span>
+                                <span class="ks-text">Actions</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" data-toggle="modal" data-target="#filter">
+                                    <span class="la la-calendar ks-icon"></span>
+                                    <span class="ks-text">Filter</span>
+                                </a>
+                                <a class="dropdown-item"
+                                    href="{{ url("trucks/{$truck->id}/revenue-report") }}">
+                                    Revenue Report
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     @if(request()->has('type'))
                     <div class="alert" role="alert">

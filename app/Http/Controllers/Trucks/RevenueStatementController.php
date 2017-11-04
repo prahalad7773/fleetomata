@@ -23,6 +23,7 @@ class RevenueStatementController extends Controller
         });
         return view("revenueStatement.index")->with([
             'trips' => $trips,
+
         ]);
     }
 

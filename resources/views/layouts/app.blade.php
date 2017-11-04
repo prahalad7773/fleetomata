@@ -118,7 +118,7 @@
         buttons: [
         'copy', 'excel', 'pdf','colvis'
         ],
-        autoWidth : true,
+        autoWidth : false,
         dom : "Bfrtip",
         destroy : true
     });
