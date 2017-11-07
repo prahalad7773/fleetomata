@@ -32,6 +32,11 @@ Route::group(['middleware' => 'auth'], function () {
         Mail::to('itsme@theyounus.com')->queue(new App\Mail\TrucksStatus());
     });
 
+   Route::get("/job",function(){
+	$trip = App\Models\Trip::find(1);
+	dispatch(new App\Jobs\CalculateGPSKm($trip));
+   });
+
     Horizon::auth(function(){
 	return true;
     });

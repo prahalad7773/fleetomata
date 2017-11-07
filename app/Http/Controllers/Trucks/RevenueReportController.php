@@ -20,7 +20,7 @@ class RevenueReportController extends Controller
             ->get()
             ->each(function ($trip) {
                 $trip->financeSummary = $trip->financeSummary();
-            });
+            })->sortBy('started_at');
         // dispatch(new CalculateGPSKm($trips->first()));
         return view("trucks.reports.revenueReport.index")->with([
             'start' => $start,
