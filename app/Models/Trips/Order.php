@@ -9,6 +9,7 @@ use Carbon\Carbon;
 
 class Order extends BaseModel
 {
+
     protected $dates = [
         'when',
     ];

@@ -35,7 +35,7 @@ class FinanceSummary
         if ($this->trip->gps_km) {
             $this->costPerKm = round($this->expense / $this->trip->gps_km, 2);
         }
-        $this->costPerDay = round(($this->income / ($this->trip->trip_days != 0 ?: 1)), 2);
+        $this->costPerDay = round(($this->income / ($this->trip->trip_days != 0 ? $this->trip->trip_days : 1)), 2);
         return $this;
     }
 }

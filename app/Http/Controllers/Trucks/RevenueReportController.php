@@ -15,7 +15,7 @@ class RevenueReportController extends Controller
         $start = request()->has('start') ? Carbon::createFromFormat('d-m-Y', request('start')) : Carbon::now()->startOfMonth();
         $end = request()->has('end') ? Carbon::createFromFormat('d-m-Y', request('end')) : Carbon::now()->endOfMonth();
         $trips = $truck->trips()
-            ->with('orders', 'ledgers.fromable', 'ledgers.toable')
+            ->with('orders.loadingPoint', 'orders.unloadingPoint', 'ledgers.fromable', 'ledgers.toable')
             ->whereBetween('started_at', [$start, $end])
             ->get()
             ->each(function ($trip) {
