@@ -6,6 +6,7 @@ use App\Models\Trip;
 use App\Models\Trips\Account;
 use App\Models\Trips\Ledger;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -155,6 +156,8 @@ class LedgersTest extends TestCase
             'toable_id' => $to->id,
             'fromable_type' => get_class($from),
             'toable_type' => get_class($to),
+            'approval' => Carbon::now(),
+            'approved_by' => auth()->id(),
         ]);
         $this->delete("trips/{$ledger->trip_id}/ledgers/{$ledger->id}");
         $this->assertNotNull($ledger->fresh());
