@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CalculateGPSKm;
 use App\Models\Trip;
 use App\Models\Trips\Account;
 use App\Models\Truck;
@@ -45,6 +46,7 @@ class TripsController extends Controller
         $trip->update([
             'completed_at' => Carbon::createFromFormat('d-m-Y g:i A', request('completed_at')),
         ]);
+        dispatch(new CalculateGPSKm($trip));
         return redirect()->back();
     }
 

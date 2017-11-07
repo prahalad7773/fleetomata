@@ -1,7 +1,4 @@
 <?php
-
-use Illuminate\Support\Facades\Mail;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,12 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/api/customers', function () {
         return App\Models\Trips\Customer::where('phone', request()->get('phone'))->first() ?? null;
     });
-
-    Route::get('mailable', function () {
-        Mail::to('itsme@theyounus.com')->queue(new App\Mail\TrucksStatus());
-    });
-
-    Horizon::auth(function(){
-	return true;
+    Horizon::auth(function () {
+        return true;
     });
 });
