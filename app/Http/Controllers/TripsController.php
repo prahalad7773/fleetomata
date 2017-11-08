@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\CalculateGPSKm;
 use App\Models\Trip;
 use App\Models\Trips\Account;
+use App\Models\Trips\FinanceSummary;
 use App\Models\Truck;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -38,6 +39,7 @@ class TripsController extends Controller
             'trip' => $trip,
             'ledgers' => $trip->ledgers->load('fromable', 'toable', 'approvedBy')->sortByDesc('when'),
             'accounts' => Account::all(),
+            'financeSummary' => (new FinanceSummary($trip))->handle(),
         ]);
     }
 

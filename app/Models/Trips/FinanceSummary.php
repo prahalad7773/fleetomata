@@ -4,6 +4,7 @@ namespace App\Models\Trips;
 
 use App\Models\Trip;
 use App\Models\Trips\Account;
+use App\Models\Trips\Customer;
 
 class FinanceSummary
 {
@@ -23,7 +24,9 @@ class FinanceSummary
     public function handle()
     {
         foreach ($this->trip->ledgers as $ledger) {
-            $this->{$ledger->toable} += abs($ledger->amount);
+            if (!$ledger->toable instanceof Customer) {
+                $this->{$ledger->toable} += abs($ledger->amount);
+            }
             if ($ledger->amount < 0) {
                 $this->expense += abs($ledger->amount);
             } else {
@@ -36,7 +39,8 @@ class FinanceSummary
             $this->costPerKm = round($this->expense / $this->trip->gps_km, 2);
         }
         $this->profit = $this->income - $this->expense;
-        $this->mileage = $this->trip->gps_km == 0 ? '1' : $this->trip->gps_km / ($this->{"Diesel"} == 0 ? 1 : $this->{"Diesel"} / 60);
+        $this->mileage = round($this->trip->gps_km == 0 ? '1' : $this->trip->gps_km /
+            ($this->{"Diesel"} == 0 ? 1 : $this->{"Diesel"} / 60), 2);
         $this->profitPerDay = round($this->profit / ($this->trip->trip_days != 0 ? $this->trip->trip_days : 1));
         $this->costPerDay = round(($this->income / ($this->trip->trip_days != 0 ? $this->trip->trip_days : 1)), 2);
         return $this;
