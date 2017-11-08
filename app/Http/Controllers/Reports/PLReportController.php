@@ -12,7 +12,7 @@ class PLReportController extends Controller
     public function index()
     {
         Excel::create('p l statement', function ($excel) {
-            Truck::all()->each(function ($truck) use ($excel) {
+            Truck::where('number', 'like', 'UP%')->each(function ($truck) use ($excel) {
                 $excel->sheet($truck->number, function ($sheet) use ($truck) {
                     $sheet->setAutoSize(true);
                     $trips = $truck->trips()
@@ -27,6 +27,7 @@ class PLReportController extends Controller
                 });
             });
         })->export('xlsx');
+        return "done";
     }
 
 }

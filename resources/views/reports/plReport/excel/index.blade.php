@@ -1,8 +1,9 @@
 <table class="table table-bordered dataTable" style="width: auto">
 	<thead>
 		<tr>
-			<th>Trip</th>
-			<th>Orders</th>
+			<th>When</th>
+			<th>Order</th>
+			<th>No of Loads</th>
 			<th>Hire</th>
 			<th>Received</th>
 			<th>Balance</th>
@@ -14,26 +15,25 @@
 			<th>Loading</th>
 			<th>Unloading</th>
 			<th>Expense</th>
-			<th>Income</th>
+			<th>Profit</th>
 			<th>Km</th>
-			<th><i class="la la-inr"></i>/km</th>
+			<th>Cost/km</th>
 			<th>Days</th>
-			<th><i class="la la-inr"></i>/Day</th>
+			<th>Cost/Day</th>
+			<th>Profit/Day</th>
+			<th>Mileage</th>
 		</tr>
 	</thead>
 	<tbody>
 		@foreach($trips as $trip)
 		<tr>
 			<td>
-				<ul>
-					<li><a href="{{ url("trips/{$trip->id}")}}">{{ $trip }}</a></li>
-					<li><b>Started at : </b>{{ $trip->started_at->toDayDateTimeString() }}</li>
-					@forelse($trip->orders as $order)
-					<li>{{ $order }}</li>
-					@empty
-					<li>No Order</li>
-					@endforelse
-				</ul>
+				{{ $trip->started_at->toDayDateTimeString() }}
+			</td>
+			<td>
+			@foreach($trip->orders as $order)
+			{{ $order }} <br>
+			@endforeach
 			</td>
 			<td>{{ $trip->orders->count() }}</td>
 			<td><i class="la la-inr"></i>{{ $trip->financeSummary->hire }}</td>
@@ -48,11 +48,13 @@
 			<td><i class="la la-inr"></i>{{ $trip->financeSummary->{"Loading Charges"} }}</td>
 			<td><i class="la la-inr"></i>{{ $trip->financeSummary->{"Unloading Charges"} }}</td>
 			<td><i class="la la-inr"></i>{{ $trip->financeSummary->{"expense"} }}</td>
-			<td><i class="la la-inr"></i>{{ $trip->financeSummary->{"income"} }}</td>
+			<td><i class="la la-inr"></i>{{ $trip->financeSummary->{"profit"} }}</td>
 			<td>{{ $trip->gps_km }}</td>
 			<td><i class="la la-inr"></i>{{ $trip->financeSummary->costPerKm }}</td>
 			<td>{{ $trip->trip_days }}</td>
 			<td>{{ $trip->financeSummary->costPerDay }}</td>
+			<td>{{ $trip->financeSummary->profitPerDay }}</td>
+			<td>{{ $trip->financeSummary->mileage }}</td>
 		</tr>
 		@endforeach
 	</tbody>
