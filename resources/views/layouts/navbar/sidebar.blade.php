@@ -17,7 +17,7 @@
             <span>Approvals</span>
         </a>
     </li>
-    <li class="nav-item dropdown">
+    {{-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" aria-haspopup="true" aria-expanded="false">
             <span class="ks-icon la la-file-excel-o"></span>
             <span>Reports</span>
@@ -25,5 +25,5 @@
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ url("reports/p-l-report") }}">P/L Report</a>
         </div>
-    </li>
+    </li> --}}
 </ul>

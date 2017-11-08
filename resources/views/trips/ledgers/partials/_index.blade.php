@@ -116,16 +116,12 @@
                         {!! csrf_field() !!} {!! method_field('PATCH') !!}
                         <input type="text" hidden name="type" value="approval">
                     </form>
-                    <a href="#" onclick="$('#approveLedgerForm').submit()">
-                        <badge class="badge badge-primary">
-                            <i class="la la-check"></i>
-                        </badge>
-                    </a>
-                    <a href="#" onclick="$('#deleteLedgerForm').submit()">
-                        <badge class="badge badge-danger">
+                    <button class="badge badge-primary" onclick="$('#approveLedgerForm').submit()">
+                        <span class="ks-icon la la-check"></span>
+                    </button>
+                    <button class="badge badge-danger" onclick="$('#deleteLedgerForm').submit()">
                         <span class="ks-icon la la-trash"></span>
-                    </badge>
-                    </a>
+                    </button>
                     @endif
                     <badge class="badge badge-default">{{ $ledger->approvalStatus() }}</badge>
                     <form id="deleteLedgerForm" action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">

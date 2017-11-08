@@ -5,35 +5,27 @@ namespace App\Models\Trips;
 class ApprovalSummary
 {
     private $ledgers;
-    public $dieselRequirement;
-    public $happayRequirement;
-    public $fastagRequirement;
 
     public function __construct($ledgers)
     {
         $this->ledgers = $ledgers;
-        $this->dieselRequirement = 0;
-        $this->happayRequirement = 0;
-        $this->fastagRequirement = 0;
+        $this->diesel = 0;
+        $this->fastag = 0;
+        $this->happay = 0;
+        $this->cash = 0;
         $this->handle();
     }
 
     public function handle()
     {
-        foreach ($this->ledgers as $ledger) {
-            if ($ledger->fromable->name == 'JSM HQ' && $ledger->toable->name == 'BPCL') {
-                $this->dieselRequirement += abs($ledger->amount);
+        $this->ledgers->each(function ($ledger) {
+            switch ($ledger->toable) {
+                case 'Diesel':$this->diesel += abs($ledger->amount);break;
+                case 'Fastag':$this->fastag += abs($ledger->amount);break;
+                case 'cash':$this->cash += abs($ledger->amount);break;
+                default:$this->happay += abs($ledger->amount);break;
             }
-            if ($ledger->fromable->name == 'JSM HQ' && $ledger->toable->name == 'Happay') {
-                $this->happayRequirement += abs($ledger->amount);
-            }
-            if ($ledger->fromable->name == 'JSM HQ' && $ledger->toable->name == 'Fastag') {
-                $this->fastagRequirement += abs($ledger->amount);
-            }
-        }
-        $this->dieselRequirement = MoneyFormatter::format($this->dieselRequirement);
-        $this->happayRequirement = MoneyFormatter::format($this->happayRequirement);
-        $this->fastagRequirement = MoneyFormatter::format($this->fastagRequirement);
+        });
     }
 
 }
