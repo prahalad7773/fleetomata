@@ -80,6 +80,7 @@
         <tr>
             <th width="100">When</th>
             @if($showOrder)
+            <th>Trip</th>
             <th>Order</th>
             @endif
             <th width="100">From</th>
@@ -94,6 +95,11 @@
         <tr>
             <td>{{ $ledger->when->toDayDateTimeString() }}</td>
             @if($showOrder)
+            <td>
+                <a href="{{ url("trips/{$ledger->trip->id}") }}">
+                {{ $ledger->trip }}
+                </a>
+            </td>
             <td>
                 <b>{{ $ledger->trip->truck }}</b>
                 <ul>
@@ -111,11 +117,13 @@
             <td>{{ $ledger->reason }}</td>
             <td class="">
                 <div class="ks-items-block">
-                    <badge class="badge badge-default">{{ $ledger->approvalStatus() }}</badge>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col">
+                            <badge class="badge badge-default">{{ $ledger->approvalStatus() }}</badge>
+                        </div>
+                        <div class="col">
                             @if(!$ledger->approval)
-                            <form id="approveLedgerForm" action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
+                            <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
                                 {!! csrf_field() !!} {!! method_field('PATCH') !!}
                                 <input type="text" hidden name="type" value="approval">
                                 <button class="badge badge-primary" type="submit">
@@ -124,8 +132,8 @@
                             </form>
                             @endif
                         </div>
-                        <div class="col-md-6">
-                            <form id="deleteLedgerForm" action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
+                        <div class="col">
+                            <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
                                 {!! csrf_field() !!}
                                 {!! method_field('DELETE') !!}
                                 <button class="badge badge-danger" type="submit">
