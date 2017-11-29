@@ -14,11 +14,17 @@ Getters and setters
 
     public function getActiveTripAttribute()
     {
+        if ($this->relationLoaded('trips')) {
+            return $this->trips->where('completed_at', null)->first();
+        }
         return $this->trips()->whereNull('completed_at')->first();
     }
 
     public function activeTrip()
     {
+        if ($this->relationLoaded('trips')) {
+            return $this->trips->where('completed_at', null)->first();
+        }
         return $this->trips()->whereNull('completed_at')->first();
     }
 

@@ -12,7 +12,7 @@ class TrucksController extends Controller
     public function index()
     {
         return view("trucks.index")->with([
-            'trucks' => Truck::all(),
+            'trucks' => Truck::with('trips')->get(),
         ]);
     }
 
