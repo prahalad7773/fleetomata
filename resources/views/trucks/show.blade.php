@@ -64,10 +64,20 @@
             <div class="tab-pane active" id="trips" role="tabpanel" aria-expanded="false">
                 <div class="row">
                     <div class="col">
+                    @include("trips.partials._index",[
+                            'showTruck' => false,
+                            'trips' => $activeTrip,
+                            'showCompleted' => false
+                        ])
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
                         @include("trips.partials._index",[
                             'showTruck' => false,
                             'trips' => $trips,
-                            'showCompleted' => true
+                            'showCompleted' => true,
+                            'datatable' => true
                         ])
                     </div>
                 </div>

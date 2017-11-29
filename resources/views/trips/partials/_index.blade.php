@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped dataTable" style="min-width: 800px">
+<table class="table table-bordered table-striped {{ isset($datatable) ? 'dataTable' : '' }}" style="min-width: 800px">
 	<thead>
 		<tr>
 			<th width="1">Trip ID</th>
