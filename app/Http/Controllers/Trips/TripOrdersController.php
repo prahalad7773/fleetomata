@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Trips;
 
+use App\Events\Trips\OrderCreatedEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use App\Models\Trip;
@@ -29,7 +30,7 @@ class TripOrdersController extends Controller
         }
         $loading = Location::createFromPlaceID($request->loading_place_id);
         $unloading = Location::createFromPlaceID($request->unloading_place_id);
-        $trip->orders()
+        $order = $trip->orders()
             ->save(
                 new Order([
                     'loading_point_id' => $loading->id,
@@ -41,6 +42,7 @@ class TripOrdersController extends Controller
                     'customer_id' => $customer->id,
                 ])
             );
+        event(new OrderCreatedEvent($order));
         return redirect()->back();
     }
 }

@@ -7,6 +7,9 @@
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/event', function () {
+        event(new App\Events\Trips\OrderCreatedEvent(App\Models\Trips\Order::first()));
+    });
     Route::redirect('/home', '/trucks');
     Route::redirect('/', '/trucks');
     Route::resource('trucks', 'TrucksController');
