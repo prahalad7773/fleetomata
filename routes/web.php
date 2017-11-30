@@ -1,8 +1,8 @@
 <?php
 
-cache()->remember('accounts', 24 * 60, function () {
-    return App\Models\Trips\Account::all();
-});
+// cache()->remember('accounts', 24 * 60, function () {
+//     return App\Models\Trips\Account::all();
+// });
 
 Auth::routes();
 
@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('approvals', 'Trips\TripLedgersController@approvals');
 
     Route::get('/route-report', 'Reports\RouteReportController@index');
+    Route::resource('/requirements', 'Trips\RequirementsController');
 
     Route::get('/api/customers', function () {
         return App\Models\Trips\Customer::where('phone', request()->get('phone'))->first() ?? null;

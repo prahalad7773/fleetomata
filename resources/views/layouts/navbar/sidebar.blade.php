@@ -19,10 +19,18 @@
             <span>Trips</span>
         </a>
     </li>
-     <li class="nav-item">
+    @role('admin')
+    <li class="nav-item">
         <a class="nav-link" href="{{ url('approvals?status=pending') }}">
             <span class="ks-icon la la-user-plus"></span>
             <span>Approvals</span>
+        </a>
+    </li>
+    @endrole
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('requirements/create') }}">
+            <span class="ks-icon la la-money"></span>
+            <span>Requirements</span>
         </a>
     </li>
     {{-- <li class="nav-item dropdown">

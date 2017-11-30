@@ -101,13 +101,13 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/b-flash-1.4.2/b-html5-1.4.2/datatables.min.js"></script>
 <div class="ks-mobile-overlay"></div>
 <script>
-    {{--@if(Session::has('notification'))--}}
-    {{--new Noty({--}}
-        {{--type: '{{ Session::get('notification.alert-type') }}',--}}
-        {{--layout: 'topRight',--}}
-        {{--text: '{{ Session::get('notification.message') }}'--}}
-    {{--}).show();--}}
-    {{--@endif--}}
+        @if(Session::has('notification'))
+            new Noty({
+                type: '{{ Session::get('notification.type') }}',
+                layout: 'topRight',
+                text: '{{ Session::get('notification.msg') }}' })
+            .show();
+        @endif
 </script>
 
 @yield('scripts')
