@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/route-report', 'Reports\RouteReportController@index');
     Route::resource('/requirements', 'Trips\RequirementsController');
+    Route::resource('/users', 'UsersController');
 
     Route::get('/api/customers', function () {
         return App\Models\Trips\Customer::where('phone', request()->get('phone'))->first() ?? null;
