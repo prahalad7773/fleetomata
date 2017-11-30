@@ -3,14 +3,14 @@
 namespace App\Models\Trips;
 
 use App\Models\Trip;
-use App\Models\Trips\Account;
 use App\Models\Trips\Customer;
 
 class FinanceSummary
 {
     public function __construct(Trip $trip)
     {
-        foreach (Account::all() as $account) {
+        $accounts = cache()->get('accounts');
+        foreach ($accounts as $account) {
             $this->{$account} = 0;
         }
         $this->hire = $trip->orders()->sum('hire');

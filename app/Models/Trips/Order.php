@@ -4,6 +4,7 @@ namespace App\Models\Trips;
 
 use App\Models\BaseModel;
 use App\Models\Location;
+use App\Models\Trip;
 use App\Models\Trips\Customer;
 use Carbon\Carbon;
 
@@ -37,6 +38,11 @@ class Order extends BaseModel
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function trip()
+    {
+        return $this->belongsTo(Trip::class);
     }
 
     public function loadingPoint()
