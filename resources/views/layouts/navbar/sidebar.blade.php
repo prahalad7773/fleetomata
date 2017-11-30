@@ -1,4 +1,12 @@
 <ul class="nav nav-pills nav-stacked">
+    @role('admin')
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('route-report') }}">
+            <span class="ks-icon la la-flag"></span>
+            <span>Route Report</span>
+        </a>
+    </li>
+    @endrole
     <li class="nav-item">
         <a class="nav-link" href="{{ url('trucks') }}">
             <span class="ks-icon la la-truck"></span>

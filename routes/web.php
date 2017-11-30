@@ -22,6 +22,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('trips/{trip}/ledgers', 'Trips\TripLedgersController');
     Route::get('reports/p-l-report', 'Reports\PLReportController@index');
     Route::get('approvals', 'Trips\TripLedgersController@approvals');
+
+    Route::get('/route-report', 'Reports\RouteReportController@index');
+
     Route::get('/api/customers', function () {
         return App\Models\Trips\Customer::where('phone', request()->get('phone'))->first() ?? null;
     });
