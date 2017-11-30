@@ -9,7 +9,8 @@
 				@include("trips.partials._index",[
 					'showTruck' => true,
 					'truck' => false,
-					'showCompleted' => false
+					'showCompleted' => false,
+                    'datatable' => true,
 				])
     		</div>
     	</div>
