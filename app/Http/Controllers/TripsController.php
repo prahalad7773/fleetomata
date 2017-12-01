@@ -60,4 +60,9 @@ class TripsController extends Controller
         return redirect("trips");
     }
 
+    public function pendingPayments()
+    {
+        return view("trips.pendingPayments");
+    }
+
 }

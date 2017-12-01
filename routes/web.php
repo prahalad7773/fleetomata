@@ -14,6 +14,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::redirect('/', '/trucks');
     Route::resource('trucks', 'TrucksController');
     Route::resource('trucks/{truck}/revenue-report', 'Trucks\RevenueReportController');
+    Route::get('trips/pending-payments', 'TripsController@pendingPayments');
     Route::resource('trips', 'TripsController');
     Route::resource('trips/{trip}/orders', 'Trips\TripOrdersController');
     Route::resource('trips/{trip}/ledgers', 'Trips\TripLedgersController');

@@ -21,7 +21,7 @@ class PLReportController extends Controller
     public function store()
     {
         $topSheet = collect();
-        Excel::create('p l statement', function ($excel) use ($topSheet) {
+        Excel::create("PL Statement", function ($excel) use ($topSheet) {
             Truck::whereIn('id', request('trucks'))->each(function ($truck) use ($excel, $topSheet) {
                 $trips = $this->getTrips($truck);
                 $topSheet->push(new TopSheetItem($trips, $truck));
