@@ -17,10 +17,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('trips', 'TripsController');
     Route::resource('trips/{trip}/orders', 'Trips\TripOrdersController');
     Route::resource('trips/{trip}/ledgers', 'Trips\TripLedgersController');
-    Route::get('reports/p-l-report', 'Reports\PLReportController@index');
+    Route::resource('reports/p-l-report', 'Reports\PLReportController');
     Route::get('approvals', 'Trips\TripLedgersController@approvals');
 
-    Route::get('/route-report', 'Reports\RouteReportController@index');
+    Route::get('reports/route-report', 'Reports\RouteReportController@index');
     Route::resource('/requirements', 'Trips\RequirementsController');
     Route::resource('/users', 'UsersController');
 

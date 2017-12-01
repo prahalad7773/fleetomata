@@ -9,7 +9,7 @@
             <a class="dropdown-item" href="{{ url("reports/p-l-report") }}">P/L Report</a>
         </div>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ url('route-report') }}">Route Expense Report</a>
+            <a class="dropdown-item" href="{{ url('reports/route-report') }}">Route Expense Report</a>
         </div>
     </li>
     <li class="nav-item">

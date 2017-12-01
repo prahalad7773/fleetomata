@@ -41,7 +41,10 @@ class RouteReportController extends Controller
             ->whereIn('unloading_point_id', $unloading->toArray())
             ->get()
             ->unique('trip.id')
-            ->pluck('trip');
+            ->pluck('trip')
+            ->reject(function ($trip) {
+                return $trip->completed_at == null;
+            });
 
         return $trips->each(function ($trip) {
             $trip->financeSummary = (new FinanceSummary($trip))->handle();

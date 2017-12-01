@@ -1,4 +1,4 @@
-<table class="table table-bordered dataTable" style="width: auto">
+<table class="table table-bordered">
 	<thead>
 		<tr>
 			<th>When</th>
