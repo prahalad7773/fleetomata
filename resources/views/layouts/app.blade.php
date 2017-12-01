@@ -8,8 +8,10 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/lara-all.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}"> --}}
     <!-- BEGIN THEME STYLES -->
     <link class="ks-sidebar-dark-style" rel="stylesheet" type="text/css"
           href="{{ asset('assets/styles/themes/sidebar-black.min.css') }}">
@@ -77,7 +79,7 @@
 <!-- END HEADER -->
 
 
-<div class="ks-page-container ks-dashboard-tabbed-sidebar-fixed-tabs">
+<div class="ks-page-container ks-dashboard-tabbed-sidebar-fixed-tabs" id="app">
 @auth
     <!-- BEGIN DEFAULT SIDEBAR -->
         <div class="ks-column ks-sidebar ks-info">
@@ -96,6 +98,7 @@
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script type="text/javascript" src={{ asset('js/lara-all.js') }}></script>
+<script type="text/javascript" src={{ asset('js/app.js') }}></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/b-flash-1.4.2/b-html5-1.4.2/datatables.min.js"></script>
