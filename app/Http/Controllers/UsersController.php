@@ -23,7 +23,7 @@ class UsersController extends Controller
     {
         $this->validate($request, [
             'chat_id' => 'required | unique:users,chat_id,' . $user->id,
-            'token' => 'required | unique:users,token,' . $user->id,
+            'token' => 'required',
         ]);
         $user->update($request->only('chat_id', 'token'));
         return response("success", 200);
