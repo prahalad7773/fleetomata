@@ -119,13 +119,37 @@
 @yield('scripts')
 
 <script>
+    var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+    };
     $('.dataTable').DataTable({
         aaSorting : [],
+        dom: 'Bfrtip',
         buttons: [
-        'copy', 'excel', 'pdf','colvis'
+            { extend: 'copyHtml5', footer: true },
+            { extend: 'excelHtml5', footer: true },
+            { extend: 'csvHtml5', footer: true },
+            { extend: 'pdfHtml5', footer: true },
+            {
+                extend: 'print',
+                footer : true,
+                messageTop: function () {
+                    return "Summary of Trip between "+ getUrlParameter('source') + " - " + getUrlParameter('destination')
+                }
+            }
         ],
         autoWidth : false,
-        dom : "Bfrtip",
         destroy : true
     });
 
