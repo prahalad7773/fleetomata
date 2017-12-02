@@ -54,6 +54,8 @@
 							<th>Fastag</th>
 							<th>Cash</th>
 							<th>Total</th>
+							<th>Trip Days</th>
+							<th>Kms</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -74,6 +76,8 @@
 							<td><i class="la la-inr"></i>{{ $trip->financeSummary->{'Fastag'} }}</td>
 							<td><i class="la la-inr"></i>{{ $trip->financeSummary->{'Cash'} }}</td>
 							<td><i class="la la-inr"></i>{{ $trip->financeSummary->{'expense'} }}</td>
+							<td>{{ $trip->tripDays }}</td>
+							<td>{{ $trip->gps_km }}</td>
 						</tr>
 						@endforeach
 					</tbody>
@@ -86,6 +90,8 @@
 							<td><i class="la la-inr"></i>{{ round($trips->average('financeSummary.Fastag'),2) }}</td>
 							<td><i class="la la-inr"></i>{{ round($trips->average('financeSummary.Cash'),2) }}</td>
 							<td><i class="la la-inr"></i>{{ round($trips->average('financeSummary.expense'),2) }}</td>
+							<td>{{ $trips->average('tripDays') }}</td>
+							<td>{{ $trips->average('gps_km') }}</td>
 						</tr>
 					</tfoot>
 				</table>
