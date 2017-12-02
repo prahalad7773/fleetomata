@@ -16,11 +16,11 @@ class TopSheetItem
     {
         $this->trips = $trips;
         $this->truck = $truck;
-        $this->totalProfit = $trips->sum('financeSummary.profit');
         $this->totalExpense = $trips->sum('financeSummary.expense');
         $this->totalTurnOver = $trips->sum('financeSummary.hire');
+        $this->totalProfit = $this->totalTurnOver - $this->totalExpense;
         $this->totalKMs = $trips->sum('gps_km');
-        $this->averageMileage = $trips->average('mileage');
+        $this->averageMileage = $trips->average('financeSummary.mileage');
     }
 
 }
