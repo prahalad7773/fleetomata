@@ -23,8 +23,7 @@ Artisan::command('truck:status:email', function () {
     ])->send(new App\Mail\TrucksStatus());
 });
 
-Artisan::command("trip:calculate:km", function () {
-    $trips = App\Models\Trip::all()->each(function ($trip) {
-        dispatch(new App\Jobs\CalculateGPSKm($trip));
-    });
+Artisan::command("trip:calculate:km {trip_id}", function () {
+    $trip = App\Models\Trip::findOrFail($this->argument('trip_id'));
+    dispatch(new App\Jobs\CalculateGPSKm($trip));
 });
