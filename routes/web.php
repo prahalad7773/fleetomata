@@ -19,7 +19,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('trips/{trip}/orders', 'Trips\TripOrdersController');
     Route::resource('trips/{trip}/ledgers', 'Trips\TripLedgersController');
     Route::resource('reports/p-l-report', 'Reports\PLReportController');
-    Route::get('approvals', 'Trips\TripLedgersController@approvals');
 
     Route::get('reports/route-report', 'Reports\RouteReportController@index');
     Route::resource('/requirements', 'Trips\RequirementsController');
