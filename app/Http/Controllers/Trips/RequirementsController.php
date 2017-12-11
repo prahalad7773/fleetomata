@@ -56,4 +56,26 @@ class RequirementsController extends Controller
         $trip->ledgers()->save($ledger);
     }
 
+    public function remittance()
+    {
+        $remittance = collect();
+        $date = Carbon::today();
+        if (request()->has('date')) {
+            $date = Carbon::createFromFormat('d-m-Y', request('date'));
+        }
+        $remittance = Ledger::with('fromable', 'toable',
+            'trip.orders.loadingPoint', 'trip.orders.unloadingPoint', 'trip.truck')
+            ->whereNotNull('approval')
+            ->whereBetween(
+                'when',
+                [
+                    (new Carbon($date))->startOfDay(),
+                    (new Carbon($date))->endOfDay(),
+                ]
+            )->get();
+        return view("trips.requirements.remittance")->with([
+            'remittance' => $remittance,
+        ]);
+    }
+
 }

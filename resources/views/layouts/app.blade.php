@@ -148,7 +148,7 @@
                 extend: 'print',
                 footer : true,
                 messageTop: function () {
-                    return "Summary of Trip between "+ getUrlParameter('source') + " - " + getUrlParameter('destination')
+                    return "Summary "+ getUrlParameter('source') + " - " + getUrlParameter('destination')
                 }
             }
         ],

@@ -18,7 +18,7 @@ class TripsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function user_can_add_trips_to_a_truck()
+    public function userCanAddTripsToATruck()
     {
         $this->signIn();
         $this->withoutExceptionHandling();
@@ -33,12 +33,13 @@ class TripsTest extends TestCase
     }
 
     /** @test */
-    public function user_can_add_order_to_trip()
+    public function userCanAddOrderToTrip()
     {
         $customer_name = 'JSM Logistics';
         $customer_phone = '9444904811';
         $this->assertEquals(Customer::count(), 0);
         $this->signIn();
+        $this->withoutEvents();
         $trip = factory(Trip::class)->create();
         $this->withoutExceptionHandling();
         $this->assertEquals($trip->orders()->count(), 0);
@@ -57,7 +58,7 @@ class TripsTest extends TestCase
     }
 
     /** @test */
-    public function user_cannot_add_orders_to_a_trip_which_is_closed()
+    public function userCannotAddOrdersToATripWhichIsClosed()
     {
         $customer_name = 'JSM Logistics';
         $customer_phone = '9444904811';
@@ -80,7 +81,7 @@ class TripsTest extends TestCase
     }
 
     /** @test */
-    public function trips_can_be_completed()
+    public function tripsCanBeCompleted()
     {
         $this->signIn();
         $trip = factory(Trip::class)->create();
@@ -92,7 +93,7 @@ class TripsTest extends TestCase
     }
 
     /** @test */
-    public function admin_user_can_delete_trips()
+    public function adminUserCanDeleteTrips()
     {
         $user = factory(User::class)->create([
             'email' => 'itsme@theyounus.com',
@@ -120,7 +121,7 @@ class TripsTest extends TestCase
     }
 
     /** @test */
-    public function non_admins_cant_delete_trips()
+    public function nonAdminsCantDeleteTrips()
     {
         $this->signIn();
         $trip = factory(Trip::class)->create();

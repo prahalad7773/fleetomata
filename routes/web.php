@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('reports/p-l-report', 'Reports\PLReportController');
 
     Route::get('reports/route-report', 'Reports\RouteReportController@index');
+    Route::get('/requirements/remittance', 'Trips\RequirementsController@remittance');
     Route::resource('/requirements', 'Trips\RequirementsController');
     Route::resource('/users', 'UsersController');
 
