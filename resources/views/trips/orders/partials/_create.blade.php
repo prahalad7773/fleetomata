@@ -11,33 +11,6 @@
 <form action="{{ url("trips/{$trip->id}/orders") }}" class="form" method="post"> {!! csrf_field() !!}
     <div class="row">
         <div class="col">
-            <div class="form-group">
-                <label for="default-input" class="form-control-label">Customer Phone</label>
-                <div class="">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="la la-phone"></i>
-                        </div>
-                        <input type="text" class="form-control" name="customer_phone" id="customer_phone" placeholder="Customer Phone" autocomplete="off" required>
-                        <span class="input-group-btn">
-                            <button id="customer_phone_button" class="btn btn-primary" type="button">Search!</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-         <div class="col">
-            <div class="form-group">
-                <label for="default-input" class="form-control-label">Customer Name</label>
-                <div class="">
-                    <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="Customer Name" autocomplete="off" disabled required>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
              <div class="form-group">
                 <label for="default-input" class="form-control-label">When</label>
                 <div class="">
@@ -123,6 +96,39 @@
             </div>
         </div>
     </div>
+      <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label class="form-control-label p-t-0">Type</label>
+                <div class="">
+                    <label class="custom-control custom-radio">
+                        <input name="type" type="radio" value="0" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Market Load</span>
+                    </label>
+                    <label class="custom-control custom-radio">
+                        <input name="type" type="radio" value="1" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">JSM</span>
+                    </label>
+                    <label class="custom-control custom-radio">
+                        <input name="type" type="radio" value="2" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Empty</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+           <div class="form-group">
+                <label for="default-input" class="form-control-label">Remarks</label>
+                <div class="">
+                    <textarea name="remarks" id="remarks" cols="30" rows="3" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <button class="btn btn-primary" id="submitBtn">
@@ -137,7 +143,7 @@
     $('#when').daterangepicker({
         singleDatePicker: true,
         timePicker: true,
-        timePickerIncrement: 30,
+        timePickerIncrement: 05,
         locale: {
             format: 'DD-MM-YYYY h:mm A'
         }
@@ -156,25 +162,6 @@ $('#unloading_formatted').geocomplete({
     detailsAttribute: "data-geo"
 });
 
-$('#customer_phone_button').on('click',function(e){
-    e.preventDefault();
-    $.get('/api/customers',{ 'phone' : $('#customer_phone').val() }, function(data){
-        if(!data)
-        {
-            $('#customer_name').removeAttr('disabled');
-            $('#customer_name').val(null);
-        }else{
-            $('#customer_name').val(data.name);
-        }
-    });
-});
 
-$('#submitBtn').on('click',function(e){
-    var customerName = $('#customer_name');
-    if(customerName.val() != ''){
-        return
-    }
-    e.preventDefault();
-});
 </script>
 @append

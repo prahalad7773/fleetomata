@@ -27,3 +27,14 @@ Artisan::command("trip:calculate:km {trip_id}", function () {
     $trip = App\Models\Trip::findOrFail($this->argument('trip_id'));
     dispatch(new App\Jobs\CalculateGPSKm($trip));
 });
+
+Artisan::command("delete:customer:ledgers", function () {
+    App\Models\Trips\Ledger::where('fromable_type', 'App\Models\Trips\Customer')
+        ->orWhere('toable_type', 'App\Models\Trips\Customer')
+        ->delete();
+
+    App\Models\Trips\Order::where('when', '<', Carbon\Carbon::today()->startOfMonth()->subDays(15))
+        ->update([
+            'pod_status' => 'Waived off by System',
+        ]);
+});

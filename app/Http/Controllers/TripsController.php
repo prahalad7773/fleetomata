@@ -35,7 +35,7 @@ class TripsController extends Controller
     {
         return view("trips.show")->with([
             'truck' => $truck,
-            'orders' => $trip->orders->load('loadingPoint', 'unloadingPoint', 'customer'),
+            'orders' => $trip->orders->load('loadingPoint', 'unloadingPoint'),
             'trip' => $trip,
             'ledgers' => $trip->ledgers->load('fromable', 'toable', 'approvedBy')->sortByDesc('when'),
             'accounts' => Account::all(),

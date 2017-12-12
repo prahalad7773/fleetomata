@@ -27,6 +27,9 @@
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ url('trips') }}">Trips</a>
         </div>
+         <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{ url('orders/pod') }}">Pending POD</a>
+        </div>
         @can('view-pendingPayments')
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ url('trips/pending-payments') }}">Pending Payments</a>

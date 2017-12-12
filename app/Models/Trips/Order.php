@@ -37,7 +37,11 @@ class Order extends BaseModel
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        switch ($this->type) {
+            case '0':return "Market Load";
+            case '1':return "JSM";
+            case '2':return "Empty";
+        }
     }
 
     public function trip()

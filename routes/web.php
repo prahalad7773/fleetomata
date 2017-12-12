@@ -14,12 +14,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::redirect('/', '/trucks');
     Route::resource('trucks', 'TrucksController');
     Route::resource('trucks/{truck}/revenue-report', 'Trucks\RevenueReportController');
-    Route::get('trips/pending-payments', 'TripsController@pendingPayments');
     Route::resource('trips', 'TripsController');
     Route::resource('trips/{trip}/orders', 'Trips\TripOrdersController');
     Route::resource('trips/{trip}/ledgers', 'Trips\TripLedgersController');
-    Route::resource('reports/p-l-report', 'Reports\PLReportController');
 
+    Route::resource('orders/pod', 'OrdersPODController');
+
+    Route::resource('reports/p-l-report', 'Reports\PLReportController');
     Route::get('reports/route-report', 'Reports\RouteReportController@index');
     Route::get('/requirements/remittance', 'Trips\RequirementsController@remittance');
     Route::resource('/requirements', 'Trips\RequirementsController');

@@ -19,6 +19,7 @@ class EditOrdersTable extends Migration
             2 - Empty Run
              */
             $table->tinyInteger('type')->default(0);
+            $table->string('remarks')->nullable();
             $table->string('pod_status')->nullable();
             $table->string('pending_balance')->default(0);
         });

@@ -47,6 +47,7 @@ class TripsTest extends TestCase
             'hire' => '25000',
             'when' => '12-12-2017 12:00 AM',
             'type' => 1,
+            'remarks' => 'Hello world',
         ]);
         $this->assertEquals($trip->orders()->count(), 1);
     }

@@ -6,7 +6,7 @@
                 <div class="card panel panel-default ks-widget ks-widget-progress-list">
                     <div class="card-header">
                         {{ $order->id() }} -
-                        {{ $order->customer }}
+                        {{ $order->customer() }}
                         <div class="ks-controls">
                             <a href="#" class="ks-control ks-update"><span class="ks-icon la la-refresh"></span></a>
                         </div>
@@ -20,7 +20,7 @@
                                         <p><b>To : </b>{{ $order->unloadingPoint }}</p>
                                         <p><b>Material : </b>{{ $order->material() }}</p>
                                         <p><b>When : </b>{{ $order->when() }}</p>
-                                        <p><b>Contact : </b>+91 {{ $order->customer->phone }}</p>
+                                        <p><b>Remarks : </b>{{ $order->remarks }}</p>
                                     </div>
                                      <span class="text-muted">Created at : {{ $order->created_at->toDayDateTimeString() }}</span>
                                 </div>

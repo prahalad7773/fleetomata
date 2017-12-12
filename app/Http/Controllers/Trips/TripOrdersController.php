@@ -28,6 +28,7 @@ class TripOrdersController extends Controller
                     'weight' => $request->weight,
                     'hire' => $request->hire,
                     'type' => $request->type,
+                    'remarks' => $request->remarks,
                 ])
             );
         event(new OrderCreatedEvent($order));
