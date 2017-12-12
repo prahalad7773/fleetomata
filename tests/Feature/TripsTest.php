@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Trip;
 use App\Models\Trips\Account;
-use App\Models\Trips\Customer;
 use App\Models\Trips\Ledger;
 use App\Models\Trips\Order;
 use App\Models\Truck;
@@ -35,9 +34,6 @@ class TripsTest extends TestCase
     /** @test */
     public function userCanAddOrderToTrip()
     {
-        $customer_name = 'JSM Logistics';
-        $customer_phone = '9444904811';
-        $this->assertEquals(Customer::count(), 0);
         $this->signIn();
         $this->withoutEvents();
         $trip = factory(Trip::class)->create();
@@ -50,11 +46,9 @@ class TripsTest extends TestCase
             'weight' => '14',
             'hire' => '25000',
             'when' => '12-12-2017 12:00 AM',
-            'customer_name' => $customer_name,
-            'customer_phone' => $customer_phone,
+            'type' => 1,
         ]);
         $this->assertEquals($trip->orders()->count(), 1);
-        $this->assertEquals(Customer::count(), 1);
     }
 
     /** @test */

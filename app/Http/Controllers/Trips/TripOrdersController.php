@@ -6,7 +6,6 @@ use App\Events\Trips\OrderCreatedEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use App\Models\Trip;
-use App\Models\Trips\Customer;
 use App\Models\Trips\Order;
 use Illuminate\Http\Request;
 
@@ -14,17 +13,6 @@ class TripOrdersController extends Controller
 {
     public function store(Trip $trip, Request $request)
     {
-        if ($request->has('customer_name')) {
-            request()->validate([
-                'customer_phone' => 'unique:customers,phone',
-            ]);
-            $customer = Customer::firstOrCreate([
-                'name' => $request->customer_name,
-                'phone' => $request->customer_phone,
-            ]);
-        } else {
-            $customer = Customer::where('phone', $request->customer_phone)->first();
-        }
         if (!$trip->isActive()) {
             return redirect()->back();
         }
@@ -39,7 +27,7 @@ class TripOrdersController extends Controller
                     'cargo' => $request->cargo,
                     'weight' => $request->weight,
                     'hire' => $request->hire,
-                    'customer_id' => $customer->id,
+                    'type' => $request->type,
                 ])
             );
         event(new OrderCreatedEvent($order));
