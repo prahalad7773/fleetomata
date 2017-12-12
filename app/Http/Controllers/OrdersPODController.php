@@ -11,6 +11,7 @@ class OrdersPODController extends Controller
     public function index()
     {
         $orders = Order::with('trip.truck', 'loadingPoint', 'unloadingPoint')
+            ->whereIn('type', [0, 1])
             ->whereNull('pod_status')
             ->get();
         return view("pod.index")->with([
