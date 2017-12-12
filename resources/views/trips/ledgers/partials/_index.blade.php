@@ -48,31 +48,29 @@
             </td>
             <td>{{ $ledger->reason }}</td>
             <td class="">
-                <div class="ks-items-block">
-                    <div class="row">
-                        <div class="col">
-                            <button class="badge badge-default">{{ $ledger->approvalStatus() }}</button>
-                        </div>
-                        <div class="col">
-                            @if(!$ledger->approval)
-                            <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
-                                {!! csrf_field() !!} {!! method_field('PATCH') !!}
-                                <input type="text" hidden name="type" value="approval">
-                                <button class="badge badge-primary" type="submit">
-                                    <span class="ks-icon la la-check"></span>
-                                </button>
-                            </form>
-                            @endif
-                        </div>
-                        <div class="col">
-                            <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
-                                {!! csrf_field() !!}
-                                {!! method_field('DELETE') !!}
-                                <button class="badge badge-danger" type="submit">
-                                    <span class="ks-icon la la-trash"></span>
-                                </button>
-                            </form>
-                        </div>
+                <div class="ks-items-block" style="display: flex; justify-content: space-between;">
+                    <div>
+                        <p>{{ $ledger->approvalStatus() }}</p>
+                    </div>
+                    @if(!$ledger->approval)
+                    <div>
+                        <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
+                            {!! csrf_field() !!} {!! method_field('PATCH') !!}
+                            <input type="text" hidden name="type" value="approval">
+                            <button class="badge badge-primary" type="submit">
+                                <span class="ks-icon la la-check"></span>
+                            </button>
+                        </form>
+                    </div>
+                    @endif
+                    <div>
+                        <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
+                            {!! csrf_field() !!}
+                            {!! method_field('DELETE') !!}
+                            <button class="badge badge-danger" type="submit">
+                                <span class="ks-icon la la-trash"></span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </td>
