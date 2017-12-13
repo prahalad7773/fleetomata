@@ -17,7 +17,7 @@ class OrderPODTest extends TestCase
         $order = factory(Order::class)->create();
         $status = "POD Received";
         $this->assertNull($order->pod_status);
-        $this->patch("orders/pod/{$order->id}", [
+        $this->patch("/trips/orders/pods/{$order->id}", [
             'pod_status' => $status,
         ]);
         $this->assertEquals($order->fresh()->pod_status, $status);

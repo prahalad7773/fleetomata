@@ -3,7 +3,7 @@
 <div class="ks-page-content-body" style="padding-top: 0px;">
     <div class="container-fluid">
     	<div class="row justify-content-md-space-around" style="margin-bottom: 15px;">
-        	<h3 class="col">Total Outstanding : <i class="la la-inr"></i> {{ $orders->sum('pending_balance') }}</h3>
+        	<h3 class="col">Total Outstanding : <i class="la la-inr"></i> {{  }}</h3>
     	</div>
 
     	<div class="row">

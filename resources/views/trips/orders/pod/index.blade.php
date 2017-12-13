@@ -28,7 +28,7 @@
 								<button class="btn btn-sm btn-primary updatePODStatus"
 									data-toggle="modal"
 									data-target="#updatePODStatus"
-									data-url="/orders/pod/{{ $order->id }}"
+									data-url="/trips/orders/pods/{{ $order->id }}"
 								>
 								Update
 								</button>
