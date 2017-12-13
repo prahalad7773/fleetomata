@@ -3,7 +3,7 @@
 <div class="ks-page-content-body" style="padding-top: 0px;">
     <div class="container-fluid">
     	<div class="row justify-content-md-space-around" style="margin-bottom: 15px;">
-        	<h3 class="col">Total Outstanding : <i class="la la-inr"></i> {{  }}</h3>
+        	<h3 class="col">Total Outstanding : {{ moneyFormat($orders->sum('pending_balance'),'INR') }}</h3>
     	</div>
 
     	<div class="row">
@@ -29,7 +29,9 @@
 							<td>
 								{{ $order->toHtml() }}
 							</td>
-							<td><i class="la la-inr"></i> {{ $order->pending_balance }}</td>
+							<td>
+                                {{ moneyFormat($order->pending_balance, 'INR') }}
+                            </td>
 						</tr>
     					@endforeach
     				</tbody>

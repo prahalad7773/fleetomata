@@ -10,6 +10,7 @@
         "barryvdh/laravel-ide-helper": "^2.4",
         "doctrine/dbal": "*",
         "fideloper/proxy": "~3.3",
+        "gerardojbaez/money": "^0.3.0",
         "laravel/framework": "5.5.*",
         "laravel/horizon": "^1.0",
         "laravel/tinker": "~1.0",
