@@ -65,4 +65,13 @@ class Ledger extends BaseModel
     {
         return $this->belongsTo(Trip::class);
     }
+
+    public function updateOrderBalance()
+    {
+        if ($this->fromable_type == 'App\Models\Trips\Order') {
+            $this->fromable->update([
+                'pending_balance' => ($this->fromable->pending_balance - $this->amount),
+            ]);
+        }
+    }
 }

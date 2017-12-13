@@ -5,9 +5,11 @@ namespace Tests\Feature;
 use App\Models\Trip;
 use App\Models\Trips\Account;
 use App\Models\Trips\Ledger;
+use App\Models\Trips\Order;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class LedgersTest extends TestCase
@@ -15,7 +17,7 @@ class LedgersTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function ledger_has_account_as_from_and_to()
+    public function ledgerHasAccountAsFromAndTo()
     {
         $this->signIn();
         $from = $this->createAccount('JSM HQ');
@@ -23,8 +25,10 @@ class LedgersTest extends TestCase
         $to = $this->createAccount('BPCL');
         $trip = factory(Trip::class)->create();
         $this->post("trips/{$trip->id}/ledgers", [
-            'from' => $from->name,
-            'to' => $to->name,
+            'fromable_id' => $from->id,
+            'fromable_type' => get_class($from),
+            'toable_id' => $to->id,
+            'toable_type' => get_class($to),
             'amount' => 100,
             'when' => '12-12-2017 12:00 AM',
             'reason' => 'Diesel advance',
@@ -34,7 +38,7 @@ class LedgersTest extends TestCase
     }
 
     /** @test */
-    public function fund_transferred_from_jsm_to_other_accounts_are_negative()
+    public function fundTransferredFromJsmToOtherAccountsAreNegative()
     {
         $this->signIn();
         $this->withoutExceptionHandling();
@@ -44,8 +48,10 @@ class LedgersTest extends TestCase
         $trip = factory(Trip::class)->create();
         $this->post("trips/{$trip->id}/ledgers", [
             'when' => '12-12-2017 12:00 AM',
-            'from' => $from->name,
-            'to' => $to->name,
+            'fromable_id' => $from->id,
+            'fromable_type' => get_class($from),
+            'toable_id' => $to->id,
+            'toable_type' => get_class($to),
             'amount' => $amount,
             'reason' => 'Diesel advance',
         ]);
@@ -54,11 +60,11 @@ class LedgersTest extends TestCase
     }
 
     /** @test */
-    public function ledgers_can_be_approved_by_admin()
+    public function ledgersCanBeApprovedByAdmin()
     {
-        $user = factory(User::class)->create([
-            'email' => 'itsme@theyounus.com',
-        ]);
+        $user = factory(User::class)->create();
+        Role::create(['name' => 'admin']);
+        $user->assignRole('admin');
         $this->signIn($user);
         $this->withoutExceptionHandling();
         $from = Account::create(['name' => 'JSM HQ']);
@@ -79,7 +85,7 @@ class LedgersTest extends TestCase
     }
 
     /** @test */
-    public function non_admins_cannot_approve_ledger()
+    public function nonAdminsCannotApproveLedger()
     {
         $this->signIn();
         $this->withoutExceptionHandling();
@@ -100,7 +106,7 @@ class LedgersTest extends TestCase
     }
 
     /** @test */
-    public function ledgers_with_other_types_are_not_approved()
+    public function ledgersWithOtherTypesAreNotApproved()
     {
         $user = factory(User::class)->create([
             'email' => 'itsme@theyounus.com',
@@ -125,7 +131,7 @@ class LedgersTest extends TestCase
     }
 
     /** @test */
-    public function admin_can_delete_Approved_ledgers()
+    public function adminCanDeleteApprovedLedgers()
     {
         $user = factory(User::class)->create([
             'email' => 'itsme@theyounus.com',
@@ -145,7 +151,7 @@ class LedgersTest extends TestCase
     }
 
     /** @test */
-    public function non_admins_cannot_delete_ledgers()
+    public function nonAdminsCannotDeleteLedgers()
     {
         $this->signIn();
         $this->withoutExceptionHandling();
@@ -162,6 +168,29 @@ class LedgersTest extends TestCase
         $this->delete("trips/{$ledger->trip_id}/ledgers/{$ledger->id}");
         $this->assertNotNull($ledger->fresh());
 
+    }
+
+    /** @test */
+    public function moneyTransferredToJsmHqUpdatesOrderPendingBalance()
+    {
+        $this->signIn();
+        $to = Account::create(['name' => 'JSM HQ']);
+        $pending_balance = 200;
+        $order = factory(Order::class)->create([
+            'pending_balance' => $pending_balance,
+        ]);
+        $this->withoutExceptionHandling();
+        $amount = 100;
+        $this->post("trips/{$order->trip_id}/ledgers", [
+            'when' => '12-12-2017 12:00 AM',
+            'fromable_id' => $order->id,
+            'fromable_type' => get_class($order),
+            'toable_id' => $to->id,
+            'toable_type' => get_class($to),
+            'amount' => $amount,
+            'reason' => 'Diesel advance',
+        ]);
+        $this->assertEquals($order->fresh()->pending_balance, ($pending_balance - $amount));
     }
 
     public function createAccount($name)

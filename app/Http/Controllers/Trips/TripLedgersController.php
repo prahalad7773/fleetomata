@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Trips;
 
 use App\Http\Controllers\Controller;
 use App\Models\Trip;
-use App\Models\Trips\Account;
-use App\Models\Trips\ApprovalSummary;
-use App\Models\Trips\Customer;
 use App\Models\Trips\Ledger;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,22 +13,24 @@ class TripLedgersController extends Controller
 
     public function store(Trip $trip, Request $request)
     {
-        $from = $this->getClassType($request->from);
-        $to = $this->getClassType($request->to);
         $ledger = new Ledger();
-        $ledger->fillFrom($from)->fillTo($to);
-        $ledger->amount = $from->name == 'JSM HQ' ? $request->amount * -1 : $request->amount;
+        $ledger->fromable_id = $request->fromable_id;
+        $ledger->fromable_type = $request->fromable_type;
+        $ledger->toable_id = $request->toable_id;
+        $ledger->toable_type = $request->toable_type;
+        $ledger->amount = $this->getAmount($request->fromable_id, $request->fromable_type, $request->amount);
         $ledger->reason = $request->reason;
         $ledger->when = $request->when;
         $ledger->created_by = auth()->id();
         $trip->ledgers()->save($ledger);
+        $ledger->updateOrderBalance();
         return redirect()->back();
     }
 
     public function update(Trip $trip, Ledger $ledger, Request $request)
     {
         if ($request->type == 'approval') {
-            if (auth()->user()->email == 'itsme@theyounus.com') {
+            if (auth()->user()->hasRole('admin')) {
                 $ledger->update([
                     'approval' => Carbon::now(),
                     'approved_by' => auth()->id(),
@@ -42,11 +41,6 @@ class TripLedgersController extends Controller
         return redirect()->back();
     }
 
-    protected function getClassType($value)
-    {
-        return Account::where('name', $value)->first() ?: Customer::where('name', $value)->first();
-    }
-
     public function destroy(Trip $trip, Ledger $ledger)
     {
         if (auth()->user()->isAdmin() || !$ledger->isApproved()) {
@@ -55,19 +49,9 @@ class TripLedgersController extends Controller
         return redirect()->back();
     }
 
-    public function approvals()
+    public function getAmount($id, $type, $amount)
     {
-        $approvals = Ledger::query();
-        if (request('status') == 'pending') {
-            $approvals->whereNull('approval');
-        }
-        $approvals = $approvals->get()->load(
-            'fromable', 'toable',
-            'trip.orders.loadingPoint', 'trip.orders.unloadingPoint', 'trip.truck');
-        $approvalSummary = new ApprovalSummary($approvals);
-        return view("approvals.index")->with([
-            'approvals' => $approvals,
-            'approvalSummary' => $approvalSummary,
-        ]);
+        return $type::find($id)->name == 'JSM HQ' ? -1 * $amount : $amount;
     }
+
 }

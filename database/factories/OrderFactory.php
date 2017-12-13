@@ -20,5 +20,6 @@ $factory->define(Order::class, function (Faker $faker) {
         'weight' => 14,
         'hire' => 100000,
         'when' => '12-12-2017 12:00 AM',
+        'pending_balance' => 100000,
     ];
 });
