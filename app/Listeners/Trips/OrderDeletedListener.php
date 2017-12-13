@@ -31,11 +31,8 @@ class OrderDeletedListener implements ShouldQueue
         foreach ($admins as $admin) {
             if ($admin->chat_id && $admin->token) {
                 $text = urlencode(
-                    sprintf("Order Deleted.\n%s\n%s\nDate : %s\nHire : Rs.%s\n",
-                        $event->order->trip->truck,
-                        $event->order->when->format('d-m-Y'),
-                        $event->order,
-                        $event->order->hire
+                    sprintf(
+                        "Order Deleted from Trip %s", $event->order->trip->id()
                     )
                 );
                 $client->get("https://api.telegram.org/bot{$admin->token}/sendMessage?chat_id={$admin->chat_id}&text={$text}");
