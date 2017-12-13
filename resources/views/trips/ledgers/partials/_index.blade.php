@@ -10,7 +10,7 @@
 <table class="table table-striped table-bordered dataTable" style="min-width: 600px">
     <thead>
         <tr>
-            <th>ID</th>
+            <th width="50">ID</th>
             <th width="100">When</th>
             @if($showOrder)
             <th>Trip</th>
