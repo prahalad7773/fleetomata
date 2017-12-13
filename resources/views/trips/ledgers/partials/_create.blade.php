@@ -23,9 +23,15 @@
                     <div class="form-group">
                         <select name="from" id="from" class="form-control">
                             @foreach($accounts as $account)
-                            <option value="{{ $account }}">{{ $account }}</option>
+                            <option value="{{ json_encode([
+                                    'id' => $account->id,
+                                    'type' => get_class($account)
+                                ]) }}">{{ $account }}</option>
                             @endforeach @foreach($orders as $order)
-                            <option value="{{ $order }}">{{ $order }}</option>
+                            <option value="{{ json_encode([
+                                    'id' => $order->id,
+                                    'type' => get_class($order)
+                                ]) }}">{{ $order }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -34,9 +40,15 @@
                     <div class="form-group">
                         <select name="to" id="to" class="form-control">
                             @foreach($accounts as $account)
-                            <option value="{{ $account }}">{{ $account }}</option>
+                            <option value="{{ json_encode([
+                                    'id' => $account->id,
+                                    'type' => get_class($account)
+                                ]) }}">{{ $account }}</option>
                             @endforeach @foreach($orders as $order)
-                            <option value="{{ $order }}">{{ $order }}</option>
+                            <option value="{{ json_encode([
+                                    'id' => $order->id,
+                                    'type' => get_class($order)
+                                ]) }}">{{ $order }}</option>
                             @endforeach
                         </select>
                     </div>

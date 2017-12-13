@@ -25,10 +25,14 @@ class LedgersTest extends TestCase
         $to = $this->createAccount('BPCL');
         $trip = factory(Trip::class)->create();
         $this->post("trips/{$trip->id}/ledgers", [
-            'fromable_id' => $from->id,
-            'fromable_type' => get_class($from),
-            'toable_id' => $to->id,
-            'toable_type' => get_class($to),
+            'from' => json_encode([
+                'id' => $from->id,
+                'type' => get_class($from),
+            ]),
+            'to' => json_encode([
+                'id' => $to->id,
+                'type' => get_class($to),
+            ]),
             'amount' => 100,
             'when' => '12-12-2017 12:00 AM',
             'reason' => 'Diesel advance',
@@ -48,10 +52,14 @@ class LedgersTest extends TestCase
         $trip = factory(Trip::class)->create();
         $this->post("trips/{$trip->id}/ledgers", [
             'when' => '12-12-2017 12:00 AM',
-            'fromable_id' => $from->id,
-            'fromable_type' => get_class($from),
-            'toable_id' => $to->id,
-            'toable_type' => get_class($to),
+            'from' => json_encode([
+                'id' => $from->id,
+                'type' => get_class($from),
+            ]),
+            'to' => json_encode([
+                'id' => $to->id,
+                'type' => get_class($to),
+            ]),
             'amount' => $amount,
             'reason' => 'Diesel advance',
         ]);
@@ -183,10 +191,14 @@ class LedgersTest extends TestCase
         $amount = 100;
         $this->post("trips/{$order->trip_id}/ledgers", [
             'when' => '12-12-2017 12:00 AM',
-            'fromable_id' => $order->id,
-            'fromable_type' => get_class($order),
-            'toable_id' => $to->id,
-            'toable_type' => get_class($to),
+            'from' => json_encode([
+                'id' => $order->id,
+                'type' => get_class($order),
+            ]),
+            'to' => json_encode([
+                'id' => $to->id,
+                'type' => get_class($to),
+            ]),
             'amount' => $amount,
             'reason' => 'Diesel advance',
         ]);

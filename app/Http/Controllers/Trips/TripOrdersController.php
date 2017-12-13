@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Trips;
 
 use App\Events\Trips\OrderCreatedEvent;
+use App\Events\Trips\OrderDeletedEvent;
+use App\Helpers\Flash;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use App\Models\Trip;
@@ -33,6 +35,16 @@ class TripOrdersController extends Controller
                 ])
             );
         event(new OrderCreatedEvent($order));
+        return redirect()->back();
+    }
+
+    public function destroy(Trip $trip, Order $order)
+    {
+        if (auth()->user()->hasRole('admin')) {
+            $order->delete();
+            event(new OrderDeletedEvent($order));
+            Flash::success("Order deleted successfully");
+        }
         return redirect()->back();
     }
 }

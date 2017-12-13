@@ -14,11 +14,13 @@ class TripLedgersController extends Controller
     public function store(Trip $trip, Request $request)
     {
         $ledger = new Ledger();
-        $ledger->fromable_id = $request->fromable_id;
-        $ledger->fromable_type = $request->fromable_type;
-        $ledger->toable_id = $request->toable_id;
-        $ledger->toable_type = $request->toable_type;
-        $ledger->amount = $this->getAmount($request->fromable_id, $request->fromable_type, $request->amount);
+        $request->from = json_decode($request->from, true);
+        $request->to = json_decode($request->to, true);
+        $ledger->fromable_id = $request->from['id'];
+        $ledger->fromable_type = $request->from['type'];
+        $ledger->toable_id = $request->to['id'];
+        $ledger->toable_type = $request->to['type'];
+        $ledger->amount = $this->getAmount($request->from['id'], $request->from['type'], $request->amount);
         $ledger->reason = $request->reason;
         $ledger->when = $request->when;
         $ledger->created_by = auth()->id();

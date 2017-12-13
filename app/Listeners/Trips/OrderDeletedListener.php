@@ -6,7 +6,7 @@ use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class OrderCreatedListener implements ShouldQueue
+class OrderDeletedListener implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -31,7 +31,7 @@ class OrderCreatedListener implements ShouldQueue
         foreach ($admins as $admin) {
             if ($admin->chat_id && $admin->token) {
                 $text = urlencode(
-                    sprintf("Order Created.\n%s\n%s\nDate : %s\nHire : Rs.%s\n",
+                    sprintf("Order Deleted.\n%s\n%s\nDate : %s\nHire : Rs.%s\n",
                         $event->order->trip->truck,
                         $event->order->when->format('d-m-Y'),
                         $event->order,

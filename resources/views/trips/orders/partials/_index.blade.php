@@ -8,7 +8,13 @@
                         {{ $order->id() }} -
                         {{ $order->customer() }}
                         <div class="ks-controls">
-                            <a href="#" class="ks-control ks-update"><span class="ks-icon la la-refresh"></span></a>
+                            @role('admin')
+                            <form action="{{ url("trips/{$trip->id}/orders/{$order->id}") }}" method="post">
+                                {!! csrf_field() !!}
+                                {!! method_field('DELETE') !!}
+                                <button class="ks-icon la la-trash btn-danger"></button>
+                            </form>
+                            @endrole
                         </div>
                     </div>
                     <div class="card-block">
