@@ -10,6 +10,7 @@
 <table class="table table-striped table-bordered dataTable" style="min-width: 600px">
     <thead>
         <tr>
+            <th>ID</th>
             <th width="100">When</th>
             @if($showOrder)
             <th>Trip</th>
@@ -25,6 +26,7 @@
     <tbody>
         @foreach($ledgers as $ledger)
         <tr>
+            <td>{{ $ledger->id() }}</td>
             <td>{{ $ledger->when->toDayDateTimeString() }}</td>
             @if($showOrder)
             <td>

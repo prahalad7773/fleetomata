@@ -17,6 +17,11 @@ class Ledger extends BaseModel
         'approvedBy',
     ];
 
+    public function id()
+    {
+        return "L#" . $this->id;
+    }
+
     public function setWhenAttribute($when)
     {
         return $this->attributes['when'] = Carbon::createFromFormat('d-m-Y g:i A', $when);

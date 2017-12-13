@@ -77,4 +77,18 @@ class LedgersTest extends TestCase
         $ledger->updateOrderBalance();
         $this->assertEquals($from->fresh()->pending_balance, 50);
     }
+
+    /** @test */
+    public function ledgerHasId()
+    {
+        $from = Account::create(['name' => 'JSM HQ']);
+        $to = Account::create(['name' => 'BPCL']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
+        ]);
+        $this->assertEquals($ledger->id(), "L#{$ledger->id}");
+    }
 }
