@@ -42,12 +42,10 @@
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ url('requirements/create') }}">Create</a>
         </div>
-        @role('admin')
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ url('requirements?status=pending') }}">Approve</a>
         </div>
-        @endrole
-         <div class="dropdown-menu">
+        <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ url('requirements/remittance') }}">Remittance</a>
         </div>
     </li>

@@ -52,6 +52,7 @@
                     <div>
                         <p>{{ $ledger->approvalStatus() }}</p>
                     </div>
+                    @role('admin')
                     @if(!$ledger->approval)
                     <div>
                         <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
@@ -72,6 +73,7 @@
                             </button>
                         </form>
                     </div>
+                    @endrole
                 </div>
             </td>
         </tr>

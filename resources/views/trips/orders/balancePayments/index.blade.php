@@ -8,11 +8,12 @@
 
     	<div class="row">
     		<div class="col">
-    			<table class="table table-bordered table-striped dataTable">
+    			<table class="table table-bordered table-striped">
     				<thead>
     					<tr>
     						<th>When</th>
     						<th>Trip</th>
+                            <th>Truck</th>
     						<th>Order</th>
     						<th>Pending</th>
     					</tr>
@@ -23,9 +24,10 @@
 							<td>{{ $order->when->toFormattedDateString() }}</td>
 							<td>
 								<a href="{{ url("trips/{$order->trip_id}/") }}">
-									T#{{ $order->trip_id }}
+									{{ $order->trip->id() }}
 								</a>
 							</td>
+                            <td>{{ $order->trip->truck }}</td>
 							<td>
 								{{ $order->toHtml() }}
 							</td>

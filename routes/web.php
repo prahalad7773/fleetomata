@@ -10,8 +10,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/event', function () {
         event(new App\Events\Trips\OrderCreatedEvent(App\Models\Trips\Order::first()));
     });
-    Route::redirect('/home', '/trucks');
-    Route::redirect('/', '/trucks');
+    Route::redirect('/home', '/trips');
+    Route::redirect('/', '/trips');
     Route::resource('trucks', 'TrucksController');
     Route::resource('trucks/{truck}/revenue-report', 'Trucks\RevenueReportController');
     Route::resource('trips', 'TripsController');

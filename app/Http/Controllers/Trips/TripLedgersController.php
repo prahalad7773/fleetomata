@@ -25,7 +25,7 @@ class TripLedgersController extends Controller
         $ledger->when = $request->when;
         $ledger->created_by = auth()->id();
         $trip->ledgers()->save($ledger);
-        $ledger->updateOrderBalance();
+        // $ledger->updateOrderBalance();
         return redirect()->back();
     }
 
@@ -37,6 +37,7 @@ class TripLedgersController extends Controller
                     'approval' => Carbon::now(),
                     'approved_by' => auth()->id(),
                 ]);
+                $ledger->updateOrderBalance();
             }
         }
 

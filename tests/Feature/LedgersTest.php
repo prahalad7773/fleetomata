@@ -179,31 +179,63 @@ class LedgersTest extends TestCase
     }
 
     /** @test */
-    public function moneyTransferredToJsmHqUpdatesOrderPendingBalance()
+    public function whenLedgersAreApprovedPendingBalanceIsUpdated()
     {
-        $this->signIn();
-        $to = Account::create(['name' => 'JSM HQ']);
-        $pending_balance = 200;
-        $order = factory(Order::class)->create([
-            'pending_balance' => $pending_balance,
-        ]);
+        $user = $this->signIn();
+        Role::create(['name' => 'admin']);
+        $user->assignRole('admin');
         $this->withoutExceptionHandling();
-        $amount = 100;
-        $this->post("trips/{$order->trip_id}/ledgers", [
-            'when' => '12-12-2017 12:00 AM',
-            'from' => json_encode([
-                'id' => $order->id,
-                'type' => get_class($order),
-            ]),
-            'to' => json_encode([
-                'id' => $to->id,
-                'type' => get_class($to),
-            ]),
-            'amount' => $amount,
-            'reason' => 'Diesel advance',
+        $ledgerAmount = 80;
+        $hire = 100;
+        $order = factory(Order::class)->create([
+            'hire' => $hire,
+            'pending_balance' => $hire,
         ]);
-        $this->assertEquals($order->fresh()->pending_balance, ($pending_balance - $amount));
+        $to = $this->createAccount('JSM HQ');
+        $ledger = Ledger::create([
+            'when' => '12-12-2017 12:00 AM',
+            'trip_id' => $order->trip_id,
+            'fromable_id' => $order->id,
+            'fromable_type' => get_class($order),
+            'toable_id' => $to->id,
+            'toable_type' => get_class($to),
+            'amount' => $ledgerAmount,
+            'reason' => 'Advance',
+            'created_by' => auth()->id(),
+        ]);
+        $this->assertEquals($order->pending_balance, $hire);
+        $this->patch("trips/{$ledger->trip_id}/ledgers/{$ledger->id}", [
+            'type' => 'approval',
+        ]);
+        $this->assertEquals($order->fresh()->pending_balance, $hire - $ledgerAmount);
     }
+
+    // /** @test */
+    // public function moneyTransferredToJsmHqUpdatesOrderPendingBalance()
+    // {
+    //     $this->signIn();
+    //     $to = Account::create(['name' => 'JSM HQ']);
+    //     $pending_balance = 200;
+    //     $order = factory(Order::class)->create([
+    //         'pending_balance' => $pending_balance,
+    //     ]);
+    //     $this->withoutExceptionHandling();
+    //     $amount = 100;
+    //     $this->post("trips/{$order->trip_id}/ledgers", [
+    //         'when' => '12-12-2017 12:00 AM',
+    //         'from' => json_encode([
+    //             'id' => $order->id,
+    //             'type' => get_class($order),
+    //         ]),
+    //         'to' => json_encode([
+    //             'id' => $to->id,
+    //             'type' => get_class($to),
+    //         ]),
+    //         'amount' => $amount,
+    //         'reason' => 'Diesel advance',
+    //     ]);
+    //     $this->assertEquals($order->fresh()->pending_balance, ($pending_balance - $amount));
+    // }
 
     public function createAccount($name)
     {

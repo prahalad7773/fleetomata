@@ -10,8 +10,9 @@ class BalancePaymentsController extends Controller
 
     public function index()
     {
-        $orders = Order::with('loadingPoint', 'unloadingPoint')
+        $orders = Order::with('loadingPoint', 'unloadingPoint', 'trip')
             ->where('pending_balance', '>', 0)
+            ->orderBy('pending_balance', 'DESC')
             ->get();
         return view("trips.orders.balancePayments.index")->with([
             'orders' => $orders,
