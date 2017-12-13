@@ -41,8 +41,15 @@ Artisan::command("delete:customer:ledgers", function () {
 
     App\Models\Trips\Order::where('when', '>', Carbon\Carbon::today()->startOfMonth()->subDays(15))
         ->whereIn('type', [0, 1])->get()->each(function ($order) {
-        $order->update([
-            'pending_balance' => $order->hire,
-        ]);
+        if ($order->hire > 1) {
+            $order->update([
+                'pending_balance' => $order->hire,
+            ]);
+        } else {
+            $order->update([
+                'pending_balance' => 0,
+            ]);
+        }
+
     });
 });
