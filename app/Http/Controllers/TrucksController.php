@@ -43,10 +43,11 @@ class TrucksController extends Controller
                 $trips = $truck->trips->load('orders.loadingPoint', 'orders.unloadingPoint')->sortByDesc('completed_at');
                 $ledgers = $truck->trips->load('ledgers.fromable', 'ledgers.toable')->pluck('ledgers')->collapse()->sortByDesc('when');
         }
-        $activeTrip = $trips->pop();
+        $activeTrip = collect($truck->activeTrip);
+
         return view("trucks.show")->with([
             'truck' => $truck,
-            'activeTrip' => collect()->push($activeTrip),
+            'activeTrip' => $activeTrip,
             'trips' => $trips,
             'ledgers' => $ledgers,
         ]);

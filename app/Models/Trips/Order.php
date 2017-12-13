@@ -7,6 +7,7 @@ use App\Models\Location;
 use App\Models\Trip;
 use App\Models\Trips\Customer;
 use Carbon\Carbon;
+use Illuminate\Support\HtmlString;
 
 class Order extends BaseModel
 {
@@ -62,5 +63,14 @@ class Order extends BaseModel
     public function __toString()
     {
         return $this->id() . " " . $this->loadingPoint->locality . " to " . $this->unloadingPoint->locality;
+    }
+
+    public function toHTML()
+    {
+        return new HtmlString(
+            sprintf("<p>%s<br>%s<br>%s</p>",
+                $this, $this->remarks ?? 'No Remarks', $this->customer()
+            )
+        );
     }
 }

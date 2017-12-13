@@ -28,13 +28,11 @@
             <a class="dropdown-item" href="{{ url('trips') }}">Trips</a>
         </div>
          <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ url('orders/pod') }}">Pending POD</a>
+            <a class="dropdown-item" href="{{ url('trips/orders/pods') }}">Pending POD</a>
         </div>
-        @can('view-pendingPayments')
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ url('trips/pending-payments') }}">Pending Payments</a>
+            <a class="dropdown-item" href="{{ url('trips/orders/balance-payments') }}">Balance Payments</a>
         </div>
-        @endcan
     </li>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" aria-haspopup="true" aria-expanded="false">

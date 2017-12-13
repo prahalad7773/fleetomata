@@ -18,7 +18,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('trips/{trip}/orders', 'Trips\TripOrdersController');
     Route::resource('trips/{trip}/ledgers', 'Trips\TripLedgersController');
 
-    Route::resource('orders/pod', 'OrdersPODController');
+    Route::resource('trips/orders/pods', 'Trips\Orders\PODsController');
+    Route::resource('trips/orders/balance-payments', 'Trips\Orders\BalancePaymentsController');
 
     Route::resource('reports/p-l-report', 'Reports\PLReportController');
     Route::get('reports/route-report', 'Reports\RouteReportController@index');

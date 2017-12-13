@@ -15,7 +15,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach($trips as $trip)
+		@forelse($trips as $trip)
 		<tr>
 			<td>
 				<a href="{{ url("trips/{$trip->id}") }}">
@@ -51,6 +51,10 @@
 			@endif
 			<td>{{ $trip->trip_days }}</td>
 		</tr>
-		@endforeach
+		@empty
+		<tr>
+			<td colspan="100" class="text-center">No Trips</td>
+		</tr>
+		@endforelse
 	</tbody>
 </table>

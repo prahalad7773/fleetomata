@@ -36,5 +36,13 @@ Artisan::command("delete:customer:ledgers", function () {
     App\Models\Trips\Order::where('when', '<', Carbon\Carbon::today()->startOfMonth()->subDays(15))
         ->update([
             'pod_status' => 'Waived off by System',
+            'pending_balance' => 0,
         ]);
+
+    App\Models\Trips\Order::where('when', '>', Carbon\Carbon::today()->startOfMonth()->subDays(15))
+        ->whereIn('type', [0, 1])->get()->each(function ($order) {
+        $order->update([
+            'pending_balance' => $order->hire,
+        ]);
+    });
 });
