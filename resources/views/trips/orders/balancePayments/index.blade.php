@@ -8,7 +8,7 @@
 
     	<div class="row">
     		<div class="col">
-    			<table class="table table-bordered table-striped">
+    			<table class="table table-bordered table-striped dataTable">
     				<thead>
     					<tr>
     						<th>When</th>
