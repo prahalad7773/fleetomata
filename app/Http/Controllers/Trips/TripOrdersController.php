@@ -29,6 +29,7 @@ class TripOrdersController extends Controller
                     'hire' => $request->hire,
                     'type' => $request->type,
                     'remarks' => $request->remarks,
+                    'pending_balance' => $request->hire,
                 ])
             );
         event(new OrderCreatedEvent($order));

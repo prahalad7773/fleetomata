@@ -53,6 +53,27 @@ class TripsTest extends TestCase
     }
 
     /** @test */
+    public function addingAnOrderUpdatesItsPendingBalance()
+    {
+        $this->signIn();
+        $this->withoutEvents();
+        $trip = factory(Trip::class)->create();
+        $this->withoutExceptionHandling();
+        $this->assertEquals($trip->orders()->count(), 0);
+        $this->post("trips/{$trip->id}/orders", [
+            'loading_place_id' => 'ChIJbWWE8SxhUjoR9jE5PIQLVhE',
+            'unloading_place_id' => 'ChIJbWWE8SxhUjoR9jE5PIQLVhE',
+            'cargo' => 'Pallets',
+            'weight' => '14',
+            'hire' => '25000',
+            'when' => '12-12-2017 12:00 AM',
+            'type' => 1,
+            'remarks' => 'Hello world',
+        ]);
+        $this->assertEquals($trip->orders()->first()->pending_balance, '25000');
+    }
+
+    /** @test */
     public function userCannotAddOrdersToATripWhichIsClosed()
     {
         $customer_name = 'JSM Logistics';
