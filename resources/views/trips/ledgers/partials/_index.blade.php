@@ -1,11 +1,5 @@
 @if($showForm)
-
-    @if($trip->isActive() || auth()->user()->hasRole('admin'))
-
-        @include("trips.ledgers.partials._create")
-
-    @endif
-
+    @include("trips.ledgers.partials._create")
 @endif
 <table class="table table-striped table-bordered dataTable" style="min-width: 600px">
     <thead>

@@ -20,9 +20,8 @@ class RequirementsController extends Controller
         if (request('status') == 'pending') {
             $approvals->whereNull('approval');
         }
-        $approvals = $approvals->get()->load(
-            'fromable', 'toable',
-            'trip.orders.loadingPoint', 'trip.orders.unloadingPoint', 'trip.truck');
+        $approvals = $approvals->get()
+            ->load('fromable', 'toable', 'trip.orders.loadingPoint', 'trip.orders.unloadingPoint', 'trip.truck');
         $approvalSummary = new ApprovalSummary($approvals);
         return view("trips.requirements.index")->with([
             'approvals' => $approvals,
@@ -65,6 +64,7 @@ class RequirementsController extends Controller
         }
         $remittance = Ledger::with('fromable', 'toable',
             'trip.orders.loadingPoint', 'trip.orders.unloadingPoint', 'trip.truck')
+            ->where('fromable_type', '!=', 'App\Models\Trips\Order')
             ->whereNotNull('approval')
             ->whereBetween(
                 'when',
