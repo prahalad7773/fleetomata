@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Trips\OrderCreatedEvent' => [
             'App\Listeners\Trips\OrderCreatedListener',
         ],
+        'App\Events\Trips\TripCompletedEvent' => [
+            'App\Listeners\Trips\CalculateGPSKMListener',
+        ],
     ];
 
     /**

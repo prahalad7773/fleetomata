@@ -4,7 +4,7 @@ namespace App\Models\Trips;
 
 use App\Models\Trip;
 use App\Models\Trips\Account;
-use App\Models\Trips\Customer;
+use App\Models\Trips\Order;
 
 class FinanceSummary
 {
@@ -27,7 +27,7 @@ class FinanceSummary
     public function handle()
     {
         foreach ($this->trip->ledgers as $ledger) {
-            if (!$ledger->toable instanceof Customer) {
+            if (!$ledger->toable instanceof Order) {
                 $this->{$ledger->toable} += abs($ledger->amount);
             }
             if ($ledger->amount < 0) {

@@ -10,20 +10,22 @@
                     </tr>
                     <tr>
                         <td>Income</td>
-                        <td><i class="la la-inr"></i>{{ $financeSummary->income }}</td>
+                        <td>{{ moneyFormat($financeSummary->income, 'INR') }}</td>
                     </tr>
                     <tr>
                         <td>Balance</td>
-                        <td><i class="la la-inr"></i>{{ $financeSummary->balance }}</td>
+                        <td>{{ moneyFormat($financeSummary->balance, 'INR') }}</td>
                     </tr>
-                    {{-- <tr>
+                    <tr>
                         <td>Expense</td>
-                        <td><i class="la la-inr"></i>{{ $financeSummary->{"expense"} }}</td>
+                        <td>{{ moneyFormat($financeSummary->{"expense"}, 'INR') }}</td>
                     </tr>
                     <tr>
                         <td>Profit</td>
-                        <td><i class="la la-inr"></i>{{ $financeSummary->{"profit"} }}</td>
-                    </tr> --}}
+                        <td class="{{ $financeSummary->{"profit"} > 0 ?: 'text-danger' }}">
+                            {{ moneyFormat($financeSummary->{"profit"}, 'INR') }}
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>
