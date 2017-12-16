@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\CalculateGPSKm;
+use App\Events\Trips\TripCompletedEvent;
 use App\Models\Trip;
 use App\Models\Trips\Account;
 use App\Models\Trips\FinanceSummary;
@@ -48,21 +48,16 @@ class TripsController extends Controller
         $trip->update([
             'completed_at' => Carbon::createFromFormat('d-m-Y g:i A', request('completed_at')),
         ]);
-        dispatch(new CalculateGPSKm($trip));
+        event(new TripCompletedEvent($trip));
         return redirect()->back();
     }
 
     public function destroy(Trip $trip)
     {
-        if (auth()->user()->isAdmin()) {
+        if (auth()->user()->hasRole('admin')) {
             $trip->delete();
         }
         return redirect("trips");
-    }
-
-    public function pendingPayments()
-    {
-        return view("trips.pendingPayments");
     }
 
 }

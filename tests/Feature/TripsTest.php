@@ -10,6 +10,7 @@ use App\Models\Truck;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class TripsTest extends TestCase
@@ -115,6 +116,8 @@ class TripsTest extends TestCase
             'email' => 'itsme@theyounus.com',
         ]);
         $this->signIn($user);
+        Role::create(['name' => 'admin']);
+        $user->assignRole('admin');
         $trip = factory(Trip::class)->create();
         $order = factory(Order::class)->create([
             'trip_id' => $trip->id,

@@ -11,12 +11,13 @@ class PODsController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('trip.truck', 'loadingPoint', 'unloadingPoint')
-            ->whereIn('type', [0, 1])
-            ->whereNull('pod_status')
-            ->get();
+        $query = Order::with('trip.truck', 'loadingPoint', 'unloadingPoint')
+            ->whereIn('type', [0, 1]);
+        if (request('status') == 'pending') {
+            $query = $query->whereNull('pod_status');
+        }
         return view("trips.orders.pod.index")->with([
-            'orders' => $orders,
+            'orders' => $query->get(),
         ]);
     }
 

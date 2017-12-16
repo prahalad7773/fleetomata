@@ -28,7 +28,17 @@
             <a class="dropdown-item" href="{{ url('trips') }}">Trips</a>
         </div>
          <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ url('trips/orders/pods') }}">Pending POD</a>
+            <a class="dropdown-item" href="{{ url('trips/orders/pods?status=pending') }}">PODs</a>
+        </div>
+
+    </li>
+     <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="ks-icon la la-inr"></span>
+            <span>Finances</span>
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{ url('trips/orders/credits') }}">Credits</a>
         </div>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ url('trips/orders/balance-payments') }}">Balance Payments</a>
