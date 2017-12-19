@@ -15,9 +15,12 @@ class TripsController extends Controller
 
     public function index()
     {
-        $trips = Trip::with('orders.loadingPoint', 'orders.unloadingPoint', 'truck')->whereNull('completed_at')->get();
+        $query = Trip::with('orders.loadingPoint', 'orders.unloadingPoint', 'truck');
+        if (!request()->has('status')) {
+            $query = $query->whereNull('completed_at');
+        }
         return view("trips.index")->with([
-            'trips' => $trips->sortByDesc('trip_days'),
+            'trips' => $query->get()->sortByDesc('trip_days'),
         ]);
     }
 
