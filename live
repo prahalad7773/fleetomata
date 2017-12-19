@@ -1,0 +1,4 @@
+[master 76034e8] added trips-
+ 4 files changed, 29 insertions(+), 22 deletions(-)
+ create mode 100644 live
+ rewrite resources/views/trips/index.blade.php (71%)
