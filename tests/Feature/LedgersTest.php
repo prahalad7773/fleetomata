@@ -159,8 +159,11 @@ class LedgersTest extends TestCase
     }
 
     /** @test */
-    public function ledgerUpdatesOrderBalanceWhenDeleting()
+    public function orderIncomeLedgerUpdatesPendingBalance()
     {
+        $user = $this->signIn();
+        Role::create(['name' => 'admin']);
+        $user->assignRole('admin');
         $amount = 100;
         $order = factory(Order::class)->create([
             'hire' => $amount,
@@ -173,8 +176,13 @@ class LedgersTest extends TestCase
             'fromable_type' => get_class($order),
             'toable_type' => get_class($to),
             'amount' => $amount,
-            'approval' =>
+            'approval' => Carbon::now(),
         ]);
+        $ledger->updateOrderBalance();
+        $this->withoutExceptionHandling();
+        $this->assertEquals($order->pending_balance - $amount, $order->fresh()->pending_balance);
+        $this->delete("trips/{$ledger->trip_id}/ledgers/{$ledger->id}");
+        $this->assertEquals($order->fresh()->pending_balance, $amount);
     }
 
     /** @test */
@@ -253,8 +261,6 @@ class LedgersTest extends TestCase
         ]);
         $this->assertEquals($trip->ledgers()->first()->amount, -1 * $amount);
     }
-
-
 
     // /** @test */
     // public function moneyTransferredToJsmHqUpdatesOrderPendingBalance()
