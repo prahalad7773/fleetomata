@@ -28,10 +28,11 @@ class FinanceSummary
             if (!$ledger->toable instanceof Order) {
                 $this->{$ledger->toable} += abs($ledger->amount);
             }
+            if ($ledger->fromable instanceof Order) {
+                $this->income += abs($ledger->amount);
+            }
             if ($ledger->amount < 0) {
                 $this->expense += abs($ledger->amount);
-            } else {
-                $this->income += abs($ledger->amount);
             }
         }
         //balance

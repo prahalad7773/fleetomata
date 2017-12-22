@@ -27,6 +27,7 @@
                                         <p><b>Material : </b>{{ $order->material() }}</p>
                                         <p><b>When : </b>{{ $order->when() }}</p>
                                         <p><b>Remarks : </b>{{ $order->remarks }}</p>
+                                        <p><b>Balance : </b>{{ moneyFormat($order->pending_balance,'INR') }}</p>
                                     </div>
                                      <span class="text-muted">Created at : {{ $order->created_at->toDayDateTimeString() }}</span>
                                 </div>

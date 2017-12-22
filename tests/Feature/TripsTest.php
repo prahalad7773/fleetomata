@@ -122,7 +122,8 @@ class TripsTest extends TestCase
         $order = factory(Order::class)->create([
             'trip_id' => $trip->id,
         ]);
-        list($from, $to) = factory(Account::class, 2)->create();
+        $from = factory(Account::class)->create(['name' => 'JSM HQ']);
+        $to = factory(Account::class)->create(['name' => 'BPCL']);
         $ledger = factory(Ledger::class)->create([
             'trip_id' => $trip->id,
             'fromable_id' => $from->id,
