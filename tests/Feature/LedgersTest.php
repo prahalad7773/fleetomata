@@ -210,6 +210,31 @@ class LedgersTest extends TestCase
         $this->assertEquals($order->fresh()->pending_balance, $hire - $ledgerAmount);
     }
 
+    /** @test */
+    public function fundsTransferredFromOrdersToExpensesAreNegative()
+    {
+        $this->signIn();
+        $this->withoutExceptionHandling();
+        $from = factory(Order::class)->create();
+        $to = $this->createAccount('BPCL');
+        $amount = 100;
+        $trip = factory(Trip::class)->create();
+        $this->post("trips/{$trip->id}/ledgers", [
+            'when' => '12-12-2017 12:00 AM',
+            'from' => json_encode([
+                'id' => $from->id,
+                'type' => get_class($from),
+            ]),
+            'to' => json_encode([
+                'id' => $to->id,
+                'type' => get_class($to),
+            ]),
+            'amount' => $amount,
+            'reason' => 'Diesel advance',
+        ]);
+        $this->assertEquals($trip->ledgers()->first()->amount, -1 * $amount);
+    }
+
     // /** @test */
     // public function moneyTransferredToJsmHqUpdatesOrderPendingBalance()
     // {
