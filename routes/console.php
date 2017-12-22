@@ -53,3 +53,15 @@ Artisan::command("delete:customer:ledgers", function () {
 
     });
 });
+
+Artisan::command("organize:balance", function () {
+    App\Models\Trips\Order::where('when', '>', Carbon\Carbon::today()->startOfMonth()->subDays(15))
+        ->each(function ($order) {
+            $order->update([
+                'pending_balance' => $order->hire,
+            ]);
+        });
+    App\Models\Trips\Ledger::where('fromable_type', 'App\Models\Trips\Order')
+        ->where('when', '>', Carbon\Carbon::today()->startOfMonth()->subDays(15))
+        ->get()->each->updateOrderBalance();
+});
