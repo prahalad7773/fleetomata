@@ -58,7 +58,7 @@ Artisan::command("organize:balance", function () {
     App\Models\Trips\Order::where('when', '>', Carbon\Carbon::today()->startOfMonth()->subDays(15))
         ->each(function ($order) {
             $order->update([
-                'pending_balance' => $order->hire,
+                'pending_balance' => $order->hire == 1 ? 0 : $order->hire,
             ]);
         });
     App\Models\Trips\Ledger::where('fromable_type', 'App\Models\Trips\Order')
