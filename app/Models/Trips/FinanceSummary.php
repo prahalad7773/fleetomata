@@ -10,9 +10,7 @@ class FinanceSummary
 {
     public function __construct(Trip $trip)
     {
-        $accounts = cache()->remember('accounts', 24 * 60, function () {
-            return Account::all();
-        });
+        $accounts = Account::all();
         foreach ($accounts as $account) {
             $this->{$account} = 0;
         }

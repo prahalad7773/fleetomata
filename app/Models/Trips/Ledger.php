@@ -23,9 +23,7 @@ class Ledger extends BaseModel
         parent::boot();
         static::deleted(function ($ledger) {
             if ($ledger->fromable_type == 'App\Models\Trips\Order') {
-                $ledger->fromable->update([
-                    'pending_balance' => $ledger->fromable->pending_balance + $ledger->amount,
-                ]);
+                $ledger->fromable->updateBalance();
             }
         });
     }
@@ -87,9 +85,7 @@ class Ledger extends BaseModel
     public function updateOrderBalance()
     {
         if ($this->fromable_type == 'App\Models\Trips\Order' && $this->isApproved()) {
-            $this->fromable->update([
-                'pending_balance' => ($this->fromable->pending_balance - $this->amount),
-            ]);
+            $this->fromable->updateBalance();
         }
     }
 

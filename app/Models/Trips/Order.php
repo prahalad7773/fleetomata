@@ -73,4 +73,17 @@ class Order extends BaseModel
             )
         );
     }
+
+    public function updateBalance()
+    {
+        $this->pending_balance = $this->hire;
+        $ledgers = $this->trip->ledgers()->where([
+            ['fromable_id', $this->id],
+            ['fromable_type', get_class($this)],
+        ])->get()->each(function ($ledger) {
+            $this->pending_balance = $this->pending_balance - abs($ledger->amount);
+        });
+        $this->save();
+        return $this;
+    }
 }
