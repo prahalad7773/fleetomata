@@ -4,6 +4,7 @@ namespace App\Models\Trips;
 
 use App\Models\BaseModel;
 use App\Models\Trip;
+use App\Models\Trips\Order;
 use App\User;
 use Carbon\Carbon;
 
@@ -78,5 +79,21 @@ class Ledger extends BaseModel
                 'pending_balance' => ($this->fromable->pending_balance - $this->amount),
             ]);
         }
+    }
+
+    /*
+    from JSM HQ -> anything else , amount = negative
+    from Order -> JSM HQ, amount = positive
+    from Order -> !JSM HQ, amount = negative
+     */
+    public function getAmount($amount)
+    {
+        if ($this->fromable == 'JSM HQ') {
+            $amount = -1 * $amount;
+        }
+        if (($this->fromable instanceof Order) && ($this->toable != 'JSM HQ')) {
+            $amount = -1 * $amount;
+        }
+        return $amount;
     }
 }

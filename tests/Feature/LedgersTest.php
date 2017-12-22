@@ -159,6 +159,25 @@ class LedgersTest extends TestCase
     }
 
     /** @test */
+    public function ledgerUpdatesOrderBalanceWhenDeleting()
+    {
+        $amount = 100;
+        $order = factory(Order::class)->create([
+            'hire' => $amount,
+            'pending_balance' => $amount,
+        ]);
+        $to = Account::create(['name' => 'BPCL']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $order->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($order),
+            'toable_type' => get_class($to),
+            'amount' => $amount,
+            'approval' =>
+        ]);
+    }
+
+    /** @test */
     public function nonAdminsCannotDeleteLedgers()
     {
         $this->signIn();
@@ -234,6 +253,8 @@ class LedgersTest extends TestCase
         ]);
         $this->assertEquals($trip->ledgers()->first()->amount, -1 * $amount);
     }
+
+
 
     // /** @test */
     // public function moneyTransferredToJsmHqUpdatesOrderPendingBalance()

@@ -91,4 +91,60 @@ class LedgersTest extends TestCase
         ]);
         $this->assertEquals($ledger->id(), "L#{$ledger->id}");
     }
+
+    /** @test */
+    public function moneyTransferredFromJsmHqAreExpenses()
+    {
+        $from = Account::create(['name' => 'JSM HQ']);
+        $to = Account::create(['name' => 'BPCL']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
+        ]);
+        $this->assertEquals($ledger->getAmount(100), -100);
+    }
+
+    /** @test */
+    public function moneyTransferredFromOrderToJsmHqIsIncome()
+    {
+        $from = factory(Order::class)->create(['hire' => 100]);
+        $to = Account::create(['name' => 'JSM HQ']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
+        ]);
+        $this->assertEquals($ledger->getAmount(100), 100);
+    }
+
+    /** @test */
+    public function moneyTransferredFromOrderToOtherAccountsAreExpenses()
+    {
+        $from = factory(Order::class)->create(['hire' => 100]);
+        $to = Account::create(['name' => 'Diesel']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
+        ]);
+        $this->assertEquals($ledger->getAmount(100), -100);
+    }
+
+    /** @test */
+    public function moneyTransferredFromOtherAccountsToJsmHqAreIncome()
+    {
+        $from = Account::create(['name' => 'Diesel']);
+        $to = Account::create(['name' => 'JSM HQ']);
+        $ledger = factory(Ledger::class)->create([
+            'fromable_id' => $from->id,
+            'toable_id' => $to->id,
+            'fromable_type' => get_class($from),
+            'toable_type' => get_class($to),
+        ]);
+        $this->assertEquals($ledger->getAmount(100), 100);
+    }
 }

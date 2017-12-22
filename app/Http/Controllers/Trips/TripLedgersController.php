@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Trips;
 use App\Http\Controllers\Controller;
 use App\Models\Trip;
 use App\Models\Trips\Ledger;
-use App\Models\Trips\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -21,7 +20,7 @@ class TripLedgersController extends Controller
         $ledger->fromable_type = $request->from['type'];
         $ledger->toable_id = $request->to['id'];
         $ledger->toable_type = $request->to['type'];
-        $ledger->amount = $this->getAmount($ledger, $request->amount);
+        $ledger->amount = $ledger->getAmount($request->amount);
         $ledger->reason = $request->reason;
         $ledger->when = $request->when;
         $ledger->created_by = auth()->id();
@@ -51,22 +50,6 @@ class TripLedgersController extends Controller
             $ledger->delete();
         }
         return redirect()->back();
-    }
-
-    /*
-    from JSM HQ -> anything else , amount = negative
-    from Order -> JSM HQ, amount = positive
-    from Order -> !JSM HQ, amount = negative
-     */
-    public function getAmount($ledger, $amount)
-    {
-        if ($ledger->fromable == 'JSM HQ') {
-            $amount = -1 * $amount;
-        }
-        if (($ledger->fromable instanceof Order) && ($ledger->toable != 'JSM HQ')) {
-            $amount = -1 * $amount;
-        }
-        return $amount;
     }
 
 }
