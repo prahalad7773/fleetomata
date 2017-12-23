@@ -45,4 +45,21 @@ class TripOrdersController extends Controller
         }
         return redirect()->back();
     }
+
+    public function update(Trip $trip,Order $order,Request $request){
+        $loading = Location::createFromPlaceID($request->loading_place_id);
+        $unloading = Location::createFromPlaceID($request->unloading_place_id);
+        $order->update([
+            'loading_point_id'=>$loading->id,
+            'unloading_point_id'=>$unloading->id,
+            'cargo' => $request->cargo,
+            'weight' => $request->weight,
+            'hire' => $request->hire,
+            'when' => $request->when,
+            'type' => $request->type,
+            'remarks' => $request->remarks
+        ]);
+        Flash::success("Order Updated successfully");
+        return redirect()->back();
+    }
 }

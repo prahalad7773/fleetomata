@@ -48,6 +48,12 @@
                     <div>
                         <p>{{ $ledger->approvalStatus() }}</p>
                     </div>
+                    <div class="ks-controls">
+                        <a href="#" class="btn btn-sm btn-primary ks-control" data-toggle="modal" data-target="#updateLedger-{{$ledger->id}}">
+                            <span class="ks-icon la la-edit"></span>
+                        </a>
+                    </div>
+                    @include('modals.ledgers._update',['ledger'=>$ledger])
                     @role('admin')
                     @if(!$ledger->approval)
                     <div>

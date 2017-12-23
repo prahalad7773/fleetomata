@@ -12,6 +12,10 @@ $factory->define(App\Models\Trips\Ledger::class, function (Faker $faker) {
         'amount' => 100,
         'when' => '12-12-2017 12:00 AM',
         'reason' => $faker->sentence,
+        'fromable_id'=>1,
+        'fromable_type'=>"APP\Models\Account",
+        'toable_id'=>1,
+        'toable_type'=>"APP\Models\Account",
         'created_by' => function () {
             return factory(User::class)->create()->id;
         },
