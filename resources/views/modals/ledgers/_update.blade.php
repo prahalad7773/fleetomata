@@ -27,7 +27,9 @@
         <div class="col">
             <div class="form-group">
                 <label>Reason</label>
-                <input type="text" class="form-control" name="reason" id="reason" placeholder="Reason" autocomplete="off" value="{{$ledger->reason}}" required>
+                <textarea type="text" class="form-control" name="reason" id="reason" placeholder="Reason" autocomplete="off" required>
+                    {{$ledger->reason}}
+                </textarea>
             </div>
         </div>
     </div>

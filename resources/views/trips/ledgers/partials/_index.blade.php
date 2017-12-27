@@ -44,37 +44,37 @@
             </td>
             <td>{{ $ledger->reason }}</td>
             <td class="">
-                <div class="ks-items-block" style="display: flex; justify-content: space-between;">
+                <div class="ks-items-block" style="display: flex; justify-content: space-around;">
                     <div>
                         <p>{{ $ledger->approvalStatus() }}</p>
                     </div>
-                    <div class="ks-controls">
-                        <a href="#" class="btn btn-sm btn-primary ks-control" data-toggle="modal" data-target="#updateLedger-{{$ledger->id}}">
-                            <span class="ks-icon la la-edit"></span>
-                        </a>
-                    </div>
-                    @include('modals.ledgers._update',['ledger'=>$ledger])
                     @role('admin')
-                    @if(!$ledger->approval)
-                    <div>
-                        <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
-                            {!! csrf_field() !!} {!! method_field('PATCH') !!}
-                            <input type="text" hidden name="type" value="approval">
-                            <button class="badge badge-primary" type="submit">
-                                <span class="ks-icon la la-check"></span>
+                        <div class="ks-controls">
+                            <button class="btn-primary ks-control" data-toggle="modal" data-target="#updateLedger-{{$ledger->id}}">
+                                <span class="ks-icon la la-edit"></span>
                             </button>
-                        </form>
-                    </div>
-                    @endif
-                    <div>
-                        <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
-                            {!! csrf_field() !!}
-                            {!! method_field('DELETE') !!}
-                            <button class="badge badge-danger" type="submit">
-                                <span class="ks-icon la la-trash"></span>
-                            </button>
-                        </form>
-                    </div>
+                        </div>
+                        @include('modals.ledgers._update',['ledger'=>$ledger])
+                        @if(!$ledger->approval)
+                        <div>
+                            <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
+                                {!! csrf_field() !!} {!! method_field('PATCH') !!}
+                                <input type="text" hidden name="type" value="approval">
+                                <button class="badge badge-primary" type="submit">
+                                    <span class="ks-icon la la-check"></span>
+                                </button>
+                            </form>
+                        </div>
+                        @endif
+                        <div>
+                            <form action="{{ url("trips/{$ledger->trip_id}/ledgers/{$ledger->id}") }}" method="post">
+                                {!! csrf_field() !!}
+                                {!! method_field('DELETE') !!}
+                                <button class="badge badge-danger" type="submit">
+                                    <span class="ks-icon la la-trash"></span>
+                                </button>
+                            </form>
+                        </div>
                     @endrole
                 </div>
             </td>
