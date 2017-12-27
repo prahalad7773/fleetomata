@@ -9,18 +9,18 @@
                         {{ $order->customer() }}
 
                         <div class="ks-controls">
-                            <button class="btn-warning ks-icon" data-toggle="modal" data-target="#updateOrder-{{$order->id}}" data-order-id="{{$order->id}}">
-                                <span class="la la-edit"></span>
-                            </button>
-                            @include('modals.orders._update',[
-                                'order' => $order
-                            ])
                             @role('admin')
-                            <form action="{{ url("trips/{$trip->id}/orders/{$order->id}") }}" method="post">
-                                {!! csrf_field() !!}
-                                {!! method_field('DELETE') !!}
-                                <button class="ks-icon la la-trash btn-danger"></button>
-                            </form>
+                                <button class="btn-warning ks-icon" data-toggle="modal" data-target="#updateOrder-{{$order->id}}" data-order-id="{{$order->id}}">
+                                    <span class="la la-edit"></span>
+                                </button>
+                                @include('modals.orders._update',[
+                                    'order' => $order
+                                ])
+                                <form action="{{ url("trips/{$trip->id}/orders/{$order->id}") }}" method="post">
+                                    {!! csrf_field() !!}
+                                    {!! method_field('DELETE') !!}
+                                    <button class="ks-icon la la-trash btn-danger"></button>
+                                </form>
                             @endrole
                         </div>
                     </div>
