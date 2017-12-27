@@ -9,10 +9,12 @@
                         {{ $order->customer() }}
 
                         <div class="ks-controls">
-                            <a href="#" class="btn btn-sm ks-control" data-toggle="modal" data-target="#updateOrder-{{$order->id}}" data-order-id="{{$order->id}}">
-                                <span class="ks-icon la la-edit"></span>
-                            </a>
-                            @include('modals.orders._update')
+                            <button class="btn-warning ks-icon" data-toggle="modal" data-target="#updateOrder-{{$order->id}}" data-order-id="{{$order->id}}">
+                                <span class="la la-edit"></span>
+                            </button>
+                            @include('modals.orders._update',[
+                                'order' => $order
+                            ])
                             @role('admin')
                             <form action="{{ url("trips/{$trip->id}/orders/{$order->id}") }}" method="post">
                                 {!! csrf_field() !!}

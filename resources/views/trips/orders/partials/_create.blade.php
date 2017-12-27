@@ -38,10 +38,11 @@
                             <span><i class="la la-map-marker"></i></span>
                         </div>
                         <input type="text" class="form-control loading" name="loading_formatted" id="loading_formatted" placeholder="Loading Point" autocomplete="off"
-                               value="{{$order->getLocation($order->loading_point_id)}}" required>
+                               value="{{ optional($order->loadingPoint)->formatted_address }}" required>
                     </div>
                     <div id="loadingDetails" class="loading_details hidden">
-                        <input type="text" name="loading_place_id" data-geo="place_id" value="{{$order->getLocation($order->loading_point_id)['place_id']}}" hidden>
+                        <input type="text" name="loading_place_id" data-geo="place_id"
+                        value="{{ optional($order->loadingPoint)->place_id }}" hidden>
                     </div>
                 </div>
             </div>
@@ -55,10 +56,11 @@
                             <span><i class="la la-map-marker"></i></span>
                         </div>
                         <input type="text" class="form-control unloading" name="unloading_formatted" id="unloading_formatted" placeholder="Unloading Point" autocomplete="off"
-                               value="{{$order->getLocation($order->unloading_point_id)}}"  required>
+                               value="{{optional($order->unloadingPoint)->formatted_address }}"  required>
                     </div>
                     <div id="unloadingDetails" class="unloading_details hidden">
-                        <input type="text" name="unloading_place_id" data-geo="place_id" value="{{$order->getLocation($order->unloading_point_id)['place_id']}}"  hidden>
+                        <input type="text" name="unloading_place_id" data-geo="place_id"
+                        value="{{optional($order->unloadingPoint)->place_id }}"  hidden>
                     </div>
                 </div>
             </div>

@@ -73,8 +73,4 @@ class Order extends BaseModel
             )
         );
     }
-    public function getLocation($id){
-
-        return Location::find($id);
-    }
 }
