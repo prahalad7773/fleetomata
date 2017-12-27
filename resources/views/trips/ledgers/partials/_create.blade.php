@@ -15,7 +15,7 @@
                 <td>
                     <div class="form-group">
                         <div class="">
-                            <input type="text" class="form-control" name="when" id="ledgerWhen" placeholder="When" autocomplete="off" required>
+                            <input type="text" class="form-control ledgerWhen" name="when" id="ledgerWhen" placeholder="When" autocomplete="off" required>
                         </div>
                     </div>
                 </td>

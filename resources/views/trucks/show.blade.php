@@ -88,8 +88,9 @@
                         @include('trips.ledgers.partials._index',[
                             'showForm' => false,
                             'showOrder' => false,
-                            'ledgers' => $ledgers
-                        ])
+                            'ledgers' => $ledgers,
+                            'trips' =>$trips,
+                       ])
                     </div>
                 </div>
             </div>

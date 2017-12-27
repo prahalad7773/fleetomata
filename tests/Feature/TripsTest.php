@@ -149,4 +149,38 @@ class TripsTest extends TestCase
         $this->delete("trips/{$trip->id}");
         $this->assertEquals(1, Trip::all()->count());
     }
+
+    /** @test */
+    public function userCanUpdateOrderToTrip(){
+        $this->signIn();
+        $order=factory(Order::class)->create();
+        $formInputs=[
+            'cargo' => 'Boxses',
+            'weight' => '14',
+            'hire' => '26000',
+            'when' => '12-12-2017 12:00 AM',
+            'type' => 1,
+            'remarks' => 'Hello world',
+            'trip'=>$order->trip->id
+        ];
+        $this->PATCH("trips/{$order->trip->id}/orders/{$order->id}",$formInputs);
+        $updatedOrder=Order::first();
+        $this->assertEquals($order->count(), 1);
+        $this->assertEquals($updatedOrder->weight,$formInputs['weight']);
+    }
+    /** @test */
+    public function userCanUpdateLedgerOfTrip()
+    {
+        $this->signIn();
+        $ledger=factory(Ledger::class)->create();
+        $formInputs=[
+            'when'=>'12-12-2017 12:00 AM',
+            'amount'=>"8000",
+            'reason' => "test 2"
+        ];
+        $this->PATCH("trips/{$ledger->trip_id}/ledgers/{$ledger->id}",$formInputs);
+        $updatedLedger=Ledger::first();
+        $this->assertEquals($ledger->count(),1);
+        $this->assertEquals($updatedLedger->amount,$formInputs['amount']);
+    }
 }

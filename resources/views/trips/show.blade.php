@@ -1,4 +1,14 @@
-@extends('layouts.app') @section('content')
+@extends('layouts.app')
+@section('head')
+    <script src="http://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&libraries=places"></script>
+    <style type="text/css">
+        .pac-container {
+            /* put Google geocomplete list on top of Bootstrap modal */
+            z-index: 9999;
+        }
+    </style>
+@append
+@section('content')
 <div class="ks-page-content-body" style="padding-top:0px;">
     <div class="ks-tabs-page-container">
         <div class="ks-tabs-container-description">
@@ -89,7 +99,7 @@
 
 <script type="text/javascript">
 
-$('#ledgerWhen').daterangepicker({
+$('.ledgerWhen').daterangepicker({
     singleDatePicker: true,
     timePicker: true,
     timePickerIncrement: 30,
