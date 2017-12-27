@@ -40,13 +40,11 @@ class TripLedgersController extends Controller
                 ]);
                 $ledger->updateOrderBalance();
             }
-        }
-        else
-        {
+        } else if ($request->type != 'other') {
             $ledger->update([
-                'when'=>$request->when,
-                'amount'=>$request->amount,
-                'reason' => $request->reason
+                'when' => $request->when,
+                'amount' => $request->amount,
+                'reason' => $request->reason,
             ]);
             Flash::success("Ledger Updated successfully");
             return redirect()->back();
