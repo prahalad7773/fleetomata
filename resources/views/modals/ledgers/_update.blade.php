@@ -9,7 +9,7 @@
             <div class="form-group">
                 <label>When</label>
                 <div class="">
-                    <input type="text" class="form-control ledgerWhen" name="when" id="ledgerWhen" placeholder="When" autocomplete="off" value="{{$ledger->when}}" required>
+                    <input type="text" class="form-control ledgerWhen" name="when" id="ledgerWhen" placeholder="When" autocomplete="off" value="{{$ledger->when->format('d-m-Y g:i A')}}" required>
                 </div>
             </div>
         </div>
