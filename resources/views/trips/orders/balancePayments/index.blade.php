@@ -15,7 +15,8 @@
     						<th>Trip</th>
                             <th>Truck</th>
     						<th>Order</th>
-    						<th>Pending</th>
+                            <th>Pending</th>
+    						<th>POD</th>
     					</tr>
     				</thead>
     				<tbody>
@@ -33,6 +34,9 @@
 							</td>
 							<td>
                                 {{ moneyFormat($order->pending_balance, 'INR') }}
+                            </td>
+                            <td>
+                                {{ $order->pod_status ?? 'Not Received' }}
                             </td>
 						</tr>
     					@endforeach
