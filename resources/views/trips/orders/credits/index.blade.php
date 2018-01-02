@@ -22,6 +22,7 @@
     					<tr>
     						<th width="100">When</th>
     						<th width="100">Trip</th>
+    						<th width="100">Truck</th>
     						<th width="250">Order</th>
     						<th width="150">Amount</th>
     						<th width="200">Approval</th>
@@ -36,6 +37,7 @@
 										{{ $ledger->trip->id() }}
 									</a>
 								</td>
+								<td>{{ $ledger->trip->truck }}</td>
 								<td>{{ $ledger->fromable->toHtml() }} </td>
 								<td>{{ moneyFormat($ledger->amount, 'INR') }}</td>
 								<td>{{ $ledger->approvalStatus() }}</td>

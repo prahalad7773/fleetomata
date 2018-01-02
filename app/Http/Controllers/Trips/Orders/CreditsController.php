@@ -11,7 +11,8 @@ class CreditsController extends Controller
 
     public function index()
     {
-        $query = Ledger::where('fromable_type', 'App\Models\Trips\Order');
+        $query = Ledger::with('fromable', 'toable', 'trip', 'trip.orders', 'trip.truck')
+            ->where('fromable_type', 'App\Models\Trips\Order');
         if (request()->has('start') && request()->has('end')) {
             $query = $query->whereBetween('when', [
                 Carbon::createFromFormat('d-m-Y', request()->get('start'))->startOfDay(),
