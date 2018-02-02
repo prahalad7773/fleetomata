@@ -34,8 +34,11 @@ class Trip extends BaseModel
     public function getTripDaysAttribute()
     {
         $end = $this->completed_at ?? Carbon::today();
-        $firstOrder = $this->orders->sortBy('when')->first()->when;
-        $transitDays = $end->diffInDays($firstOrder);
+        $transitDays = 0;
+        if ($this->orders->count() > 0) {
+            $firstOrder = $this->orders->sortBy('when')->first()->when;
+            $transitDays = $end->diffInDays($firstOrder);
+        }
         $emptyDays = $end->diffInDays($this->started_at) - $transitDays;
         return sprintf("%s(%s)", $transitDays, $emptyDays);
     }
