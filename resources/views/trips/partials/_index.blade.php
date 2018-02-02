@@ -11,7 +11,10 @@
 			@if($showCompleted)
 			<th width="100">Completed at</th>
 			@endif
-			<th width="100">Trip Days</th>
+			<th width="100">
+				Trip Days	<br>
+				Transit(Empty)
+			</th>
 		</tr>
 	</thead>
 	<tbody>

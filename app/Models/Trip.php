@@ -28,10 +28,16 @@ class Trip extends BaseModel
         });
     }
 
+    /**
+     * Returns in [TransitDays](Empty Days) format
+     */
     public function getTripDaysAttribute()
     {
-        $end = $this->completed_at ?? Carbon::now();
-        return $end->diffInDays($this->started_at);
+        $end = $this->completed_at ?? Carbon::today();
+        $firstOrder = $this->orders->sortBy('when')->first()->when;
+        $transitDays = $end->diffInDays($firstOrder);
+        $emptyDays = $end->diffInDays($this->started_at) - $transitDays;
+        return sprintf("%s(%s)", $transitDays, $emptyDays);
     }
 
     public function __toString()

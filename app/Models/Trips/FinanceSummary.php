@@ -43,8 +43,8 @@ class FinanceSummary
         $this->profit = $this->income - $this->expense;
         $this->mileage = round($this->trip->gps_km == 0 ? '1' : $this->trip->gps_km /
             ($this->{"Diesel"} == 0 ? 1 : $this->{"Diesel"} / 60), 2);
-        $this->profitPerDay = round($this->profit / ($this->trip->trip_days != 0 ? $this->trip->trip_days : 1));
-        $this->costPerDay = round(($this->income / ($this->trip->trip_days != 0 ? $this->trip->trip_days : 1)), 2);
+        // $this->profitPerDay = round($this->profit / ($this->trip->trip_days != 0 ? $this->trip->trip_days : 1));
+        // $this->costPerDay = round(($this->income / ($this->trip->trip_days != 0 ? $this->trip->trip_days : 1)), 2);
         return $this;
     }
 }
