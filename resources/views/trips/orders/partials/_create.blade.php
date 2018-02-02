@@ -8,7 +8,7 @@
                              <span class="i la la-calendar"></span>
                         </div>
                          <input type="text" class="form-control when" name="when" id="when" placeholder="When" autocomplete="off"
-                               value="{{ $order->when }}" required>
+                               value="{{ $order->when->format('d-m-Y g:i A') }}" required>
                     </div>
                 </div>
             </div>
