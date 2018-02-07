@@ -12,9 +12,9 @@ use Illuminate\Support\HtmlString;
 class Order extends BaseModel
 {
 
-    protected $with = [
-        'loadingPoint', 'unloadingPoint',
-    ];
+    // protected $with = [
+    // 'loadingPoint', 'unloadingPoint',
+    // ];
 
     protected $dates = [
         'when',

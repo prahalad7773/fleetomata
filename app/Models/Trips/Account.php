@@ -19,7 +19,7 @@ class Account extends BaseModel
 
     public function to()
     {
-        return $this->morphMany('App\Models\Trips\Ledgers', 'toable');
+        return $this->morphMany(Ledger::class, 'toable');
     }
 
 }

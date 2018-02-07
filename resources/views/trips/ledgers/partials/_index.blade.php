@@ -37,8 +37,12 @@
                 </ul>
             </td>
             @endif
-            <td>{{ $ledger->fromable }}</td>
-            <td>{{ $ledger->toable }}</td>
+            <td>
+                {{ $ledger->fromable }}
+            </td>
+            <td>
+                {{ $ledger->toable }}
+            </td>
             <td>
                 <i class="la la-inr"></i> {{ $ledger->amount }}
             </td>
