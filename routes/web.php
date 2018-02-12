@@ -10,6 +10,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/event', function () {
         event(new App\Events\Trips\OrderCreatedEvent(App\Models\Trips\Order::first()));
     });
+
+    Route::get('/dummy', function () {
+        sleep(5);
+        return response("worked", 200);
+    });
+
     Route::redirect('/home', '/trips');
     Route::redirect('/', '/trips');
     Route::resource('trucks', 'TrucksController');

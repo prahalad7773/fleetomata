@@ -35,6 +35,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('users-index', require('./components/users/Index.vue'));
+Vue.component('ledger-table',require('./components/table/ledgerTable.vue'));
 
 const app = new Vue({
     el: '#app'
