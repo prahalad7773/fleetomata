@@ -18,9 +18,6 @@
 			<th>Profit</th>
 			<th>Km</th>
 			<th>Cost/km</th>
-			<th>Days</th>
-			<th>Cost/Day</th>
-			<th>Profit/Day</th>
 			<th>Mileage</th>
 		</tr>
 	</thead>
@@ -50,10 +47,6 @@
 			<td><i class="la la-inr"></i>{{ $trip->financeSummary->{"expense"} }}</td>
 			<td><i class="la la-inr"></i>{{ $trip->financeSummary->{"profit"} }}</td>
 			<td>{{ $trip->gps_km }}</td>
-			<td><i class="la la-inr"></i>{{ $trip->financeSummary->costPerKm }}</td>
-			<td>{{ $trip->trip_days }}</td>
-			<td>{{ $trip->financeSummary->costPerDay }}</td>
-			<td>{{ $trip->financeSummary->profitPerDay }}</td>
 			<td>{{ $trip->financeSummary->mileage }}</td>
 		</tr>
 		@endforeach
