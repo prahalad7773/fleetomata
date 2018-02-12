@@ -35,7 +35,7 @@
 					<td>{{ ledger.amount }}</td>
 					<td>{{ ledger.reason }}</td>
 					<td>
-						<div v-if="!ledger.updating">
+						<div style="display:flex;justify-content:space-around;" v-if="!ledger.updating">
 							<button class="btn-success ks-control" @click="approveLedger(index,ledger.id)">
 	                            <span class="ks-icon la la-check"></span>
 	                        </button>
@@ -61,13 +61,14 @@
 			}
 		},
 		mounted(){
+
 		},
 		methods : {
 			approveLedger(index, ledgerID){
 				var self = this;
 				self.$set(self.ledgers[index], 'updating', true);
-				axios.get("/dummy?id="+self.ledgers[index].id).then(
-					()=>{
+				axios.post("/trips/"+self.ledgers[index].trip.id+"/ledgers/"+ledgerID+"?_method=PATCH",{ type : 'approval' })
+				.then(()=>{
 						new Noty({
 							'type' :'success' ,
 						 	'text' : 'L#'+ledgerID+ ' Approved Successfully',
@@ -94,7 +95,7 @@
 			deleteLedger(index, ledgerID){
 				var self = this;
 				self.$set(self.ledgers[index], 'updating', true);
-				axios.get("/dummy?id="+self.ledgers[index].id).then(
+				axios.post("/trips/"+self.ledgers[index].trip.id+"/ledgers/"+ledgerID+"?_method=DELETE").then(
 					()=>{
 						new Noty({
 							'type' :'success' ,

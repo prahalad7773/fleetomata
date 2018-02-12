@@ -47176,7 +47176,7 @@ var moment = __webpack_require__(0);
 		approveLedger: function approveLedger(index, ledgerID) {
 			var self = this;
 			self.$set(self.ledgers[index], 'updating', true);
-			axios.get("/dummy?id=" + self.ledgers[index].id).then(function () {
+			axios.post("/trips/" + self.ledgers[index].trip.id + "/ledgers/" + ledgerID + "?_method=PATCH", { type: 'approval' }).then(function () {
 				new Noty({
 					'type': 'success',
 					'text': 'L#' + ledgerID + ' Approved Successfully',
@@ -47200,7 +47200,7 @@ var moment = __webpack_require__(0);
 		deleteLedger: function deleteLedger(index, ledgerID) {
 			var self = this;
 			self.$set(self.ledgers[index], 'updating', true);
-			axios.get("/dummy?id=" + self.ledgers[index].id).then(function () {
+			axios.post("/trips/" + self.ledgers[index].trip.id + "/ledgers/" + ledgerID + "?_method=DELETE").then(function () {
 				new Noty({
 					'type': 'success',
 					'text': 'L#' + ledgerID + ' deleted successfully',
@@ -47545,33 +47545,42 @@ var render = function() {
             _vm._v(" "),
             _c("td", [
               !ledger.updating
-                ? _c("div", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn-success ks-control",
-                        on: {
-                          click: function($event) {
-                            _vm.approveLedger(index, ledger.id)
+                ? _c(
+                    "div",
+                    {
+                      staticStyle: {
+                        display: "flex",
+                        "justify-content": "space-around"
+                      }
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn-success ks-control",
+                          on: {
+                            click: function($event) {
+                              _vm.approveLedger(index, ledger.id)
+                            }
                           }
-                        }
-                      },
-                      [_c("span", { staticClass: "ks-icon la la-check" })]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn-danger ks-control",
-                        on: {
-                          click: function($event) {
-                            _vm.deleteLedger(index, ledger.id)
+                        },
+                        [_c("span", { staticClass: "ks-icon la la-check" })]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn-danger ks-control",
+                          on: {
+                            click: function($event) {
+                              _vm.deleteLedger(index, ledger.id)
+                            }
                           }
-                        }
-                      },
-                      [_c("span", { staticClass: "ks-icon la la-times" })]
-                    )
-                  ])
+                        },
+                        [_c("span", { staticClass: "ks-icon la la-times" })]
+                      )
+                    ]
+                  )
                 : _c("span", { staticClass: "ks-icon la la-refresh la-spin" })
             ])
           ])
