@@ -20,6 +20,10 @@ class CreditsController extends Controller
             ]);
         }
 
+        if (request()->has('status') && request()->get('status') == 'pending') {
+            $query->whereNull('approval');
+        }
+
         return view("trips.orders.credits.index")->with([
             'ledgers' => $query->get(),
         ]);

@@ -38,7 +38,10 @@
             <span>Finances</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ url('trips/orders/credits') }}">Credits</a>
+            <a class="dropdown-item" href="{{ url('trips/orders/credits') }}">Advance Remittance</a>
+        </div>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{ url('trips/orders/credits?status=pending') }}">Advance Pending</a>
         </div>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ url('trips/orders/balance-payments') }}">Balance Payments</a>
