@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Trips;
 
-use App\Helpers\Flash;
 use App\Http\Controllers\Controller;
 use App\Models\Trip;
 use App\Models\Trips\Ledger;
@@ -46,10 +45,8 @@ class TripLedgersController extends Controller
                 'amount' => $request->amount,
                 'reason' => $request->reason,
             ]);
-            Flash::success("Ledger Updated successfully");
             return redirect()->back();
         }
-
         return redirect()->back();
     }
 

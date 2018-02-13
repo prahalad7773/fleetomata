@@ -11,11 +11,6 @@ Route::group(['middleware' => 'auth'], function () {
         event(new App\Events\Trips\OrderCreatedEvent(App\Models\Trips\Order::first()));
     });
 
-    Route::get('/dummy', function () {
-        sleep(5);
-        return response("worked", 200);
-    });
-
     Route::redirect('/home', '/trips');
     Route::redirect('/', '/trips');
     Route::resource('trucks', 'TrucksController');
@@ -27,6 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('trips/orders/pods', 'Trips\Orders\PODsController');
     Route::resource('trips/orders/balance-payments', 'Trips\Orders\BalancePaymentsController');
     Route::resource('trips/orders/credits', 'Trips\Orders\CreditsController');
+    Route::resource('trips/orders/pending-advances', 'Trips\Orders\PendingAdvancesController');
 
     Route::resource('reports/p-l-report', 'Reports\PLReportController');
     Route::get('reports/route-report', 'Reports\RouteReportController@index');

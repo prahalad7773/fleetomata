@@ -32,7 +32,10 @@
 					<td v-html="getTripDetail(ledger.trip)"></td>
 					<td>{{ getFromTo(ledger.fromable, ledger.fromable_type) }}</td>
 					<td>{{ getFromTo(ledger.toable, ledger.toable_type) }}</td>
-					<td>{{ ledger.amount }}</td>
+					<td>
+						<i class="la la-inr"></i>
+						{{ ledger.amount }}
+					</td>
 					<td>{{ ledger.reason }}</td>
 					<td>
 						<div style="display:flex;justify-content:space-around;" v-if="!ledger.updating">
@@ -127,7 +130,7 @@
 				for(var i=0;i<trip.orders.length;i++)
 				{
 					html += "<li>"
-						+"<a href=''>O#"+trip.orders[i].id+"</a>\&nbsp;"
+						+"<b>O#"+trip.orders[i].id+"</b>\&nbsp;"
 						+trip.orders[i].loading_point.locality
 						+ " - "
 						+trip.orders[i].unloading_point.locality

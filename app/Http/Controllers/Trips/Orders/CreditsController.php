@@ -19,11 +19,6 @@ class CreditsController extends Controller
                 Carbon::createFromFormat('d-m-Y', request()->get('end'))->endOfDay(),
             ]);
         }
-
-        if (request()->has('status') && request()->get('status') == 'pending') {
-            $query->whereNull('approval');
-        }
-
         return view("trips.orders.credits.index")->with([
             'ledgers' => $query->get(),
         ]);
