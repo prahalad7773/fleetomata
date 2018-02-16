@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Trip;
 use Carbon\Carbon;
+use App\Models\Trip;
+use App\Models\Trucks\TruckExpense;
 
 class Truck extends BaseModel
 {
@@ -28,17 +29,23 @@ Getters and setters
         return $this->trips()->whereNull('completed_at')->first();
     }
 
-/*
-Relationships
- */
+    /*
+    Relationships
+     */
     public function trips()
     {
         return $this->hasMany(Trip::class, 'truck_id', 'id');
     }
 
-/*
-Custom Methods
- */
+    public function expenses()
+    {
+        return $this->hasMany(TruckExpense::class);
+    }
+    
+
+    /*
+    Custom Methods
+     */
     public function id()
     {
         return "T" . $this->id;
