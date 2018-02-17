@@ -54,6 +54,11 @@
                     Trips
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#expenses" data-toggle="tab" data-target="#expenses" aria-expanded="false">
+                    Expenses
+                </a>
+            </li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="trips" role="tabpanel" aria-expanded="false">
@@ -77,6 +82,12 @@
                     </div>
                 </div>
             </div>
+            <div class="tab-pane" id="expenses" role="tabpanel" aria-expanded="false">
+                @include('trucks.expenses.partials._index',[
+                    'expenses' => $truck->expenses
+                ])
+            </div>
+
         </div>
     </div>
 

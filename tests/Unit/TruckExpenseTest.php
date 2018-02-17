@@ -18,6 +18,7 @@ class TruckExpenseTest extends TestCase
         $expense = $truck->expenses()->create([
             'when' => '12-07-1993',
             'reason' => 'Truck Maintainance',
+            'type' => 'Salary',
             'amount' => -1000,
             'created_by' => 1,
             'approved_by' => 1,

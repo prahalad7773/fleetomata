@@ -19,6 +19,7 @@ class CreateTruckExpensesTable extends Migration
             $table->unsignedInteger('truck_id')->index();
             $table->unsignedInteger('created_by');
             $table->unsignedInteger('approved_by');
+            $table->string('type');
             $table->string('reason');
             $table->integer('amount');
             $table->timestamps();
