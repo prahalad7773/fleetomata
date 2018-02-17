@@ -26,13 +26,13 @@
                                 <span class="ks-text">Actions</span>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" data-toggle="modal" data-target="#filter">
-                                    <span class="la la-calendar ks-icon"></span>
-                                    <span class="ks-text">Filter</span>
-                                </a>
                                 <a class="dropdown-item"
                                     href="{{ url("trucks/{$truck->id}/revenue-report") }}">
                                     Revenue Report
+                                </a>
+                                <a class="dropdown-item"
+                                    href="{{ url("trucks/{$truck->id}/ledgers") }}">
+                                    Ledgers
                                 </a>
                             </div>
                         </div>
@@ -52,11 +52,6 @@
             <li class="nav-item">
                 <a class="nav-link active" href="#trips" data-toggle="tab" data-target="#trips" aria-expanded="false">
                     Trips
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#ledgers" data-toggle="tab" data-target="#ledgers" aria-expanded="false">
-                   Ledgers
                 </a>
             </li>
         </ul>
@@ -82,23 +77,9 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="ledgers" role="tabpanel" aria-expanded="false">
-                <div class="row">
-                    <div class="col table-responsive">
-                        @include('trips.ledgers.partials._index',[
-                            'showForm' => false,
-                            'showOrder' => false,
-                            'ledgers' => $ledgers,
-                            'trips' =>$trips,
-                       ])
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
-
     @include('trucks.modals._createTrip')
-    @include('trucks.modals._filter')
 
 @append

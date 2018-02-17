@@ -66,14 +66,20 @@ class Order extends BaseModel
 
     public function __toString()
     {
-        return $this->id() . " " . $this->loadingPoint->locality . " to " . $this->unloadingPoint->locality;
+        if ($this->relationLoaded('loadingPoint') && $this->relationLoaded('unloadingPoint')) {
+            return $this->id() . " " . $this->loadingPoint->locality . " to " . $this->unloadingPoint->locality;
+        }
+        return $this->id();
     }
 
     public function toHTML()
     {
         return new HtmlString(
-            sprintf("<p>%s<br>%s<br>%s</p>",
-                $this, $this->remarks ?? 'No Remarks', $this->customer()
+            sprintf(
+                "<p>%s<br>%s<br>%s</p>",
+                $this,
+                $this->remarks ?? 'No Remarks',
+                $this->customer()
             )
         );
     }
