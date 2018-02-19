@@ -4,11 +4,11 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th width="20%">When</th>
-						<th width="20%">Type</th>
-						<th width="20%">Amount</th>
-						<th width="25%">Reason</th>
-						<th width=""></th>
+						<th width="200">When</th>
+						<th width="200">Type</th>
+						<th width="200">Amount</th>
+						<th width="250">Reason</th>
+						<th width="150"></th>
 					</tr>
 				</thead>
 				<tr>
@@ -81,7 +81,7 @@
 			<th>Amount</th>
 			<th>Reason</th>
 			<th>Created By</th>
-			<th>Approved By</th>
+			<th width="150">Approved By</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -93,7 +93,30 @@
 			<td><i class="la la-inr"></i> {{ $expense->amount }}</td>
 			<td>{{ $expense->reason }}</td>
 			<td>{{ $expense->createdBy }}</td>
-			<td>{{ $expense->approvedBy }}</td>
+			<td>
+				
+				@if($expense->approved_by)
+					{{ $expense->approvalStatus() }}
+				@else
+					<form method="post" style="display: initial;" action="{{ url("trucks/{$truck->id}/expenses/{$expense->id}") }}">
+						{{ csrf_field() }}		
+						{{ method_field('PATCH') }}
+						<input type="text" name="type" value="approval" hidden>				
+						<button class="btn btn-sm btn-primary">
+							<i class="la la-check"></i>
+						</button>
+					</form>
+				@endif
+				@role('admin')
+					<form method="post" style="display: initial;" action="{{ url("trucks/{$truck->id}/expenses/{$expense->id}") }}">
+						{{ csrf_field() }}		
+						{{ method_field('DELETE') }}
+						<button class="btn btn-sm btn-danger">
+							<i class="la la-times"></i>
+						</button>
+					</form>
+				@endrole
+			</td>
 		</tr>
 		@endforeach
 	</tbody>

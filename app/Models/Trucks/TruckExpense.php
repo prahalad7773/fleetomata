@@ -9,7 +9,7 @@ use App\Models\BaseModel;
 class TruckExpense extends BaseModel
 {
     protected $dates = [
-        'when'
+        'when','approved_at'
     ];
 
     protected $types = [
@@ -25,7 +25,6 @@ class TruckExpense extends BaseModel
         return $this->attributes['when'] = Carbon::createFromFormat('d-m-Y', $val);
     }
     
-
     public function id()
     {
         return sprintf("E#%s", $this->id);
@@ -44,5 +43,10 @@ class TruckExpense extends BaseModel
     public function approvedBy()
     {
         return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function approvalStatus()
+    {
+        return sprintf("Approved by %s at %s", $this->approvedBy, $this->approved_at->toDayDateTimeString());
     }
 }

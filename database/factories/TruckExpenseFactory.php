@@ -23,5 +23,6 @@ $factory->define(TruckExpense::class, function (Faker $faker) {
         'approved_by' => function () {
             return factory(User::class)->create()->id;
         },
+        'approved_at' => Carbon::now(),
     ];
 });

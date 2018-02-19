@@ -11,4 +11,12 @@ class Flash
             'msg' => $msg,
         ]);
     }
+
+    public static function error($msg)
+    {
+        session()->flash('notification', [
+            'type' => 'error',
+            'msg' => $msg,
+        ]);
+    }
 }
