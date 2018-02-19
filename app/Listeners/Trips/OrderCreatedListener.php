@@ -33,11 +33,17 @@ class OrderCreatedListener implements ShouldQueue
             if ($admin->chat_id && $admin->token) {
                 $text = urlencode(
                     sprintf(
-                        "Order Created.\n%s\n%s\nDate : %s\nHire : Rs.%s\n",
+                        "Order Created.\n
+                        %s\n
+                        %s\n
+                        Date : %s\n
+                        Hire : Rs.%s\n
+                        %s",
                         $event->order->trip->truck,
-                        $event->order->when->format('d-m-Y'),
                         $event->order,
-                        $event->order->hire
+                        $event->order->when->format('d-m-Y'),
+                        $event->order->hire,
+                        $event->order
                     )
                 );
                 $client->get("https://api.telegram.org/bot{$admin->token}/sendMessage?chat_id={$admin->chat_id}&text={$text}");
