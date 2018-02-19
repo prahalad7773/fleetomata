@@ -13,6 +13,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::redirect('/home', '/trips');
     Route::redirect('/', '/trips');
+    Route::resource('trucks/pending-expenses', 'Trucks\PendingExpensesController');
+    Route::resource('trucks/approved-expenses', 'Trucks\ApprovedExpensesController');
+
     Route::resource('trucks/{truck}/revenue-report', 'Trucks\RevenueReportController');
     Route::resource('trucks/{truck}/ledgers', 'Trucks\LedgersController');
     Route::resource('trucks/{truck}/expenses', 'Trucks\ExpensesController');

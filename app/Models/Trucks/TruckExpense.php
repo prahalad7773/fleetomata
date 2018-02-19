@@ -49,4 +49,9 @@ class TruckExpense extends BaseModel
     {
         return sprintf("Approved by %s at %s", $this->approvedBy, $this->approved_at->toDayDateTimeString());
     }
+
+    public function scopePending($query)
+    {
+        return $query->whereNull('approved_by');
+    }
 }

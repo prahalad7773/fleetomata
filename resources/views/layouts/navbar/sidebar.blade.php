@@ -13,11 +13,20 @@
         </div>
     </li>
     @endrole
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url('trucks') }}">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" aria-haspopup="true" aria-expanded="false">
             <span class="ks-icon la la-truck"></span>
             <span>Trucks</span>
         </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{ url('trucks') }}">Trucks</a>
+        </div>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{ url('trucks/pending-expenses') }}">Pending Expenses</a>
+        </div>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{ url('trucks/approved-expenses') }}">Expenses</a>
+        </div>
     </li>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" aria-haspopup="true" aria-expanded="false">

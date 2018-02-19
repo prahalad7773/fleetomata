@@ -84,7 +84,9 @@
             </div>
             <div class="tab-pane" id="expenses" role="tabpanel" aria-expanded="false">
                 @include('trucks.expenses.partials._index',[
-                    'expenses' => $truck->expenses
+                    'expenses' => $truck->expenses,
+                    'showCreate' => true,
+                    'showTruck' => false,
                 ])
             </div>
 
