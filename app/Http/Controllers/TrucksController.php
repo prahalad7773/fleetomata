@@ -41,6 +41,7 @@ class TrucksController extends Controller
             'truck' => $truck,
             'activeTrip' => $activeTrip,
             'trips' => $truck->trips,
+            'newExpense' => new TruckExpense(),
         ]);
     }
 }

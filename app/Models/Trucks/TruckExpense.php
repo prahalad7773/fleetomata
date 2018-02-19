@@ -12,9 +12,11 @@ class TruckExpense extends BaseModel
         'when'
     ];
 
-    protected static $types = [
+    protected $types = [
         'Driver Salary',
-        'Fine',
+        'Driver Batta',
+        'Urea',
+        'Fine / Tax',
         'Maintainance',
     ];
 
@@ -28,8 +30,12 @@ class TruckExpense extends BaseModel
     {
         return sprintf("E#%s", $this->id);
     }
+     
+    public function types()
+    {
+        return $this->types;
+    }
     
-
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by');
