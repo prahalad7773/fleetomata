@@ -96,7 +96,7 @@
 			<td>{{ $expense->id() }}</td>
 			<td>{{ $expense->when->format('d-m-Y') }}</td>
 			@if($showTruck)
-				<td>{{ $expense->truck }}</td>
+				<td>{{ $expense->truck->number }}</td>
 			@endif
 			<td>{{ $expense->type }}</td>
 			<td><i class="la la-inr"></i> {{ $expense->amount }}</td>
@@ -107,7 +107,7 @@
 				@if($expense->approved_by)
 					{{ $expense->approvalStatus() }}
 				@else
-					<form method="post" style="display: initial;" action="{{ url("trucks/{$truck->id}/expenses/{$expense->id}") }}">
+					<form method="post" style="display: initial;" action="{{ url("trucks/{$expense->truck_id}/expenses/{$expense->id}") }}">
 						{{ csrf_field() }}		
 						{{ method_field('PATCH') }}
 						<input type="text" name="type" value="approval" hidden>				
@@ -117,7 +117,7 @@
 					</form>
 				@endif
 				@role('admin')
-					<form method="post" style="display: initial;" action="{{ url("trucks/{$truck->id}/expenses/{$expense->id}") }}">
+					<form method="post" style="display: initial;" action="{{ url("trucks/{$expense->truck_id}/expenses/{$expense->id}") }}">
 						{{ csrf_field() }}		
 						{{ method_field('DELETE') }}
 						<button class="btn btn-sm btn-danger">

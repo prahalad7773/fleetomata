@@ -11,7 +11,7 @@ class ApprovedExpensesController extends Controller
     public function index()
     {
         return view("trucks.approved-expenses.index")->with([
-            'expenses' => TruckExpense::orderBy('when', 'desc')->get()
+            'expenses' => TruckExpense::whereNotNull('approved_by')->orderBy('when', 'desc')->get()
         ]);
     }
 }

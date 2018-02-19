@@ -4,6 +4,7 @@ namespace App\Models\Trucks;
 
 use App\User;
 use Carbon\Carbon;
+use App\Models\Truck;
 use App\Models\BaseModel;
 
 class TruckExpense extends BaseModel
@@ -44,6 +45,12 @@ class TruckExpense extends BaseModel
     {
         return $this->belongsTo(User::class, 'approved_by');
     }
+
+    public function truck()
+    {
+        return $this->belongsTo(Truck::class);
+    }
+    
 
     public function approvalStatus()
     {
