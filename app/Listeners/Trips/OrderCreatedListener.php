@@ -4,6 +4,7 @@ namespace App\Listeners\Trips;
 
 use App\User;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class OrderCreatedListener implements ShouldQueue
@@ -31,7 +32,8 @@ class OrderCreatedListener implements ShouldQueue
         foreach ($admins as $admin) {
             if ($admin->chat_id && $admin->token) {
                 $text = urlencode(
-                    sprintf("Order Created.\n%s\n%s\nDate : %s\nHire : Rs.%s\n",
+                    sprintf(
+                        "Order Created.\n%s\n%s\nDate : %s\nHire : Rs.%s\n",
                         $event->order->trip->truck,
                         $event->order->when->format('d-m-Y'),
                         $event->order,
@@ -39,6 +41,7 @@ class OrderCreatedListener implements ShouldQueue
                     )
                 );
                 $client->get("https://api.telegram.org/bot{$admin->token}/sendMessage?chat_id={$admin->chat_id}&text={$text}");
+                Log::info("{$admin->name} has been sent a msg on Telegram");
             }
         }
     }
